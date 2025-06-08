@@ -1,0 +1,247 @@
+<html>
+
+    <head>
+
+        <title>Smart Bid Client</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <script src="./sources/HttpRestAPIClient.js"></script>
+
+        <nav class="navbar navbar-default">
+
+            <div class="row  bg-info">
+
+                <div class="navbar-brand col-lg-2 text-center">
+                    <a href="./HomePage.html">Smart Bid Client</a>
+                </div>
+
+                <div class="col-lg-6">
+
+                    <ul class="nav navbar-nav row">
+
+                        <li class="col-lg-3"><a href="./HomePage.html">Home</a></li>
+                        <li class="col-lg-3"><a href="./PublishAuction.html">Publish Auction</a></li> 
+                        <li class="col-lg-3"><a href="./ViewAuction.html">View Auctions</a></li>
+                        <li class="col-lg-3"><a href="./CloseAuction.html">Close Auctions</a></li>
+
+                    </ul>
+
+                </div>
+
+                <div class="col-lg-4">
+
+                    <ul class="nav navbar-nav navbar-right row col-lg-12">
+
+                        <li class="col-lg-3"><a href="./HomePage.html">SignUp</a></li>
+                        <li class="col-lg-3"><a href="./LogIn.html">Login</a></li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+        <br/><br/><br/>
+
+        <div class="container">
+
+            <form onsubmit="submitSignupDetails(event)">
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Name</label>
+                    <input type="text" placeholder="Enter Name" class="col-lg-6" id="id_name"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Email Address</label>
+                    <input type="text" placeholder="Enter Email" class="col-lg-6" id="id_email"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Address</label>
+                    <input type="text" placeholder="Enter Address" class="col-lg-6" id="id_address"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">User Type</label>
+                    <input type="text" placeholder="Enter User Type" class="col-lg-6" id="id_user_type"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">City</label>
+                    <input type="text" placeholder="Enter City" class="col-lg-6" id="id_city"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">State</label>
+                    <input type="text" placeholder="Enter State" class="col-lg-6" id="id_state"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Country</label>
+                    <input type="text" placeholder="Enter Country" class="col-lg-6" id="id_country"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Phone Number</label>
+                    <input type="text" placeholder="Enter Phone Number" class="col-lg-6" id="id_phone_number"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Password</label>
+                    <input type="password" placeholder="Enter Password" class="col-lg-6" id="id_password"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Re-Enter Password</label>
+                    <input type="password" placeholder="Re-Enter Password" class="col-lg-6" id="id_password_reentry"/>
+
+                </div>
+
+                <br/><br/><br/>
+
+                <div class="align-middle row">
+
+                    <label class="col-lg-3"></label>
+                    <button type="submit" class="btn btn-primary align-middle col-lg-2 border-primary-subtle">Submit</button>
+
+                </div>
+
+                <br/><br/><br/>
+
+            </form>
+
+        </div>
+
+        <script>
+
+            async function submitSignupDetails(event)
+            {
+                event.preventDefault();
+
+                let customerDetailsObject = {};
+
+                customerDetailsObject["customerName"] = document.getElementById("id_name").value;
+                customerDetailsObject["customerEmail"] = document.getElementById("id_email").value;
+                customerDetailsObject["customerAddress"] = document.getElementById("id_address").value;
+                customerDetailsObject["customerUserType"] = document.getElementById("id_user_type").value;
+                customerDetailsObject["customerCity"] = document.getElementById("id_city").value;
+                customerDetailsObject["customerState"] = document.getElementById("id_state").value;
+                customerDetailsObject["customerCountry"] = document.getElementById("id_country").value;
+                customerDetailsObject["customerPhoneNumber"] = document.getElementById("id_phone_number").value;
+                customerDetailsObject["customerPassword"] = window.btoa(document.getElementById("id_password").value);
+                customerDetailsObject["customerPasswordReentry"] = window.btoa(document.getElementById("id_password_reentry").value);
+
+                console.log("Form submitted : customerName = " + customerDetailsObject.customerName);
+
+                if( !validateCustomerDetailsInputValues(customerDetailsObject) )
+                {
+                    location.reload();
+                    return;
+                }
+
+                if( customerDetailsObject.customerPassword != customerDetailsObject.customerPasswordReentry )
+                {
+                    alert("Entered passwords don't match...Please re-enter");
+                    return;
+                }
+
+                console.log("Entered passwords match...proceeding further with details submission");
+
+                let customersRequestUrlString = buildHttpRequestURLForCustomerData(customerDetailsObject);
+                
+                console.log("customersRequestUrlString = " + customersRequestUrlString);
+
+                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServer(customersRequestUrlString);
+            }
+
+            function buildHttpRequestURLForCustomerData(customerDetailsObject)
+            {
+                let customerDataUrlSuffix = "AddCustomer?Name="+customerDetailsObject.customerName+
+                "&EmailAddress="+customerDetailsObject.customerEmail+
+                "&Address="+customerDetailsObject.customerAddress+
+                "&UserType="+customerDetailsObject.customerUserType+
+                "&City="+customerDetailsObject.customerCity+
+                "&State="+customerDetailsObject.customerState+
+                "&Country="+customerDetailsObject.customerCountry+
+                "&Password="+customerDetailsObject.customerPassword+
+                "&PhoneNumber="+customerDetailsObject.customerPhoneNumber;
+
+                return customerDataUrlSuffix;
+            }
+
+            function validateCustomerDetailsInputValues(customerDetailsObject)
+            {
+
+                if( customerDetailsObject.customerName == "" ||
+                customerDetailsObject.customerEmail == "" ||
+                customerDetailsObject.customerAddress == "" ||
+                customerDetailsObject.customerUserType == "" ||
+                customerDetailsObject.customerCity == "" ||
+                customerDetailsObject.customerState == "" ||
+                customerDetailsObject.customerCountry == "" ||
+                customerDetailsObject.customerPhoneNumber == "" ||
+                customerDetailsObject.customerPassword == "" ||
+                customerDetailsObject.customerPasswordReentry == ""
+                )
+                {
+                    alert("All the input values are mandatory. please enter the details");
+                    return false;
+                }
+
+                return true;
+            }
+
+        </script>
+
+    </body>
+
+
+</html>

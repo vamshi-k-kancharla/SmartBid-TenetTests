@@ -1,0 +1,256 @@
+<html>
+
+    <head>
+
+        <title>Smart Bid Client</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <script src="./sources/HttpRestAPIClient.js"></script>
+        <script src="./sources/UserAuthentication.js"></script>
+
+        <nav class="navbar navbar-default">
+
+            <div class="row  bg-info">
+
+                <div class="navbar-brand col-lg-1 text-center">
+                    <a href="./HomePage.html">Smart Bid Client</a>
+                </div>
+
+                <div class="col-lg-8">
+
+                    <ul class="nav navbar-nav row">
+
+                        <li class="col-lg-3"><a href="./HomePage.html">Home</a></li>
+                        <li class="col-lg-3"><a href="./PublishAuction.html">Publish Auction</a></li> 
+                        <li class="col-lg-3"><a href="./ViewAuction.html">View Auctions</a></li>
+                        <li class="col-lg-3"><a href="./CloseAuction.html">Close Auctions</a></li>
+
+                    </ul>
+
+                </div>
+
+                <div class="col-lg-3">
+
+                    <ul class="nav navbar-nav navbar-right row col-lg-12">
+
+                        <li class="col-lg-3"><a href="./HomePage.html">Logout</a></li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+        <br/><br/><br/>
+
+        <div class="container">
+
+            <form onsubmit="submitAssetDetails(event)">
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Asset Type</label>
+                    <input type="text" placeholder="Enter Asset Type" class="col-lg-6" id="id_asset_type"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">MinAuctionPrice</label>
+                    <input type="text" placeholder="Enter Minimum Auction Price" class="col-lg-6" id="id_min_auction_price"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Address</label>
+                    <input type="text" placeholder="Enter Address" class="col-lg-6" id="id_address"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Colony</label>
+                    <input type="text" placeholder="Enter Colony" class="col-lg-6" id="id_colony"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">City</label>
+                    <input type="text" placeholder="Enter City" class="col-lg-6" id="id_city"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">State</label>
+                    <input type="text" placeholder="Enter State" class="col-lg-6" id="id_state"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Country</label>
+                    <input type="text" placeholder="Enter Country" class="col-lg-6" id="id_country"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">ApprovalType</label>
+                    <input type="text" placeholder="Enter ApprovalType" class="col-lg-6" id="id_approval_type"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">AssetSize</label>
+                    <input type="text" placeholder="Enter Asset Size" class="col-lg-6" id="id_asset_size"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">BuiltUpArea</label>
+                    <input type="text" placeholder="Enter BuiltUp Area" class="col-lg-6" id="id_built_up_area"/>
+
+                </div>
+
+                <br/><br/><br/>
+
+                <div class="align-middle row">
+
+                    <label class="col-lg-3"></label>
+                    <button type="submit" class="btn btn-primary align-middle col-lg-2 border-primary-subtle">Submit</button>
+
+                </div>
+
+                <br/><br/><br/>
+
+            </form>
+
+        </div>
+
+        <script>
+
+            window.onload = () => {
+
+                UserAuthenticationModule.authenticateUserFromCache(successResponseCallBackFunction, failureResponseCallBackFunction);
+            }
+
+            function successResponseCallBackFunction()
+            {
+                window.removeEventListener('load', () => {} );
+            }
+
+            function failureResponseCallBackFunction()
+            {
+                alert("You need to login to access this page");
+                window.location.replace("./HomePage.html");
+            }
+
+            async function submitAssetDetails(event)
+            {
+                event.preventDefault();
+
+                let assetDetailsObject = {};
+
+                assetDetailsObject["assetType"] = document.getElementById("id_asset_type").value;
+                assetDetailsObject["minAuctionPrice"] = document.getElementById("id_min_auction_price").value;
+                assetDetailsObject["assetAddress"] = document.getElementById("id_address").value;
+                assetDetailsObject["assetColony"] = document.getElementById("id_colony").value;
+                assetDetailsObject["assetCity"] = document.getElementById("id_city").value;
+                assetDetailsObject["assetState"] = document.getElementById("id_state").value;
+                assetDetailsObject["assetCountry"] = document.getElementById("id_country").value;
+                assetDetailsObject["approvalType"] = document.getElementById("id_approval_type").value;
+                assetDetailsObject["assetSize"] = document.getElementById("id_asset_size").value;
+                assetDetailsObject["builtUpArea"] = document.getElementById("id_built_up_area").value;
+
+                if( !validateAssetDetailsInputValues(assetDetailsObject) )
+                {
+                    location.reload();
+                    return;
+                }
+
+                let assetRequestUrlString = buildHttpRequestURLForAssetData(assetDetailsObject);
+                
+                console.log("assetRequestUrlString = " + assetRequestUrlString);
+
+                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServer(assetRequestUrlString);
+            }
+
+            function buildHttpRequestURLForAssetData(assetDetailsObject)
+            {
+                let assetDataUrlSuffix = "AddAsset?AssetType="+assetDetailsObject.assetType+
+                "&MinAuctionPrice="+assetDetailsObject.minAuctionPrice+
+                "&Address="+assetDetailsObject.assetAddress+
+                "&Colony="+assetDetailsObject.assetColony+
+                "&City="+assetDetailsObject.assetCity+
+                "&State="+assetDetailsObject.assetState+
+                "&Country="+assetDetailsObject.assetCountry+
+                "&SellerCustomerId=1"+
+                "&ApprovalType="+assetDetailsObject.approvalType+
+                "&AssetSize="+assetDetailsObject.assetSize+
+                "&BuiltUpArea="+assetDetailsObject.builtUpArea+
+                "&Status=open";
+
+                return assetDataUrlSuffix;
+            }
+
+            function validateAssetDetailsInputValues(assetDetailsObject)
+            {
+
+                if( assetDetailsObject.assetType == "" ||
+                assetDetailsObject.minAuctionPrice == "" ||
+                assetDetailsObject.assetAddress == "" ||
+                assetDetailsObject.assetColony == "" ||
+                assetDetailsObject.assetCity == "" ||
+                assetDetailsObject.assetState == "" ||
+                assetDetailsObject.assetCountry == "" ||
+                assetDetailsObject.approvalType == "" ||
+                assetDetailsObject.assetSize == "" ||
+                assetDetailsObject.builtUpArea == ""
+                )
+                {
+                    alert("All the input values are mandatory. please enter the details");
+                    return false;
+                }
+
+                return true;
+            }
+
+        </script>
+
+    </body>
+
+
+</html>

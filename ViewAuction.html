@@ -1,0 +1,428 @@
+<html>
+
+    <head>
+
+        <title>Smart Bid Client</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <script src="./sources/HttpRestAPIClient.js"></script>
+        <script src="./sources/GlobalsForClient.js"></script>
+
+        <nav class="navbar navbar-default">
+
+            <div class="row  bg-info">
+
+                <div class="navbar-brand col-lg-1 text-center">
+                    <a href="./HomePage.html">Smart Bid Client</a>
+                </div>
+
+                <div class="col-lg-8">
+
+                    <ul class="nav navbar-nav row">
+
+                        <li class="col-lg-3"><a href="./HomePage.html">Home</a></li>
+                        <li class="col-lg-3"><a href="./PublishAuction.html">Publish Auction</a></li> 
+                        <li class="col-lg-3"><a href="./ViewAuction.html">View Auctions</a></li>
+                        <li class="col-lg-3"><a href="./CloseAuction.html">Close Auctions</a></li>
+
+                    </ul>
+
+                </div>
+
+                <div class="col-lg-3">
+
+                    <ul class="nav navbar-nav navbar-right row col-lg-12">
+
+                        <li class="col-lg-3"><a href="./HomePage.html">Logout</a></li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+        <br/><br/><br/>
+
+        <div class="container row">
+
+            <div class="container col-lg-1">
+
+            </div>
+
+            <div class="container col-lg-7 bg-info">
+
+                <p>
+
+                    Asset Type : <span id="id_assettype_1" class="bg-gradient" style="padding-right: 40;">Flat</span>   ,
+                    Asset Address : <span id="id_address_1" class="bg-gradient" style="padding-right: 40;">Address</span>               ,
+                    Asset Colony : <span id="id_colony_1" class="bg-gradient" style="padding-right: 40;">Colony</span>  ,
+                    Asset City : <span id="id_city_1" class="bg-gradient" style="padding-right: 40;">City</span>  ,
+                    Asset State : <span id="id_state_1" class="bg-gradient" style="padding-right: 40;">State</span>  ,
+                    Asset Country : <span id="id_country_1" class="bg-gradient" style="padding-right: 40;">Country</span>  ,
+                    Asset ApprovalType : <span id="id_approvaltype_1" class="bg-gradient" style="padding-right: 40;">Approval Type</span>  ,
+                    Asset Size : <span id="id_size_1" class="bg-gradient" style="padding-right: 40;">Size</span>  ,
+                    Asset Builtup Area : <span id="id_builtup_area_1" class="bg-gradient" style="padding-right: 40;">Builtup Area</span>  ,
+                
+                </p>
+
+            </div>
+
+            <div class="container col-lg-4 bg-warning">
+
+                <div class="row">
+
+                    <label class="col-lg-6 text-center">Current Bid Price</label>
+                    <p class="col-lg-6"><span id="id_current_bidprice_1"></span></p>
+
+                </div>
+
+                <div class="row" style="padding-top: 5;">
+
+                    <label class="col-lg-6 text-center">Your Bid Price</label>
+                    <input type="text" class="col-lg-6" id="id_your_bidprice_1"/>
+
+                </div>
+
+                <div class="row" style="padding-top: 10;">
+
+                    <label class="col-lg-3"></label>
+                    <button class="col-lg-6 btn-primary" onclick="placeBidToServer(1)">Place Bid</button>
+                    <label class="col-lg-3"></label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <br/><br/>
+
+        <div class="container row">
+
+            <div class="container col-lg-1">
+
+            </div>
+
+            <div class="container col-lg-7 bg-info">
+
+                <p>
+
+                    Asset Type : <span id="id_assettype_2" class="bg-gradient" style="padding-right: 40;">Flat</span>   ,
+                    Asset Address : <span id="id_address_2" class="bg-gradient" style="padding-right: 40;">Address</span>               ,
+                    Asset Colony : <span id="id_colony_2" class="bg-gradient" style="padding-right: 40;">Colony</span>  ,
+                    Asset City : <span id="id_city_2" class="bg-gradient" style="padding-right: 40;">City</span>  ,
+                    Asset State : <span id="id_state_2" class="bg-gradient" style="padding-right: 40;">State</span>  ,
+                    Asset Country : <span id="id_country_2" class="bg-gradient" style="padding-right: 40;">Country</span>  ,
+                    Asset ApprovalType : <span id="id_approvaltype_2" class="bg-gradient" style="padding-right: 40;">Approval Type</span>  ,
+                    Asset Size : <span id="id_size_2" class="bg-gradient" style="padding-right: 40;">Size</span>  ,
+                    Asset Builtup Area : <span id="id_builtup_area_2" class="bg-gradient" style="padding-right: 40;">Builtup Area</span>  ,
+                
+                </p>
+
+            </div>
+
+            <div class="container col-lg-4 bg-warning">
+                
+                <div class="row">
+
+                    <label class="col-lg-6 text-center">Current Bid Price</label>
+                    <p class="col-lg-6"><span id="id_current_bidprice_2"></span></p>
+
+                </div>
+
+                <div class="row" style="padding-top: 5;">
+
+                    <label class="col-lg-6 text-center">Your Bid Price</label>
+                    <input type="text" class="col-lg-6" id="id_your_bidprice_2"/>
+
+                </div>
+
+                <div class="row" style="padding-top: 10;">
+
+                    <label class="col-lg-3"></label>
+                    <button class="col-lg-6 btn-primary" onclick="placeBidToServer(2)">Place Bid</button>
+                    <label class="col-lg-3"></label>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <br/><br/>
+
+        <div class="container row">
+
+            <div class="container col-lg-1">
+
+            </div>
+
+            <div class="container col-lg-7 bg-info">
+
+                <p>
+
+                    Asset Type : <span id="id_assettype_3" class="bg-gradient" style="padding-right: 40;">Flat</span>   ,
+                    Asset Address : <span id="id_address_3" class="bg-gradient" style="padding-right: 40;">Address</span>               ,
+                    Asset Colony : <span id="id_colony_3" class="bg-gradient" style="padding-right: 40;">Colony</span>  ,
+                    Asset City : <span id="id_city_3" class="bg-gradient" style="padding-right: 40;">City</span>  ,
+                    Asset State : <span id="id_state_3" class="bg-gradient" style="padding-right: 40;">State</span>  ,
+                    Asset Country : <span id="id_country_3" class="bg-gradient" style="padding-right: 40;">Country</span>  ,
+                    Asset ApprovalType : <span id="id_approvaltype_3" class="bg-gradient" style="padding-right: 40;">Approval Type</span>  ,
+                    Asset Size : <span id="id_size_3" class="bg-gradient" style="padding-right: 40;">Size</span>  ,
+                    Asset Builtup Area : <span id="id_builtup_area_3" class="bg-gradient" style="padding-right: 40;">Builtup Area</span>  ,
+                
+                </p>
+
+            </div>
+
+            <div class="container col-lg-4 bg-warning">
+                
+                <div class="row">
+
+                    <label class="col-lg-6 text-center">Current Bid Price</label>
+                    <p class="col-lg-6"><span id="id_current_bidprice_3"></span></p>
+
+                </div>
+
+                <div class="row" style="padding-top: 5;">
+
+                    <label class="col-lg-6 text-center">Your Bid Price</label>
+                    <input type="text" class="col-lg-6" id="id_your_bidprice_3"/>
+
+                </div>
+
+                <div class="row" style="padding-top: 10;">
+
+                    <label class="col-lg-3"></label>
+                    <button class="col-lg-6 btn-primary" onclick="placeBidToServer(3)">Place Bid</button>
+                    <label class="col-lg-3"></label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <br/><br/>
+
+        <div class="container row">
+
+            <div class="container col-lg-1">
+
+            </div>
+
+            <div class="container col-lg-7 bg-info">
+
+                <p>
+
+                    Asset Type : <span id="id_assettype_4" class="bg-gradient" style="padding-right: 40;">Flat</span>   ,
+                    Asset Address : <span id="id_address_4" class="bg-gradient" style="padding-right: 40;">Address</span>               ,
+                    Asset Colony : <span id="id_colony_4" class="bg-gradient" style="padding-right: 40;">Colony</span>  ,
+                    Asset City : <span id="id_city_4" class="bg-gradient" style="padding-right: 40;">City</span>  ,
+                    Asset State : <span id="id_state_4" class="bg-gradient" style="padding-right: 40;">State</span>  ,
+                    Asset Country : <span id="id_country_4" class="bg-gradient" style="padding-right: 40;">Country</span>  ,
+                    Asset ApprovalType : <span id="id_approvaltype_4" class="bg-gradient" style="padding-right: 40;">Approval Type</span>  ,
+                    Asset Size : <span id="id_size_4" class="bg-gradient" style="padding-right: 40;">Size</span>  ,
+                    Asset Builtup Area : <span id="id_builtup_area_4" class="bg-gradient" style="padding-right: 40;">Builtup Area</span>  ,
+                
+                </p>
+
+            </div>
+
+            <div class="container col-lg-4 bg-warning">
+                
+                <div class="row">
+
+                    <label class="col-lg-6 text-center">Current Bid Price</label>
+                    <p class="col-lg-6"><span id="id_current_bidprice_4"></span></p>
+
+                </div>
+
+                <div class="row" style="padding-top: 5;">
+
+                    <label class="col-lg-6 text-center">Your Bid Price</label>
+                    <input type="text" class="col-lg-6" id="id_your_bidprice_4"/>
+
+                </div>
+
+                <div class="row" style="padding-top: 10;">
+
+                    <label class="col-lg-3"></label>
+                    <button class="col-lg-6 btn-primary" onclick="placeBidToServer(4)">Place Bid</button>
+                    <label class="col-lg-3"></label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <br/><br/>
+
+        <div class="container row">
+
+            <div class="container col-lg-1">
+
+            </div>
+
+            <div class="container col-lg-7 bg-info">
+
+                <p>
+
+                    Asset Type : <span id="id_assettype_5" class="bg-gradient" style="padding-right: 40;">Flat</span>   ,
+                    Asset Address : <span id="id_address_5" class="bg-gradient" style="padding-right: 40;">Address</span>               ,
+                    Asset Colony : <span id="id_colony_5" class="bg-gradient" style="padding-right: 40;">Colony</span>  ,
+                    Asset City : <span id="id_city_5" class="bg-gradient" style="padding-right: 40;">City</span>  ,
+                    Asset State : <span id="id_state_5" class="bg-gradient" style="padding-right: 40;">State</span>  ,
+                    Asset Country : <span id="id_country_5" class="bg-gradient" style="padding-right: 40;">Country</span>  ,
+                    Asset ApprovalType : <span id="id_approvaltype_5" class="bg-gradient" style="padding-right: 40;">Approval Type</span>  ,
+                    Asset Size : <span id="id_size_5" class="bg-gradient" style="padding-right: 40;">Size</span>  ,
+                    Asset Builtup Area : <span id="id_builtup_area_5" class="bg-gradient" style="padding-right: 40;">Builtup Area</span>  ,
+                
+                </p>
+
+            </div>
+
+            <div class="container col-lg-4 bg-warning">
+                
+                <div class="row">
+
+                    <label class="col-lg-6 text-center">Current Bid Price</label>
+                    <p class="col-lg-6"><span id="id_current_bidprice_5"></span></p>
+
+                </div>
+
+                <div class="row" style="padding-top: 5;">
+
+                    <label class="col-lg-6 text-center">Your Bid Price</label>
+                    <input type="text" class="col-lg-6" id="id_your_bidprice_5"/>
+
+                </div>
+
+                <div class="row" style="padding-top: 10;">
+
+                    <label class="col-lg-3"></label>
+                    <button class="col-lg-6 btn-primary" onclick="placeBidToServer(5)">Place Bid</button>
+                    <label class="col-lg-3"></label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <br/><br/>
+        <br/><br/>
+
+        <script>
+
+            window.onload = () =>
+            {
+                let retrieveAuctionsRequestUrlString = "RetrieveAuctions?Status=Open";
+                
+                HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback(retrieveAuctionsRequestUrlString,
+                    successResponseCallbackFunction, failureResponseCallbackFunction
+                );
+            }
+
+            function successResponseCallbackFunction(responseTextFromServer)
+            {
+                window.removeEventListener('load', () => {});
+
+                let auctionsResponseObject = JSON.parse(responseTextFromServer);
+
+                console.log("ViewAuction Response : No Of Records in the response = " + auctionsResponseObject.length);
+
+                for( let i = 1; i <= auctionsResponseObject.length; i++ )
+                {
+
+                    for( let currentAssetUIIdPrefix of GlobalsForClientModule.auctionAssetUIIdsForDisplay )
+                    {
+                        document.getElementById(currentAssetUIIdPrefix + i).innerHTML = 
+                            auctionsResponseObject[i-1][GlobalsForClientModule.auctionAssetKeysForDisplay[GlobalsForClientModule.auctionAssetUIIdsForDisplay.indexOf(currentAssetUIIdPrefix)]];
+                    }
+
+                    document.getElementById("id_current_bidprice_" + i).innerHTML = 
+                        (auctionsResponseObject[i-1]["MinAuctionPrice"] < auctionsResponseObject[i-1]["CurrentBidPrice"]) ?
+                        auctionsResponseObject[i-1]["CurrentBidPrice"] : auctionsResponseObject[i-1]["MinAuctionPrice"];
+                }
+
+                window.localStorage.setItem("AuctionAssets", responseTextFromServer);
+            }
+
+            function failureResponseCallbackFunction()
+            {
+                window.location.replace("./HomePage.html");
+            }
+
+            function placeBidToServer(inputIdIndex)
+            {
+                console.log("Place Bid To Server : Input Id Index = " + inputIdIndex);
+
+                let yourBidPrice = document.getElementById("id_your_bidprice_" + inputIdIndex).value;
+
+                let auctionAssets = JSON.parse(window.localStorage.getItem("AuctionAssets"));
+                let minAutionPrice = auctionAssets[inputIdIndex-1]["MinAuctionPrice"];
+                let currentBidPrice = auctionAssets[inputIdIndex-1]["CurrentBidPrice"];
+                let currentEffectiveBidPrice = ( minAutionPrice < currentBidPrice ) ? currentBidPrice : minAutionPrice;
+
+                if( yourBidPrice == "" || yourBidPrice <= currentEffectiveBidPrice)
+                {
+                    alert("Minimum Auction price that you can bid for is : " + currentEffectiveBidPrice);
+                    return;
+                }
+
+                let bidDetailsObject = {};
+
+                bidDetailsObject["assetId"] = auctionAssets[inputIdIndex-1]["AssetId"];
+                bidDetailsObject["customerId"] = 15;
+                bidDetailsObject["bidPrice"] = yourBidPrice;
+
+                let bidPlaceRequestUrlString = buildHttpRequestURLForBiddingData(bidDetailsObject);
+                
+                console.log("bidPlaceRequestUrlString = " + bidPlaceRequestUrlString);
+
+                HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback(bidPlaceRequestUrlString,
+                    successBidResponseCallbackFunction, failureBidResponseCallbackFunction
+                );
+
+            }
+
+            function buildHttpRequestURLForBiddingData(bidDetailsObject)
+            {
+                let bidDataUrlSuffix = "AddBid?AssetId="+bidDetailsObject.assetId+
+                "&CustomerId="+bidDetailsObject.customerId+
+                "&BidPrice="+bidDetailsObject.bidPrice;
+
+                return bidDataUrlSuffix;
+            }
+
+            function successBidResponseCallbackFunction()
+            {
+                alert("Bid is successfully placed");
+                window.location.reload();
+            }
+
+            function failureBidResponseCallbackFunction()
+            {
+                alert("Placing of Bid failed for the asset");
+                window.location.reload();
+            }
+
+        </script>
+
+    </body>
+
+
+</html>

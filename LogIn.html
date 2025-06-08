@@ -1,0 +1,163 @@
+<html>
+
+    <head>
+
+        <title>Smart Bid Client</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <script src="./sources/HttpRestAPIClient.js"></script>
+
+        <nav class="navbar navbar-default">
+
+            <div class="row  bg-info">
+
+                <div class="navbar-brand col-lg-2 text-center">
+                    <a href="./HomePage.html">Smart Bid Client</a>
+                </div>
+
+                <div class="col-lg-6">
+
+                    <ul class="nav navbar-nav row">
+
+                        <li class="col-lg-4"><a href="./HomePage.html">Home</a></li>
+
+                    </ul>
+
+                </div>
+
+                <div class="col-lg-4">
+
+                    <ul class="nav navbar-nav navbar-right row col-lg-12">
+
+                        <li class="col-lg-3"><a href="./HomePage.html">SignUp</a></li>
+                        <li class="col-lg-3"><a href="./LogIn.html">Login</a></li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+        <br/><br/><br/>
+
+        <div class="container">
+
+            <form onsubmit="authenticateUser(event)">
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Email Address</label>
+                    <input type="email" placeholder="Enter Email Address" class="col-lg-6" id="id_email_address"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Password</label>
+                    <input type="password" placeholder="Enter Password" class="col-lg-6" id="id_password"/>
+
+                </div>
+
+                <br/><br/><br/>
+
+                <div class="align-middle row">
+
+                    <label class="col-lg-3"></label>
+                    <button type="login" class="btn btn-primary align-middle col-lg-2 border-primary-subtle">Login</button>
+
+                </div>
+
+                <br/><br/><br/>
+
+            </form>
+
+        </div>
+
+        <script>
+
+            async function authenticateUser(event)
+            {
+                event.preventDefault();
+
+                let authenticateUserObject = {};
+
+                authenticateUserObject["emailAddress"] = document.getElementById("id_email_address").value;
+                authenticateUserObject["password"] = document.getElementById("id_password").value;
+
+                if( !validateUserAuthInputValues(authenticateUserObject) )
+                {
+                    location.reload();
+                    return;
+                }
+
+                let userAuthenticationUrlString = buildHttpRequestURLForUserAuthData(authenticateUserObject);
+                
+                console.log("userAuthenticationUrlString = " + userAuthenticationUrlString);
+
+                window.localStorage.setItem("CurrentUser_Password", window.btoa(authenticateUserObject.password));
+
+                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback(userAuthenticationUrlString, 
+                    successResponseUserAuthFunction, failureResponseUserAuthFunction);
+            }
+
+            function buildHttpRequestURLForUserAuthData(authenticateUserObject)
+            {
+                let userAuthenticationUrlString = "AuthenticateUser?EmailAddress="+authenticateUserObject.emailAddress+
+                "&PasswordCode="+window.btoa(authenticateUserObject.password);
+
+                return userAuthenticationUrlString;
+            }
+
+            function validateUserAuthInputValues(authenticateUserObject)
+            {
+
+                if( authenticateUserObject.emailAddress == "" ||
+                authenticateUserObject.password == "" )
+                {
+                    alert("All the input values are mandatory. please enter the details");
+                    return false;
+                }
+
+                return true;
+            }
+
+            function successResponseUserAuthFunction(responseTextFromServer)
+            {
+                let userAuthResponseObject = JSON.parse(responseTextFromServer);
+
+                console.log("Received User details from Server.. = " + userAuthResponseObject.length);
+
+                window.localStorage.setItem("CurrentUser_CustomerId", userAuthResponseObject[0].CustomerId);
+                window.localStorage.setItem("CurrentUser_Name", userAuthResponseObject[0].Name);
+                window.localStorage.setItem("CurrentUser_EmailAddress", userAuthResponseObject[0].EmailAddress);
+                window.localStorage.setItem("CurrentUser_PhoneNumber", userAuthResponseObject[0].PhoneNumber);
+
+                console.log("EmailAddress in cache.. = " + window.localStorage.getItem("CurrentUser_EmailAddress"));
+
+                window.location.replace("./ViewAuction.html");
+            }
+
+            function failureResponseUserAuthFunction()
+            {
+                alert("User authentication failed");
+                window.location.reload();
+            }
+            
+        </script>
+
+    </body>
+
+
+</html>
