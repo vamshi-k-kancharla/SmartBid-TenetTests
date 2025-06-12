@@ -8,12 +8,12 @@ var UserAuthenticationModule = ( function() {
         let currentUser_EmailAddress = window.localStorage.getItem("CurrentUser_EmailAddress");
         let currentUser_Password = window.localStorage.getItem("CurrentUser_Password");
 
-        authenticateUserObject["emailAddress"] = (currentUser_EmailAddress === null || currentUser_EmailAddress === undefined) ? 
+        authenticateUserObject["EmailAddress"] = (currentUser_EmailAddress === null || currentUser_EmailAddress === undefined) ? 
             "" : currentUser_EmailAddress;
-        authenticateUserObject["password"] = (currentUser_Password === null || currentUser_Password === undefined) ? 
+        authenticateUserObject["PasswordCode"] = (currentUser_Password === null || currentUser_Password === undefined) ? 
             "" : currentUser_Password;
 
-        if( authenticateUserObject.emailAddress === "" || authenticateUserObject.password === "" )
+        if( authenticateUserObject.EmailAddress === "" || authenticateUserObject.PasswordCode === "" )
         {
             console.log("UserName and/or password are missing from the cache");
             failureCallBackFunction();
@@ -21,20 +21,10 @@ var UserAuthenticationModule = ( function() {
             return;
         }
 
-        let userAuthenticationUrlString = buildHttpRequestURLForUserAuthData(authenticateUserObject);
-        
-        console.log("userAuthenticationUrlString = " + userAuthenticationUrlString);
+        console.log("Sending JSON based Http Request to Server : ");
 
-        await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback(userAuthenticationUrlString, 
-            successCallBackFunction, failureCallBackFunction);
-    }
-
-    function buildHttpRequestURLForUserAuthData(authenticateUserObject)
-    {
-        let userAuthenticationUrlString = "AuthenticateUser?EmailAddress="+authenticateUserObject.emailAddress+
-        "&PasswordCode="+authenticateUserObject.password;
-
-        return userAuthenticationUrlString;
+        HttpRestAPIClientModule.sendHttpJsonRequestToSmartBidServerWithCallback( "AuthenticateUser", authenticateUserObject,
+            successCallBackFunction, failureCallBackFunction );
     }
 
     function clearUserAuthDetailsFromCache()

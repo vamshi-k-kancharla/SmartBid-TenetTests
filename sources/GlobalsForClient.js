@@ -1,6 +1,8 @@
 
 var GlobalsForClientModule = ( function() {
 
+    const httpRequestURLPrefix = "http://127.0.0.1:8000/";
+
     let auctionAssetKeysForDisplay = ["AssetType", "Address", "Colony", "City", "State", "Country", "ApprovalType", 
         "AssetSize", "BuiltUpArea"];
 
@@ -15,6 +17,8 @@ var GlobalsForClientModule = ( function() {
         auctionAssetKeysForDisplay : auctionAssetKeysForDisplay,
         auctionAssetUIIdsForDisplay : auctionAssetUIIdsForDisplay,
         userAuthItemsToBeRemovedFromCache : userAuthItemsToBeRemovedFromCache,
+        httpRequestURLPrefix : httpRequestURLPrefix,
+        
     }
 
 })();

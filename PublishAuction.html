@@ -15,6 +15,7 @@
 
         <script src="./sources/HttpRestAPIClient.js"></script>
         <script src="./sources/UserAuthentication.js"></script>
+        <script src="./sources/GlobalsForClient.js"></script>
 
         <nav class="navbar navbar-default">
 
@@ -41,7 +42,7 @@
 
                     <ul class="nav navbar-nav navbar-right row col-lg-12">
 
-                        <li class="col-lg-3"><a href="./HomePage.html">Logout</a></li>
+                        <li class="col-lg-3" onclick="UserAuthenticationModule.clearUserAuthDetailsFromCache()"><a href="./LogIn.html">Logout</a></li>
 
                     </ul>
 
@@ -217,7 +218,7 @@
                 "&City="+assetDetailsObject.assetCity+
                 "&State="+assetDetailsObject.assetState+
                 "&Country="+assetDetailsObject.assetCountry+
-                "&SellerCustomerId=1"+
+                "&SellerCustomerId="+window.localStorage.getItem("CurrentUser_CustomerId")+
                 "&ApprovalType="+assetDetailsObject.approvalType+
                 "&AssetSize="+assetDetailsObject.assetSize+
                 "&BuiltUpArea="+assetDetailsObject.builtUpArea+

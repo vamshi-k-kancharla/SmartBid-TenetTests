@@ -386,7 +386,7 @@
                 let bidDetailsObject = {};
 
                 bidDetailsObject["assetId"] = auctionAssets[inputIdIndex-1]["AssetId"];
-                bidDetailsObject["customerId"] = 15;
+                bidDetailsObject["customerId"] = window.localStorage.getItem("CurrentUser_CustomerId");
                 bidDetailsObject["bidPrice"] = yourBidPrice;
 
                 let bidPlaceRequestUrlString = buildHttpRequestURLForBiddingData(bidDetailsObject);

@@ -4,7 +4,7 @@ var HttpRestAPIClientModule = ( function() {
     async function sendHttpRequestToSmartBidServer(urlParamsString)
     {
         let xmlHttpRequest = new XMLHttpRequest();
-        let httpRequestURL = "http://127.0.0.1:8000/";
+        let httpRequestURL = GlobalsForClientModule.httpRequestURLPrefix;
 
         httpRequestURL += urlParamsString;
 
@@ -44,7 +44,7 @@ var HttpRestAPIClientModule = ( function() {
     function sendHttpRequestToSmartBidServerWithCallback(urlParamsString, successCallbackFunction, failureCallbackFunction)
     {
         let xmlHttpRequest = new XMLHttpRequest();
-        let httpRequestURL = "http://127.0.0.1:8000/";
+        let httpRequestURL = GlobalsForClientModule.httpRequestURLPrefix;
 
         httpRequestURL += urlParamsString;
 
@@ -82,10 +82,52 @@ var HttpRestAPIClientModule = ( function() {
         console.log("Successfully sent the http request ");
     }
 
+    function sendHttpJsonRequestToSmartBidServerWithCallback(inputQueryRequest, inputJsonQueryObject, successCallbackFunction, failureCallbackFunction)
+    {
+        let xmlHttpRequest = new XMLHttpRequest();
+        let httpRequestURL = GlobalsForClientModule.httpRequestURLPrefix;
+
+        httpRequestURL += inputQueryRequest;
+
+        console.log("Sending Http request (Json Encoded): httpRequestURL = " + httpRequestURL);
+
+        xmlHttpRequest.open('POST', httpRequestURL);
+        xmlHttpRequest.setRequestHeader('Content-Type', 'text/plain');
+
+        xmlHttpRequest.onload = () => {
+
+            console.log("First time load of xmlHttpRequest");
+
+            if ( xmlHttpRequest.status == 200 )
+            {
+                console.log("Successfully completed the request = " + xmlHttpRequest.responseText);
+                successCallbackFunction(xmlHttpRequest.responseText);
+            }
+            else
+            {
+                console.error("Error occured while sending the request = " + xmlHttpRequest.status);
+                console.error("Error Text = " + xmlHttpRequest.statusText);
+
+                failureCallbackFunction();  
+            }
+        };
+
+        xmlHttpRequest.onerror = () => {
+
+            console.log("XML http request has encountered an error");
+            failureCallbackFunction();
+        }
+
+        xmlHttpRequest.send(JSON.stringify(inputJsonQueryObject));
+
+        console.log("Successfully sent the json based http request post");
+    }
+
     return{
 
         sendHttpRequestToSmartBidServer : sendHttpRequestToSmartBidServer,
         sendHttpRequestToSmartBidServerWithCallback : sendHttpRequestToSmartBidServerWithCallback,
+        sendHttpJsonRequestToSmartBidServerWithCallback : sendHttpJsonRequestToSmartBidServerWithCallback,
     }
 
 })();

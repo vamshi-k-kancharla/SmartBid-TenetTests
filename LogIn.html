@@ -14,6 +14,7 @@
     <body>
 
         <script src="./sources/HttpRestAPIClient.js"></script>
+        <script src="./sources/GlobalsForClient.js"></script>
 
         <nav class="navbar navbar-default">
 
@@ -91,46 +92,26 @@
             {
                 event.preventDefault();
 
-                let authenticateUserObject = {};
-
-                authenticateUserObject["emailAddress"] = document.getElementById("id_email_address").value;
-                authenticateUserObject["password"] = document.getElementById("id_password").value;
-
-                if( !validateUserAuthInputValues(authenticateUserObject) )
+                if( document.getElementById("id_email_address").value == "" ||
+                document.getElementById("id_password").value == "" )
                 {
-                    location.reload();
+                    alert("All the input values are mandatory. please enter the details");
+                    Location.reload();
+
                     return;
                 }
 
-                let userAuthenticationUrlString = buildHttpRequestURLForUserAuthData(authenticateUserObject);
-                
-                console.log("userAuthenticationUrlString = " + userAuthenticationUrlString);
+                let authenticateUserObject = {};
 
-                window.localStorage.setItem("CurrentUser_Password", window.btoa(authenticateUserObject.password));
+                authenticateUserObject["EmailAddress"] = document.getElementById("id_email_address").value;
+                authenticateUserObject["PasswordCode"] = window.btoa(document.getElementById("id_password").value);
 
-                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback(userAuthenticationUrlString, 
-                    successResponseUserAuthFunction, failureResponseUserAuthFunction);
-            }
+                window.localStorage.setItem("CurrentUser_Password", authenticateUserObject.PasswordCode);
 
-            function buildHttpRequestURLForUserAuthData(authenticateUserObject)
-            {
-                let userAuthenticationUrlString = "AuthenticateUser?EmailAddress="+authenticateUserObject.emailAddress+
-                "&PasswordCode="+window.btoa(authenticateUserObject.password);
+                console.log("Sending JSON based Http Request to Server : ");
 
-                return userAuthenticationUrlString;
-            }
-
-            function validateUserAuthInputValues(authenticateUserObject)
-            {
-
-                if( authenticateUserObject.emailAddress == "" ||
-                authenticateUserObject.password == "" )
-                {
-                    alert("All the input values are mandatory. please enter the details");
-                    return false;
-                }
-
-                return true;
+                HttpRestAPIClientModule.sendHttpJsonRequestToSmartBidServerWithCallback( "AuthenticateUser", authenticateUserObject,
+                    successResponseUserAuthFunction, failureResponseUserAuthFunction );
             }
 
             function successResponseUserAuthFunction(responseTextFromServer)
