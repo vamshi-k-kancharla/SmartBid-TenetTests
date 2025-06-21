@@ -1,0 +1,142 @@
+<html>
+
+    <head>
+
+        <title>Smart Bid Client</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <script src="./sources/HttpRestAPIClient.js"></script>
+        <script src="./sources/GlobalsForClient.js"></script>
+
+        <nav class="navbar navbar-default">
+
+            <div class="row  bg-info">
+
+                <div class="navbar-brand col-lg-1 text-center">
+                    <a href="./HomePage.html">Smart Bid Client</a>
+                </div>
+
+                <div class="col-lg-8">
+
+                    <ul class="nav navbar-nav row">
+
+                        <li class="col-lg-2"><a href="./HomePage.html">Home</a></li>
+                        <li class="col-lg-2"><a href="./PublishAuction.html">Publish Auction</a></li> 
+                        <li class="col-lg-2"><a href="./ViewAuction.html">View Auctions</a></li>
+                        <li class="col-lg-2"><a href="./CloseAuction.html">Close Auctions</a></li>
+                        <li class="col-lg-2"><a href="./UploadPhotos.html">Upload Photos</a></li>
+
+                    </ul>
+
+                </div>
+
+                <div class="col-lg-3">
+
+                    <ul class="nav navbar-nav navbar-right row col-lg-12">
+
+                        <li class="col-lg-3"><a href="./HomePage.html">SignUp</a></li>
+                        <li class="col-lg-3"><a href="./LogIn.html">Login</a></li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+        <br/><br/><br/>
+
+        <div class="container">
+
+            <form enctype="multipart/form-data" onsubmit="UploadAuctionData(event)">
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Email Address</label>
+                    <input type="email" placeholder="Enter Email Address" class="col-lg-6" id="id_email_address"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">FileName</label>
+                    <input type="text" placeholder="Enter File Name" class="col-lg-6" id="id_file_name"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Files To Be Uploaded</label>
+                    <input type="file" class="col-lg-6" name="uploadFilesNames" multiple id="id_files_To_Be_Uploaded"/>
+
+                </div>
+
+                <br/><br/><br/>
+
+                <div class="align-middle row">
+
+                    <label class="col-lg-3"></label>
+                    <button type="submit" class="btn btn-primary align-middle col-lg-2 border-primary-subtle" value="Upload">Upload Files</button>
+
+                </div>
+
+                <br/><br/><br/>
+
+            </form>
+
+        </div>
+
+        <script>
+
+            async function UploadAuctionData(event)
+            {
+                event.preventDefault();
+
+                let inputFormData = new FormData();
+
+                inputFormData.append("email_address", document.getElementById("id_email_address").value);
+                inputFormData.append("file_name", document.getElementById("id_file_name").value);
+
+                let uploadedFiles = document.getElementById("id_files_To_Be_Uploaded").files;
+
+                for( let i = 0 ; i < uploadedFiles.length; i++ )
+                {
+                    inputFormData.append("file" + i.toString(), document.getElementById("id_files_To_Be_Uploaded").files[i]);
+                }
+
+                console.log("Sending File Input based Http Request to Server : ");
+
+                HttpRestAPIClientModule.sendHttpFileUploadRequestToSmartBidServerWithCallback( "UploadAuctionPhotos", 
+                    inputFormData, successResponseUploadAuctionPhotos, failureResponseUploadAuctionPhotos );
+            }
+
+            function successResponseUploadAuctionPhotos(responseTextFromServer)
+            {
+                window.location.replace("./UploadPhotos.html");
+            }
+
+            function failureResponseUploadAuctionPhotos()
+            {
+                alert("File upload of Auction Photos failed");
+                window.location.reload();
+            }
+            
+        </script>
+
+    </body>
+
+
+</html>
