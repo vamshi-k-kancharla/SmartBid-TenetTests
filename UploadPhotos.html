@@ -15,6 +15,9 @@
 
         <script src="./sources/HttpRestAPIClient.js"></script>
         <script src="./sources/GlobalsForClient.js"></script>
+        <script src="./sources/ProcessFormInput.js"></script>
+        <script src="./sources/ClientInputValidator.js"></script>
+
 
         <nav class="navbar navbar-default">
 
@@ -61,8 +64,8 @@
 
                 <div class="form-group row">
 
-                    <label class="col-lg-4 text-center">Email Address</label>
-                    <input type="email" placeholder="Enter Email Address" class="col-lg-6" id="id_email_address"/>
+                    <label class="col-lg-4 text-center">Asset Type</label>
+                    <input type="text" placeholder="Enter Asset Type" class="col-lg-6" id="id_asset_type"/>
 
                 </div>
 
@@ -70,8 +73,80 @@
 
                 <div class="form-group row">
 
-                    <label class="col-lg-4 text-center">FileName</label>
-                    <input type="text" placeholder="Enter File Name" class="col-lg-6" id="id_file_name"/>
+                    <label class="col-lg-4 text-center">MinAuctionPrice</label>
+                    <input type="text" placeholder="Enter Minimum Auction Price" class="col-lg-6" id="id_min_auction_price"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Address</label>
+                    <input type="text" placeholder="Enter Address" class="col-lg-6" id="id_address"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Colony</label>
+                    <input type="text" placeholder="Enter Colony" class="col-lg-6" id="id_colony"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">City</label>
+                    <input type="text" placeholder="Enter City" class="col-lg-6" id="id_city"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">State</label>
+                    <input type="text" placeholder="Enter State" class="col-lg-6" id="id_state"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">Country</label>
+                    <input type="text" placeholder="Enter Country" class="col-lg-6" id="id_country"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">ApprovalType</label>
+                    <input type="text" placeholder="Enter ApprovalType" class="col-lg-6" id="id_approval_type"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">AssetSize</label>
+                    <input type="text" placeholder="Enter Asset Size" class="col-lg-6" id="id_asset_size"/>
+
+                </div>
+
+                <br/>
+
+                <div class="form-group row">
+
+                    <label class="col-lg-4 text-center">BuiltUpArea</label>
+                    <input type="text" placeholder="Enter BuiltUp Area" class="col-lg-6" id="id_built_up_area"/>
 
                 </div>
 
@@ -89,7 +164,7 @@
                 <div class="align-middle row">
 
                     <label class="col-lg-3"></label>
-                    <button type="submit" class="btn btn-primary align-middle col-lg-2 border-primary-subtle" value="Upload">Upload Files</button>
+                    <button type="submit" class="btn btn-primary align-middle col-lg-2 border-primary-subtle">Upload Files</button>
 
                 </div>
 
@@ -105,16 +180,45 @@
             {
                 event.preventDefault();
 
-                let inputFormData = new FormData();
+                let auctionAssetInputObject = {};
 
-                inputFormData.append("email_address", document.getElementById("id_email_address").value);
-                inputFormData.append("file_name", document.getElementById("id_file_name").value);
+                // Process Form Input Data
 
+                auctionAssetInputObject = ProcessFormInputModule.processInputDataFromForm( auctionAssetInputObject,
+                    GlobalsForClientModule.auctionAssetKeysForUpload,
+                    GlobalsForClientModule.auctionAssetUIIdsForUpload
+                );
+
+                // Validate form input data
+                
+                if( !ClientInputValidatorModule.validateUserInputObject(auctionAssetInputObject, 
+                        GlobalsForClientModule.auctionAssetKeysForUpload) )
+                {
+                    alert("One or more of Auction Asset Input values are missing");
+                    return;
+                }
+
+                // Create Form Data Input Object
+                
+                let inputFormData = ProcessFormInputModule.createFormInputData(auctionAssetInputObject, 
+                    GlobalsForClientModule.auctionAssetKeysForUpload);
+
+                console.log(" CurrentUser_CustomerId from Cache = " + window.localStorage.getItem("CurrentUser_CustomerId") );
+                inputFormData.append( "SellerCustomerId" , window.localStorage.getItem("CurrentUser_CustomerId") );
+
+                // Upload files
+                
                 let uploadedFiles = document.getElementById("id_files_To_Be_Uploaded").files;
+
+                if( uploadedFiles.length > GlobalsForClientModule.maxFilesUploadCount )
+                {
+                    alert("Maximum of 10 files can be uploaded to the Server...Please re-upload");
+                    return;
+                }
 
                 for( let i = 0 ; i < uploadedFiles.length; i++ )
                 {
-                    inputFormData.append("file" + i.toString(), document.getElementById("id_files_To_Be_Uploaded").files[i]);
+                    inputFormData.append("file" + i.toString(), uploadedFiles[i]);
                 }
 
                 console.log("Sending File Input based Http Request to Server : ");
