@@ -22,6 +22,15 @@ var GlobalsForClientModule = ( function() {
     let auctionAssetKeysForUpload = ["AssetType", "MinAuctionPrice", "Address", "Colony", "City", "State", 
         "Country", "ApprovalType", "AssetSize", "BuiltUpArea"];
 
+    // Functional Tests : Input Objects
+
+    let customerRecordObject = {"Name":"CustomerName","EmailAddress":"customerEmail@gmail.com","Address":"Inupamula",
+        "UserType":"Customer","City":"Hyderabad","State":"Telangana","Country":"India","Password":"abcd1234",
+        "PhoneNumber":"7306004100"};
+
+    let validateCustomerRecordObject = {"Name":"CustomerName","EmailAddress":"customerEmail@gmail.com","Address":"Inupamula",
+        "UserType":"Customer","City":"Hyderabad","State":"Telangana","Country":"India","PhoneNumber":"7306004100"};
+
 
     return{
 
@@ -32,6 +41,11 @@ var GlobalsForClientModule = ( function() {
         auctionAssetUIIdsForUpload : auctionAssetUIIdsForUpload,
         auctionAssetKeysForUpload : auctionAssetKeysForUpload,
         maxFilesUploadCount : maxFilesUploadCount,
+        
+        // Functional Tests 
+        
+        customerRecordObject : customerRecordObject,
+        validateCustomerRecordObject : validateCustomerRecordObject,
         
     }
 

@@ -108,14 +108,14 @@ var HttpRestAPIClientModule = ( function() {
                 console.error("Error occured while sending the request = " + xmlHttpRequest.status);
                 console.error("Error Text = " + xmlHttpRequest.statusText);
 
-                failureCallbackFunction();  
+                failureCallbackFunction(xmlHttpRequest.statusText);  
             }
         };
 
         xmlHttpRequest.onerror = () => {
 
             console.log("XML http request has encountered an error");
-            failureCallbackFunction();
+            failureCallbackFunction(xmlHttpRequest.statusText);
         }
 
         xmlHttpRequest.send(JSON.stringify(inputJsonQueryObject));

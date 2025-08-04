@@ -36,11 +36,33 @@ var ClientInputValidatorModule = ( function() {
         return true;
     }
 
+    function validateRecordRetrievalObject(retrievedObject, inputObject)
+    {
+        for( currentInputKey in inputObject )
+        {
+            
+            console.log("ClientInputValidator.validateRecordRetrievalObject : currentInputKey => " + currentInputKey);
+
+            if( inputObject[currentInputKey] != retrievedObject[currentInputKey] )
+            {
+
+                console.log(inputObject[currentInputKey] + " != " + retrievedObject[currentInputKey]);
+
+                return false;
+                
+            }
+        }
+
+        return true;
+    }
+
     return {
 
         validateUserInputValue : validateUserInputValue,
         validateUserInputObject : validateUserInputObject,
         validateUserInputObjectValue : validateUserInputObjectValue,
+
+        validateRecordRetrievalObject : validateRecordRetrievalObject,
         
     }
 
