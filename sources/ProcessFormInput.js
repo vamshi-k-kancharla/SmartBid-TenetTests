@@ -23,6 +23,18 @@ var ProcessFormInputModule = ( function() {
         return formInputData;
     }
 
+    function createFormInputData(userInputObject)
+    {
+        let formInputData = new FormData();
+
+        for( currentInputKey in userInputObject )
+        {
+            formInputData.append(currentInputKey, userInputObject[currentInputKey]);
+        }
+
+        return formInputData;
+    }
+
     return {
 
         processInputDataFromForm : processInputDataFromForm,

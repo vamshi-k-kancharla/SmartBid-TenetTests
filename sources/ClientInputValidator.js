@@ -43,13 +43,13 @@ var ClientInputValidatorModule = ( function() {
             
             console.log("ClientInputValidator.validateRecordRetrievalObject : currentInputKey => " + currentInputKey);
 
-            if( inputObject[currentInputKey] != retrievedObject[currentInputKey] )
+            if( String(inputObject[currentInputKey]).toLocaleLowerCase() != String(retrievedObject[currentInputKey]).toLocaleLowerCase() )
             {
 
                 console.log(inputObject[currentInputKey] + " != " + retrievedObject[currentInputKey]);
 
                 return false;
-                
+
             }
         }
 

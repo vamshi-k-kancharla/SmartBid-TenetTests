@@ -22,7 +22,7 @@ var GlobalsForClientModule = ( function() {
     let auctionAssetKeysForUpload = ["AssetType", "MinAuctionPrice", "Address", "Colony", "City", "State", 
         "Country", "ApprovalType", "AssetSize", "BuiltUpArea"];
 
-    // Functional Tests : Input Objects
+    // Functional Tests : Input Objects : Customer SignUp
 
     let customerRecordObject = {"Name":"CustomerName","EmailAddress":"customerEmail@gmail.com","Address":"Inupamula",
         "UserType":"Customer","City":"Hyderabad","State":"Telangana","Country":"India","Password":"abcd1234",
@@ -30,6 +30,35 @@ var GlobalsForClientModule = ( function() {
 
     let validateCustomerRecordObject = {"Name":"CustomerName","EmailAddress":"customerEmail@gmail.com","Address":"Inupamula",
         "UserType":"Customer","City":"Hyderabad","State":"Telangana","Country":"India","PhoneNumber":"7306004100"};
+
+
+    // Functional Tests : Publish Assets : Input Objects
+
+    let publishAssetObject = {"AssetType":"Flat","MinAuctionPrice":"7500000","Address":"godrej royal woods",
+        "Colony":"devanahalli","City":"bangalore","State":"karnataka","Country":"india", "SellerCustomerId":55,
+        "ApprovalType":"bda","AssetSize":"25 sq yards","BuiltUpArea":"1000 sqft", "Status":"open",
+        "AssetBedrooms":4,"AssetBathrooms":2,"AssetDescription":"Beautiful flat in Godrej Royal Woods", "BiddingType":"open"};
+
+
+    // Globals Helping the callbacks in Regression suite
+    
+    
+    let currentCallBackFunctionForPublishAssetTest = undefined;
+    let currentObjectPublishAssetTest = publishAssetObject;
+    let currentPublishAssetTestContainer = undefined;
+    let currentAssetRetrievalTestContainer = undefined;
+
+
+    let currentAssetRecordRemovalTestContainer = undefined;
+    let currentAssetRecordRemovalConfirmationTestContainer = undefined;
+    let currentCallbackFunctionForAssetRemovalTest = undefined;
+
+
+    let currentAssetRecordId = undefined;
+    let currentAssetBidderCustomerId = undefined;
+    let currentAssetBiddingPrice = undefined;
+    let placeBidTestContainer = undefined;
+    let currentAssetBiddingType = undefined;
 
 
     return{
@@ -46,7 +75,23 @@ var GlobalsForClientModule = ( function() {
         
         customerRecordObject : customerRecordObject,
         validateCustomerRecordObject : validateCustomerRecordObject,
-        
+        publishAssetObject : publishAssetObject,
+
+        currentCallBackFunctionForPublishAssetTest : currentCallBackFunctionForPublishAssetTest,
+        currentObjectPublishAssetTest : currentObjectPublishAssetTest,
+        currentPublishAssetTestContainer : currentPublishAssetTestContainer,
+        currentAssetRetrievalTestContainer : currentAssetRetrievalTestContainer,
+
+        currentAssetRecordRemovalTestContainer : currentAssetRecordRemovalTestContainer,
+        currentAssetRecordRemovalConfirmationTestContainer : currentAssetRecordRemovalConfirmationTestContainer,
+        currentCallbackFunctionForAssetRemovalTest : currentCallbackFunctionForAssetRemovalTest,
+
+        currentAssetRecordId : currentAssetRecordId,
+        currentAssetBidderCustomerId : currentAssetBidderCustomerId,
+        currentAssetBiddingPrice : currentAssetBiddingPrice,
+        currentAssetBiddingType : currentAssetBiddingType,
+        placeBidTestContainer : placeBidTestContainer,
+
     }
 
 })();

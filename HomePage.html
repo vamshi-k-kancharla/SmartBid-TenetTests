@@ -16,6 +16,10 @@
         <script src="./sources/HttpRestAPIClient.js"></script>
         <script src="./sources/GlobalsForClient.js"></script>
         <script src="./sources/ClientInputValidator.js"></script>
+        <script src="./sources/ProcessFormInput.js"></script>
+        <script src="./sources/PublishAssetValidator.js"></script>
+        <script src="./sources/PlaceBidValidator.js"></script>
+
 
         <br/><br/><br/>
 
@@ -33,6 +37,18 @@
 
             <br/><br/><br/><br/>
 
+            <p id="publishAssetTest_container"></p>
+            <p id="assetRecordRetrievalTest_container"></p>
+            <p id="assetRecordRemovalTest_container"></p>
+            <p id="assetRecordRemovalConfirmation_container"></p>
+
+            <br/><br/><br/><br/>
+
+            <p id="placeOpenBid_PublishAssetTest_container"></p>
+            <p id="placeOpenBid_AssetRecordRetrievalTest_container"></p>
+            <p id="placeOpenBid_PlaceBidTest_container"></p>
+
+
         </div>
 
         <script>
@@ -45,7 +61,13 @@
                 
                 let customerDetailsObject = {};
 
-                customerDetailsObject = GlobalsForClientModule.customerRecordObject;
+                // customerDetailsObject = GlobalsForClientModule.customerRecordObject;
+
+                for( let currentCustomerRecordKey in GlobalsForClientModule.customerRecordObject )
+                {
+                    customerDetailsObject[currentCustomerRecordKey] = GlobalsForClientModule.customerRecordObject[currentCustomerRecordKey];
+                }
+
                 customerDetailsObject.Password = window.btoa(GlobalsForClientModule.customerRecordObject.Password);
 
                 await HttpRestAPIClientModule.sendHttpJsonRequestToSmartBidServerWithCallback( "AddCustomer", customerDetailsObject, 
@@ -236,6 +258,8 @@
 
                 }
 
+                executePublishAssetFunctionalTestWrapper();
+
             }
 
             function failureCustomerRecordRemovalConfirmation(responseTextFromServer) 
@@ -244,6 +268,64 @@
                 console.log("Failed to confirm the removal of Customer Record Data => " + responseTextFromServer);
                 document.getElementById("customerRecordRemovalConfirmation_container").innerHTML = "Customer Record Removal Confirmation Test Failed";
                 document.getElementById("customerRecordRemovalConfirmation_container").style.color = "Red";
+
+                executePublishAssetFunctionalTestWrapper();
+
+            }
+
+            
+            // Publish Asset Test
+
+            async function executePublishAssetFunctionalTestWrapper()
+            {
+
+                GlobalsForClientModule.currentCallBackFunctionForPublishAssetTest = executeAssetRecordRemovalTestWrapper;
+                GlobalsForClientModule.currentObjectPublishAssetTest = GlobalsForClientModule.publishAssetObject;
+                GlobalsForClientModule.currentPublishAssetTestContainer = "publishAssetTest_container";
+                GlobalsForClientModule.currentAssetRetrievalTestContainer = "assetRecordRetrievalTest_container";
+
+                PublishAssetValidatorModule.executePublishAssetFunctionalTest();
+            }
+
+
+            // Asset Record Removal Test
+
+            async function executeAssetRecordRemovalTestWrapper(inputAssetId = 0)
+            {
+
+                GlobalsForClientModule.currentAssetRecordRemovalTestContainer = "assetRecordRemovalTest_container";
+                GlobalsForClientModule.currentAssetRecordRemovalConfirmationTestContainer = "assetRecordRemovalConfirmation_container";
+
+                GlobalsForClientModule.currentCallbackFunctionForAssetRemovalTest = executeOpenBidPlacementTestWrapperSetup;
+
+                PublishAssetValidatorModule.executeAssetRecordRemovalTest(inputAssetId);
+            }
+                
+
+            // Open Bidding : Publish Asset
+
+            async function executeOpenBidPlacementTestWrapperSetup()
+            {
+
+                GlobalsForClientModule.currentCallBackFunctionForPublishAssetTest = executePlaceBidTestWrapper;
+                GlobalsForClientModule.currentObjectPublishAssetTest = GlobalsForClientModule.publishAssetObject;
+                GlobalsForClientModule.currentPublishAssetTestContainer = "placeOpenBid_PublishAssetTest_container";
+                GlobalsForClientModule.currentAssetRetrievalTestContainer = "placeOpenBid_AssetRecordRetrievalTest_container";
+
+                PublishAssetValidatorModule.executePublishAssetFunctionalTest();
+            }
+
+            async function executePlaceBidTestWrapper(inputAssetId = 0)
+            {
+                
+                GlobalsForClientModule.currentAssetRecordId = inputAssetId;
+                GlobalsForClientModule.currentAssetBidderCustomerId = 56;
+                GlobalsForClientModule.currentAssetBiddingPrice = 8000000;
+                GlobalsForClientModule.currentAssetBiddingType = "open";
+
+                GlobalsForClientModule.placeBidTestContainer = "placeOpenBid_PlaceBidTest_container";
+
+                PlaceBidValidatorModule.executePlaceBidRecordTest();
 
             }
 
