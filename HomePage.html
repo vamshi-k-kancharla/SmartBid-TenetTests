@@ -47,7 +47,7 @@
             <p id="placeOpenBid_PublishAssetTest_container"></p>
             <p id="placeOpenBid_AssetRecordRetrievalTest_container"></p>
             <p id="placeOpenBid_PlaceBidTest_container"></p>
-
+            <p id="placeOpenBid_RetrieveBidTest_container"></p>
 
         </div>
 
@@ -323,7 +323,11 @@
                 GlobalsForClientModule.currentAssetBiddingPrice = 8000000;
                 GlobalsForClientModule.currentAssetBiddingType = "open";
 
+                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveAssetObject;
+                GlobalsForClientModule.currentRetrieveAssetObject.AssetId = inputAssetId;
+
                 GlobalsForClientModule.placeBidTestContainer = "placeOpenBid_PlaceBidTest_container";
+                GlobalsForClientModule.retrieveBidTestContainer = "placeOpenBid_RetrieveBidTest_container";
 
                 PlaceBidValidatorModule.executePlaceBidRecordTest();
 

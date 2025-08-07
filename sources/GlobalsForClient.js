@@ -39,6 +39,10 @@ var GlobalsForClientModule = ( function() {
         "ApprovalType":"bda","AssetSize":"25 sq yards","BuiltUpArea":"1000 sqft", "Status":"open",
         "AssetBedrooms":4,"AssetBathrooms":2,"AssetDescription":"Beautiful flat in Godrej Royal Woods", "BiddingType":"open"};
 
+    // Functional Tests : Retrieve Assets : Input Objects
+
+    let retrieveAssetObject = {"AssetId":99,"CustomerId":56,"BidPrice":"8000000"};
+
 
     // Globals Helping the callbacks in Regression suite
     
@@ -59,7 +63,8 @@ var GlobalsForClientModule = ( function() {
     let currentAssetBiddingPrice = undefined;
     let placeBidTestContainer = undefined;
     let currentAssetBiddingType = undefined;
-
+    let retrieveBidTestContainer = undefined;
+    let currentRetrieveAssetObject = undefined;
 
     return{
 
@@ -91,6 +96,9 @@ var GlobalsForClientModule = ( function() {
         currentAssetBiddingPrice : currentAssetBiddingPrice,
         currentAssetBiddingType : currentAssetBiddingType,
         placeBidTestContainer : placeBidTestContainer,
+        retrieveBidTestContainer : retrieveBidTestContainer,
+        retrieveAssetObject : retrieveAssetObject,
+        currentRetrieveAssetObject : currentRetrieveAssetObject,
 
     }
 
