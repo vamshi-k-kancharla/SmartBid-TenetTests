@@ -27,7 +27,10 @@
 
             <button class="btn btn-primary" onclick="executeCustomerSignupFunctionalTest()">Execute SmartBid Functional Tests</button>
 
-            <br/><br/><br/><br/>
+            <br/><br/><br/>
+            <p style = "color: brown;">=================================================================================</p>
+            <p style = "color: brown;">Customer SignUp Tests</p>
+            <p style = "color: brown;">=================================================================================</p>
 
             <p id="customerSignUpTest_container"></p>
             <p id="customerRecordRetrievalTest_container"></p>
@@ -35,14 +38,20 @@
             <p id="customerRecordRemoval_container"></p>
             <p id="customerRecordRemovalConfirmation_container"></p>
 
-            <br/><br/><br/>
+            <br/><br/>
+            <p style = "color: brown;">=================================================================================</p>
+            <p style = "color: brown;">Publish Asset Tests</p>
+            <p style = "color: brown;">=================================================================================</p>
 
             <p id="publishAssetTest_container"></p>
             <p id="assetRecordRetrievalTest_container"></p>
             <p id="assetRecordRemovalTest_container"></p>
             <p id="assetRecordRemovalConfirmation_container"></p>
 
-            <br/><br/><br/>
+            <br/><br/>
+            <p style = "color: brown;">=================================================================================</p>
+            <p style = "color: brown;">Place Open Bids Tests</p>
+            <p style = "color: brown;">=================================================================================</p>
 
             <p id="placeOpenBid_PublishAssetTest_container"></p>
             <p id="placeOpenBid_AssetRecordRetrievalTest_container"></p>
@@ -61,13 +70,43 @@
 
             <br/>
             
-            <p id="bidRecordRemovalTest_container"></p>
-            <p id="bidRecordRemovalConfirmation_container"></p>
+            <p id="placeOpenBid_bidRecordRemovalTest_container"></p>
+            <p id="placeOpenBid_bidRecordRemovalConfirmation_container"></p>
 
             <br/>
             
-            <p id="assetBidRecordRemovalTest_container"></p>
-            <p id="assetBidRecordRemovalConfirmation_container"></p>
+            <p id="placeOpenBid_assetBidRecordRemovalTest_container"></p>
+            <p id="placeOpenBid_assetBidRecordRemovalConfirmation_container"></p>
+
+            <br/><br/>
+            <p style = "color: brown;">=================================================================================</p>
+            <p style = "color: brown;">Place Secretive Bids Tests</p>
+            <p style = "color: brown;">=================================================================================</p>
+
+            <p id="placeSecretiveBid_PublishAssetTest_container"></p>
+            <p id="placeSecretiveBid_AssetRecordRetrievalTest_container"></p>
+
+            <br/>
+
+            <p id="placeSecretiveBid_PlaceBidTest_container"></p>
+            <p id="placeSecretiveBid_RetrieveBidTest_container"></p>
+            <p id="placeSecretiveBid_RetrieveBidAssetTest_container"></p>
+
+            <br/>
+            
+            <p id="placeSecretiveBid_PlaceBetterBidTest_container"></p>
+            <p id="placeSecretiveBid_RetrieveBetterBidTest_container"></p>
+            <p id="placeSecretiveBid_RetrieveBetterBidAssetTest_container"></p>
+
+            <br/>
+            
+            <p id="placeSecretiveBid_bidRecordRemovalTest_container"></p>
+            <p id="placeSecretiveBid_bidRecordRemovalConfirmation_container"></p>
+
+            <br/>
+            
+            <p id="placeSecretiveBid_assetBidRecordRemovalTest_container"></p>
+            <p id="placeSecretiveBid_assetBidRecordRemovalConfirmation_container"></p>
 
         </div>
 
@@ -343,7 +382,7 @@
                 GlobalsForClientModule.currentAssetBiddingPrice = 8000000;
                 GlobalsForClientModule.currentAssetBiddingType = "open";
 
-                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveAssetObject;
+                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveBidObject;
                 GlobalsForClientModule.currentRetrieveAssetObject.AssetId = inputAssetId;
 
                 GlobalsForClientModule.placeBidTestContainer = "placeOpenBid_PlaceBidTest_container";
@@ -366,7 +405,7 @@
                 GlobalsForClientModule.currentAssetBiddingPrice = 8100000;
                 GlobalsForClientModule.currentAssetBiddingType = "open";
 
-                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveBetterAssetObject;
+                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveBetterBidObject;
                 GlobalsForClientModule.currentRetrieveAssetObject.AssetId = GlobalsForClientModule.currentAssetRecordId;
 
                 GlobalsForClientModule.placeBidTestContainer = "placeOpenBid_PlaceBetterBidTest_container";
@@ -385,8 +424,8 @@
             async function executeRemoveBidRecordTestWrapper()
             {
 
-                GlobalsForClientModule.currentBidRecordRemovalTestContainer = "bidRecordRemovalTest_container";
-                GlobalsForClientModule.currentBidRecordRemovalConfirmationTestContainer = "bidRecordRemovalConfirmation_container";
+                GlobalsForClientModule.currentBidRecordRemovalTestContainer = "placeOpenBid_bidRecordRemovalTest_container";
+                GlobalsForClientModule.currentBidRecordRemovalConfirmationTestContainer = "placeOpenBid_bidRecordRemovalConfirmation_container";
 
                 GlobalsForClientModule.executeDeleteBidRecordCompletionTest = executeRemoveAssetAfterBidsDeletionRecordTestWrapper;
 
@@ -397,8 +436,8 @@
             async function executeRemoveAssetAfterBidsDeletionRecordTestWrapper(inputAssetId = 0)
             {
 
-                GlobalsForClientModule.currentAssetRecordRemovalTestContainer = "assetBidRecordRemovalTest_container";
-                GlobalsForClientModule.currentAssetRecordRemovalConfirmationTestContainer = "assetBidRecordRemovalConfirmation_container";
+                GlobalsForClientModule.currentAssetRecordRemovalTestContainer = "placeOpenBid_assetBidRecordRemovalTest_container";
+                GlobalsForClientModule.currentAssetRecordRemovalConfirmationTestContainer = "placeOpenBid_assetBidRecordRemovalConfirmation_container";
 
                 GlobalsForClientModule.currentCallbackFunctionForAssetRemovalTest = executeSecretiveBiddingPlacementTestWrapperSetup;
 
@@ -412,7 +451,92 @@
             async function executeSecretiveBiddingPlacementTestWrapperSetup()
             {
 
+                GlobalsForClientModule.currentCallBackFunctionForPublishAssetTest = executePlaceSecretiveBidTestWrapper;
+                GlobalsForClientModule.currentObjectPublishAssetTest = GlobalsForClientModule.publishSecretiveAssetObject;
+                GlobalsForClientModule.currentPublishAssetTestContainer = "placeSecretiveBid_PublishAssetTest_container";
+                GlobalsForClientModule.currentAssetRetrievalTestContainer = "placeSecretiveBid_AssetRecordRetrievalTest_container";
+
+                PublishAssetValidatorModule.executePublishAssetFunctionalTest();
             }
+
+            async function executePlaceSecretiveBidTestWrapper(inputAssetId = 0)
+            {
+                
+                GlobalsForClientModule.currentAssetRecordId = inputAssetId;
+                GlobalsForClientModule.currentAssetBidderCustomerId = 56;
+                GlobalsForClientModule.currentAssetBiddingPrice = 8000000;
+                GlobalsForClientModule.currentAssetBiddingType = "secretive";
+
+                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveBidObject;
+                GlobalsForClientModule.currentRetrieveAssetObject.AssetId = inputAssetId;
+
+                GlobalsForClientModule.placeBidTestContainer = "placeSecretiveBid_PlaceBidTest_container";
+                GlobalsForClientModule.retrieveBidTestContainer = "placeSecretiveBid_RetrieveBidTest_container";
+
+                GlobalsForClientModule.currentAssetSellerCustomerId = 55;
+                GlobalsForClientModule.currentValidateBidObject = GlobalsForClientModule.currentRetrieveAssetObject;
+                GlobalsForClientModule.retrieveBidAssetTestContainer = "placeSecretiveBid_RetrieveBidAssetTest_container";
+
+                GlobalsForClientModule.executePlaceBidRecordCompletionTest = executePlaceWorseSecretiveBidRecordTestWrapper;
+
+                PlaceBidValidatorModule.executePlaceBidRecordTest();
+
+            }
+
+            async function executePlaceWorseSecretiveBidRecordTestWrapper()
+            {
+                
+                GlobalsForClientModule.currentAssetBidderCustomerId = 57;
+                GlobalsForClientModule.currentAssetBiddingPrice = 7900000;
+                GlobalsForClientModule.currentAssetBiddingType = "secretive";
+
+                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveWorseBidObject;
+                GlobalsForClientModule.currentRetrieveAssetObject.AssetId = GlobalsForClientModule.currentAssetRecordId;
+
+                GlobalsForClientModule.placeBidTestContainer = "placeSecretiveBid_PlaceBetterBidTest_container";
+                GlobalsForClientModule.retrieveBidTestContainer = "placeSecretiveBid_RetrieveBetterBidTest_container";
+
+                GlobalsForClientModule.currentAssetSellerCustomerId = 55;
+                GlobalsForClientModule.currentValidateBidObject = GlobalsForClientModule.retrieveBidObject;
+                GlobalsForClientModule.retrieveBidAssetTestContainer = "placeSecretiveBid_RetrieveBetterBidAssetTest_container";
+
+                GlobalsForClientModule.executePlaceBidRecordCompletionTest = executeRemoveSecretiveBidRecordTestWrapper;
+
+                PlaceBidValidatorModule.executePlaceBidRecordTest();
+
+            }
+
+            async function executeRemoveSecretiveBidRecordTestWrapper()
+            {
+
+                GlobalsForClientModule.currentBidRecordRemovalTestContainer = "placeSecretiveBid_bidRecordRemovalTest_container";
+                GlobalsForClientModule.currentBidRecordRemovalConfirmationTestContainer = "placeSecretiveBid_bidRecordRemovalConfirmation_container";
+
+                GlobalsForClientModule.executeDeleteBidRecordCompletionTest = executeRemoveAssetSecretiveBiddingRecordTestWrapper;
+
+                PlaceBidValidatorModule.executeBidsRecordRemovalTest();
+
+            }
+
+            async function executeRemoveAssetSecretiveBiddingRecordTestWrapper(inputAssetId = 0)
+            {
+
+                GlobalsForClientModule.currentAssetRecordRemovalTestContainer = "placeSecretiveBid_assetBidRecordRemovalTest_container";
+                GlobalsForClientModule.currentAssetRecordRemovalConfirmationTestContainer = "placeSecretiveBid_assetBidRecordRemovalConfirmation_container";
+
+                GlobalsForClientModule.currentCallbackFunctionForAssetRemovalTest = executeCloseAuctionTestWrapper;
+
+                PublishAssetValidatorModule.executeAssetRecordRemovalTest(inputAssetId);
+
+            }
+
+            // Close Auction Test
+
+            async function executeCloseAuctionTestWrapper()
+            {
+
+            }
+
 
         </script>
 

@@ -39,12 +39,18 @@ var GlobalsForClientModule = ( function() {
         "ApprovalType":"bda","AssetSize":"25 sq yards","BuiltUpArea":"1000 sqft", "Status":"open",
         "AssetBedrooms":4,"AssetBathrooms":2,"AssetDescription":"Beautiful flat in Godrej Royal Woods", "BiddingType":"open"};
 
+    let publishSecretiveAssetObject = {"AssetType":"Flat","MinAuctionPrice":"7600000","Address":"GRW, Bhuvanahalli",
+        "Colony":"devanahalli","City":"bangalore","State":"karnataka","Country":"india", "SellerCustomerId":55,
+        "ApprovalType":"bda","AssetSize":"30 sq yards","BuiltUpArea":"1200 sqft", "Status":"open",
+        "AssetBedrooms":4,"AssetBathrooms":3,"AssetDescription":"Beautiful flat in Godrej Royal Woods", "BiddingType":"secretive"};
+
     // Functional Tests : Retrieve Assets : Input Objects
 
-    let retrieveAssetObject = {"AssetId":99,"CustomerId":56,"BidPrice":"8000000"};
+    let retrieveBidObject = {"AssetId":99,"CustomerId":56,"BidPrice":"8000000"};
 
-    let retrieveBetterAssetObject = {"AssetId":199,"CustomerId":57,"BidPrice":"8100000"};
+    let retrieveBetterBidObject = {"AssetId":199,"CustomerId":57,"BidPrice":"8100000"};
 
+    let retrieveWorseBidObject = {"AssetId":299,"CustomerId":57,"BidPrice":"7900000"};
 
     // Globals Helping the callbacks in Regression suite
     
@@ -98,20 +104,27 @@ var GlobalsForClientModule = ( function() {
         currentAssetRecordRemovalConfirmationTestContainer : currentAssetRecordRemovalConfirmationTestContainer,
         currentCallbackFunctionForAssetRemovalTest : currentCallbackFunctionForAssetRemovalTest,
 
+        // Open Bidding
+
         currentAssetRecordId : currentAssetRecordId,
         currentAssetBidderCustomerId : currentAssetBidderCustomerId,
         currentAssetBiddingPrice : currentAssetBiddingPrice,
         currentAssetBiddingType : currentAssetBiddingType,
         placeBidTestContainer : placeBidTestContainer,
         retrieveBidTestContainer : retrieveBidTestContainer,
-        retrieveAssetObject : retrieveAssetObject,
+        retrieveBidObject : retrieveBidObject,
         currentRetrieveAssetObject : currentRetrieveAssetObject,
         currentAssetSellerCustomerId : currentAssetSellerCustomerId,
         currentValidateBidObject : currentValidateBidObject,
-        retrieveBetterAssetObject : retrieveBetterAssetObject,
+        retrieveBetterBidObject : retrieveBetterBidObject,
 
         executePlaceBidRecordCompletionTest : executePlaceBidRecordCompletionTest,
         executeDeleteBidRecordCompletionTest : executeDeleteBidRecordCompletionTest,
+
+        // Secretive Bidding
+
+        publishSecretiveAssetObject : publishSecretiveAssetObject,
+        retrieveWorseBidObject : retrieveWorseBidObject,
 
     }
 

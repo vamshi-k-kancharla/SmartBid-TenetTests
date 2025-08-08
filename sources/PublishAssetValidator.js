@@ -60,7 +60,7 @@ var PublishAssetValidatorModule = ( function() {
         console.log("Successfully Retrieved the Asset Record Data => " + responseTextFromServer);
 
         if( !ClientInputValidatorModule.validateRecordRetrievalObject( JSON.parse(responseTextFromServer)[0] , 
-            GlobalsForClientModule.publishAssetObject ) )
+            GlobalsForClientModule.currentObjectPublishAssetTest ) )
         {
 
             console.log("Retrieved Asset Record values are incorrect");
