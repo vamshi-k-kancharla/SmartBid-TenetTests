@@ -43,6 +43,8 @@ var GlobalsForClientModule = ( function() {
 
     let retrieveAssetObject = {"AssetId":99,"CustomerId":56,"BidPrice":"8000000"};
 
+    let retrieveBetterAssetObject = {"AssetId":199,"CustomerId":57,"BidPrice":"8100000"};
+
 
     // Globals Helping the callbacks in Regression suite
     
@@ -65,6 +67,11 @@ var GlobalsForClientModule = ( function() {
     let currentAssetBiddingType = undefined;
     let retrieveBidTestContainer = undefined;
     let currentRetrieveAssetObject = undefined;
+    let currentAssetSellerCustomerId = undefined;
+    let currentValidateBidObject = undefined;
+
+    let executePlaceBidRecordCompletionTest = undefined;
+    let executeDeleteBidRecordCompletionTest = undefined;
 
     return{
 
@@ -99,6 +106,12 @@ var GlobalsForClientModule = ( function() {
         retrieveBidTestContainer : retrieveBidTestContainer,
         retrieveAssetObject : retrieveAssetObject,
         currentRetrieveAssetObject : currentRetrieveAssetObject,
+        currentAssetSellerCustomerId : currentAssetSellerCustomerId,
+        currentValidateBidObject : currentValidateBidObject,
+        retrieveBetterAssetObject : retrieveBetterAssetObject,
+
+        executePlaceBidRecordCompletionTest : executePlaceBidRecordCompletionTest,
+        executeDeleteBidRecordCompletionTest : executeDeleteBidRecordCompletionTest,
 
     }
 

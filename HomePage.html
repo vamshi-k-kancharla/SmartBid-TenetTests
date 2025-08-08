@@ -35,19 +35,39 @@
             <p id="customerRecordRemoval_container"></p>
             <p id="customerRecordRemovalConfirmation_container"></p>
 
-            <br/><br/><br/><br/>
+            <br/><br/><br/>
 
             <p id="publishAssetTest_container"></p>
             <p id="assetRecordRetrievalTest_container"></p>
             <p id="assetRecordRemovalTest_container"></p>
             <p id="assetRecordRemovalConfirmation_container"></p>
 
-            <br/><br/><br/><br/>
+            <br/><br/><br/>
 
             <p id="placeOpenBid_PublishAssetTest_container"></p>
             <p id="placeOpenBid_AssetRecordRetrievalTest_container"></p>
+
+            <br/>
+
             <p id="placeOpenBid_PlaceBidTest_container"></p>
             <p id="placeOpenBid_RetrieveBidTest_container"></p>
+            <p id="placeOpenBid_RetrieveBidAssetTest_container"></p>
+
+            <br/>
+            
+            <p id="placeOpenBid_PlaceBetterBidTest_container"></p>
+            <p id="placeOpenBid_RetrieveBetterBidTest_container"></p>
+            <p id="placeOpenBid_RetrieveBetterBidAssetTest_container"></p>
+
+            <br/>
+            
+            <p id="bidRecordRemovalTest_container"></p>
+            <p id="bidRecordRemovalConfirmation_container"></p>
+
+            <br/>
+            
+            <p id="assetBidRecordRemovalTest_container"></p>
+            <p id="assetBidRecordRemovalConfirmation_container"></p>
 
         </div>
 
@@ -329,10 +349,70 @@
                 GlobalsForClientModule.placeBidTestContainer = "placeOpenBid_PlaceBidTest_container";
                 GlobalsForClientModule.retrieveBidTestContainer = "placeOpenBid_RetrieveBidTest_container";
 
+                GlobalsForClientModule.currentAssetSellerCustomerId = 55;
+                GlobalsForClientModule.currentValidateBidObject = GlobalsForClientModule.currentRetrieveAssetObject;
+                GlobalsForClientModule.retrieveBidAssetTestContainer = "placeOpenBid_RetrieveBidAssetTest_container";
+
+                GlobalsForClientModule.executePlaceBidRecordCompletionTest = executePlaceBetterBidRecordTestWrapper;
+
                 PlaceBidValidatorModule.executePlaceBidRecordTest();
 
             }
 
+            async function executePlaceBetterBidRecordTestWrapper()
+            {
+                
+                GlobalsForClientModule.currentAssetBidderCustomerId = 57;
+                GlobalsForClientModule.currentAssetBiddingPrice = 8100000;
+                GlobalsForClientModule.currentAssetBiddingType = "open";
+
+                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveBetterAssetObject;
+                GlobalsForClientModule.currentRetrieveAssetObject.AssetId = GlobalsForClientModule.currentAssetRecordId;
+
+                GlobalsForClientModule.placeBidTestContainer = "placeOpenBid_PlaceBetterBidTest_container";
+                GlobalsForClientModule.retrieveBidTestContainer = "placeOpenBid_RetrieveBetterBidTest_container";
+
+                GlobalsForClientModule.currentAssetSellerCustomerId = 55;
+                GlobalsForClientModule.currentValidateBidObject = GlobalsForClientModule.currentRetrieveAssetObject;
+                GlobalsForClientModule.retrieveBidAssetTestContainer = "placeOpenBid_RetrieveBetterBidAssetTest_container";
+
+                GlobalsForClientModule.executePlaceBidRecordCompletionTest = executeRemoveBidRecordTestWrapper;
+
+                PlaceBidValidatorModule.executePlaceBidRecordTest();
+
+            }
+
+            async function executeRemoveBidRecordTestWrapper()
+            {
+
+                GlobalsForClientModule.currentBidRecordRemovalTestContainer = "bidRecordRemovalTest_container";
+                GlobalsForClientModule.currentBidRecordRemovalConfirmationTestContainer = "bidRecordRemovalConfirmation_container";
+
+                GlobalsForClientModule.executeDeleteBidRecordCompletionTest = executeRemoveAssetAfterBidsDeletionRecordTestWrapper;
+
+                PlaceBidValidatorModule.executeBidsRecordRemovalTest();
+
+            }
+
+            async function executeRemoveAssetAfterBidsDeletionRecordTestWrapper(inputAssetId = 0)
+            {
+
+                GlobalsForClientModule.currentAssetRecordRemovalTestContainer = "assetBidRecordRemovalTest_container";
+                GlobalsForClientModule.currentAssetRecordRemovalConfirmationTestContainer = "assetBidRecordRemovalConfirmation_container";
+
+                GlobalsForClientModule.currentCallbackFunctionForAssetRemovalTest = executeSecretiveBiddingPlacementTestWrapperSetup;
+
+                PublishAssetValidatorModule.executeAssetRecordRemovalTest(inputAssetId);
+
+            }
+
+
+            // Secretive Bidding : Publish Asset
+
+            async function executeSecretiveBiddingPlacementTestWrapperSetup()
+            {
+
+            }
 
         </script>
 
