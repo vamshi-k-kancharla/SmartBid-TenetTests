@@ -20,24 +20,24 @@ var PublishAssetValidatorModule = ( function() {
         
     }
 
-    function successResponseUploadAuctionPhotos(responseTextFromServer) 
+    async function successResponseUploadAuctionPhotos(responseTextFromServer) 
     {
 
         console.log("Successfully submitted the Asset Record Data => " + responseTextFromServer);
         document.getElementById(GlobalsForClientModule.currentPublishAssetTestContainer).innerHTML = "Publish Asset Test Passed";
         document.getElementById(GlobalsForClientModule.currentPublishAssetTestContainer).style.color = "Blue";
 
-        executeAssetRecordRetrievalTest();
+        await executeAssetRecordRetrievalTest();
     }
 
-    function failureResponseUploadAuctionPhotos(responseTextFromServer) 
+    async function failureResponseUploadAuctionPhotos(responseTextFromServer) 
     {
 
         console.log("Failed to Submit the Asset Record Data => " + responseTextFromServer);
         document.getElementById(GlobalsForClientModule.currentPublishAssetTestContainer).innerHTML = "Publish Asset Test Failed";
         document.getElementById(GlobalsForClientModule.currentPublishAssetTestContainer).style.color = "Red";
 
-        executeAssetRecordRetrievalTest();
+        await executeAssetRecordRetrievalTest();
     }
 
     
@@ -47,14 +47,14 @@ var PublishAssetValidatorModule = ( function() {
     {
         
         let assetRecordRetrievalUrlParamsString = "RetrieveAuctions?Status=Open&SellerCustomerId=" + 
-            GlobalsForClientModule.publishAssetObject.SellerCustomerId;
+            GlobalsForClientModule.currentObjectPublishAssetTest.SellerCustomerId;
 
         await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( assetRecordRetrievalUrlParamsString, 
         successfulAssetRecordRetrieval, failureAssetRecordRetrieval );
         
     }
 
-    function successfulAssetRecordRetrieval(responseTextFromServer) 
+    async function successfulAssetRecordRetrieval(responseTextFromServer) 
     {
 
         console.log("Successfully Retrieved the Asset Record Data => " + responseTextFromServer);
@@ -78,18 +78,18 @@ var PublishAssetValidatorModule = ( function() {
 
         }
 
-        GlobalsForClientModule.currentCallBackFunctionForPublishAssetTest(JSON.parse(responseTextFromServer)[0].AssetId);
+        await GlobalsForClientModule.currentCallBackFunctionForPublishAssetTest(JSON.parse(responseTextFromServer)[0].AssetId);
 
     }
 
-    function failureAssetRecordRetrieval(responseTextFromServer) 
+    async function failureAssetRecordRetrieval(responseTextFromServer) 
     {
 
         console.log("Failed to Retrieve the Asset Record Data => " + responseTextFromServer);
         document.getElementById("assetRecordRetrievalTest_container").innerHTML = "Asset Record Retrieval Test Failed";
         document.getElementById("assetRecordRetrievalTest_container").style.color = "Red";
 
-        GlobalsForClientModule.currentCallBackFunctionForPublishAssetTest();
+        await GlobalsForClientModule.currentCallBackFunctionForPublishAssetTest();
     }
 
 
@@ -182,7 +182,6 @@ var PublishAssetValidatorModule = ( function() {
     return {
 
         executePublishAssetFunctionalTest : executePublishAssetFunctionalTest,
-
         executeAssetRecordRemovalTest : executeAssetRecordRemovalTest,
         
     }

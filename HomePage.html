@@ -19,6 +19,7 @@
         <script src="./sources/ProcessFormInput.js"></script>
         <script src="./sources/PublishAssetValidator.js"></script>
         <script src="./sources/PlaceBidValidator.js"></script>
+        <script src="./sources/PublishMultiAssetValidator.js"></script>
 
 
         <br/><br/><br/>
@@ -108,6 +109,67 @@
             <p id="placeSecretiveBid_assetBidRecordRemovalTest_container"></p>
             <p id="placeSecretiveBid_assetBidRecordRemovalConfirmation_container"></p>
 
+            <br/><br/>
+            <p style = "color: brown;">=================================================================================</p>
+            <p style = "color: brown;">Close Auction Tests</p>
+            <p style = "color: brown;">=================================================================================</p>
+
+            <p id="closeAuction_PublishAssetTest_container"></p>
+            <p id="closeAuction_AssetRecordRetrievalTest_container"></p>
+
+            <br/>
+
+            <p id="closeAuction_PlaceBidTest_container"></p>
+            <p id="closeAuction_RetrieveBidTest_container"></p>
+            <p id="closeAuction_RetrieveBidAssetTest_container"></p>
+
+            <br/>
+
+            <p id="closeAuction_CloseAuctionTest_container"></p>
+            <p id="closeAuction_StatusRetrievalTest_container"></p>
+
+            <br/>
+            
+            <p id="closeAuction_assetBidRecordRemovalTest_container"></p>
+            <p id="closeAuction_assetBidRecordRemovalConfirmation_container"></p>
+
+            <br/><br/>
+            <p style = "color: brown;">=================================================================================</p>
+            <p style = "color: brown;">Customer Dashboard Tests</p>
+            <p style = "color: brown;">=================================================================================</p>
+
+            <p id="customerDashboard_PublishAssetTest_container_0"></p>
+            <p id="customerDashboard_AssetRecordRetrievalTest_container_0"></p>
+
+            <br/>
+            
+            <p id="customerDashboard_PublishAssetTest_container_1"></p>
+            <p id="customerDashboard_AssetRecordRetrievalTest_container_1"></p>
+
+            <br/>
+            
+            <p id="customerDashboard_PublishAssetTest_container_2"></p>
+            <p id="customerDashboard_AssetRecordRetrievalTest_container_2"></p>
+
+            <br/>
+            
+            <p id="customerDashboard_PublishAssetTest_container_3"></p>
+            <p id="customerDashboard_AssetRecordRetrievalTest_container_3"></p>
+
+            <br/>
+            
+            <p id="customerDashboard_PlaceBidTest_container"></p>
+            <p id="customerDashboard_RetrieveBidTest_container"></p>
+            <p id="customerDashboard_RetrieveBidAssetTest_container"></p>
+
+            <br/>
+            
+            <p id="customerDashboard_PlaceSecondBidTest_container"></p>
+            <p id="customerDashboard_RetrieveSecondBidTest_container"></p>
+            <p id="customerDashboard_RetrieveSecondBidAssetTest_container"></p>
+
+            <br/>
+            
         </div>
 
         <script>
@@ -535,8 +597,211 @@
             async function executeCloseAuctionTestWrapper()
             {
 
+                GlobalsForClientModule.currentCallBackFunctionForPublishAssetTest = executeCloseAuctionPlaceBidTestWrapper;
+                GlobalsForClientModule.currentObjectPublishAssetTest = GlobalsForClientModule.closeAuctionAssetObject;
+                GlobalsForClientModule.currentPublishAssetTestContainer = "closeAuction_PublishAssetTest_container";
+                GlobalsForClientModule.currentAssetRetrievalTestContainer = "closeAuction_AssetRecordRetrievalTest_container";
+
+                PublishAssetValidatorModule.executePublishAssetFunctionalTest();
+
             }
 
+            async function executeCloseAuctionPlaceBidTestWrapper(inputAssetId = 0)
+            {
+                
+                GlobalsForClientModule.currentAssetRecordId = inputAssetId;
+                GlobalsForClientModule.currentAssetBidderCustomerId = 60;
+                GlobalsForClientModule.currentAssetBiddingPrice = 8000000;
+                GlobalsForClientModule.currentAssetBiddingType = "open";
+
+                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveBidCloseAuctionObject;
+                GlobalsForClientModule.currentRetrieveAssetObject.AssetId = inputAssetId;
+
+                GlobalsForClientModule.placeBidTestContainer = "closeAuction_PlaceBidTest_container";
+                GlobalsForClientModule.retrieveBidTestContainer = "closeAuction_RetrieveBidTest_container";
+
+                GlobalsForClientModule.currentAssetSellerCustomerId = 61;
+                GlobalsForClientModule.currentValidateBidObject = GlobalsForClientModule.currentRetrieveAssetObject;
+                GlobalsForClientModule.retrieveBidAssetTestContainer = "closeAuction_RetrieveBidAssetTest_container";
+
+                GlobalsForClientModule.executePlaceBidRecordCompletionTest = executeCloseAuctionRecordTestWrapper;
+
+                PlaceBidValidatorModule.executePlaceBidRecordTest();
+
+            }
+
+            async function executeCloseAuctionRecordTestWrapper()
+            {
+        
+                let closeAuctionRecordUrlParamsString = "CloseAuction?AssetId=" + GlobalsForClientModule.currentAssetRecordId;
+
+                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( closeAuctionRecordUrlParamsString, 
+                successfulCloseAuctionRecord, failureCloseAuctionRecord );
+                
+            }
+
+            function successfulCloseAuctionRecord(responseTextFromServer) 
+            {
+
+                console.log("Successfully Closed the Auction => " + responseTextFromServer);
+
+                document.getElementById("closeAuction_CloseAuctionTest_container").innerHTML = "Close Auction Record Test Passed";
+                document.getElementById("closeAuction_CloseAuctionTest_container").style.color = "Blue";
+
+                executeCloseAuctionStatusRetrievalTest();
+            }
+
+            function failureCloseAuctionRecord(responseTextFromServer) 
+            {
+
+                console.log("Failed to Close the auction => " + responseTextFromServer);
+                document.getElementById("closeAuction_CloseAuctionTest_container").innerHTML = "Close Auction Record Test Failed";
+                document.getElementById("closeAuction_CloseAuctionTest_container").style.color = "Red";
+
+                executeCloseAuctionStatusRetrievalTest();
+            }
+
+            async function executeCloseAuctionStatusRetrievalTest() 
+            {
+
+                let assetRecordRetrievalUrlParamsString = "RetrieveAuctions?SellerCustomerId=" + 
+                    GlobalsForClientModule.currentObjectPublishAssetTest.SellerCustomerId;
+
+                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( assetRecordRetrievalUrlParamsString, 
+                successfulAssetRecordStatusRetrieval, failureAssetRecordStatusRetrieval );
+                
+            }
+
+            function successfulAssetRecordStatusRetrieval(responseTextFromServer) 
+            {
+
+                console.log("Successfully Retrieved the Asset Record Data for Status => " + responseTextFromServer);
+
+                if( String(JSON.parse(responseTextFromServer)[0].AssetId) != GlobalsForClientModule.currentAssetRecordId ||
+                    String(JSON.parse(responseTextFromServer)[0].Status).toLocaleLowerCase() != 'closed' )
+                {
+
+                    console.log("Current Auction is not closed..Incorrect status");
+                    document.getElementById("closeAuction_StatusRetrievalTest_container").innerHTML = "Status Retrieval of Asset Record Test Failed";
+                    document.getElementById("closeAuction_StatusRetrievalTest_container").style.color = "Red";
+                        
+                }
+
+                else
+                {
+
+                    console.log("Current Auction is closed..Correct status");
+                    document.getElementById("closeAuction_StatusRetrievalTest_container").innerHTML = "Status Retrieval of Asset Record Test Passed";
+                    document.getElementById("closeAuction_StatusRetrievalTest_container").style.color = "Blue";
+                        
+                }
+
+                executeCloseAuctionAssetDeletionTest(JSON.parse(responseTextFromServer)[0].AssetId);
+
+            }
+
+            function failureAssetRecordStatusRetrieval(responseTextFromServer) 
+            {
+
+                console.log("Current Auction Status could not be retrieved");
+                document.getElementById("closeAuction_StatusRetrievalTest_container").innerHTML = "Status Retrieval of Asset Record Test Failed";
+                document.getElementById("closeAuction_StatusRetrievalTest_container").style.color = "Red";
+
+                executeCloseAuctionAssetDeletionTest();
+            }
+
+            async function executeCloseAuctionAssetDeletionTest(inputAssetId = 0)
+            {
+
+                if( inputAssetId == 0 )
+                {
+                    inputAssetId = GlobalsForClientModule.currentAssetRecordId;
+                }
+
+                GlobalsForClientModule.currentAssetRecordRemovalTestContainer = "closeAuction_assetBidRecordRemovalTest_container";
+                GlobalsForClientModule.currentAssetRecordRemovalConfirmationTestContainer = "closeAuction_assetBidRecordRemovalConfirmation_container";
+
+                GlobalsForClientModule.currentCallbackFunctionForAssetRemovalTest = executeCustomerDashboardTestWrapper;
+
+                PublishAssetValidatorModule.executeAssetRecordRemovalTest(inputAssetId);
+
+            }
+
+            // Execute Customer Dashboard API Tests
+
+            async function executeCustomerDashboardTestWrapper()
+            {
+
+                GlobalsForClientModule.currentMultiAssetTestIndex = 0;    
+                GlobalsForClientModule.currentObjectPublishMultiAssetTest = GlobalsForClientModule.customerDashboardAssetsObjects;
+                GlobalsForClientModule.currentPublishAssetTestContainer = "customerDashboard_PublishAssetTest_container_";
+                GlobalsForClientModule.currentAssetRetrievalTestContainer = "customerDashboard_AssetRecordRetrievalTest_container_";
+
+                GlobalsForClientModule.currentObjectPublishMultiAssetCompletionTest = executeCustomerDashboardPlaceBidsTestWrapper;
+
+                await PublishMultiAssetValidatorModule.executePublishMultiAssetFunctionalTest();
+            }
+
+            async function executeCustomerDashboardPlaceBidsTestWrapper(inputAssetId = 0)
+            {
+                
+                inputAssetId = GlobalsForClientModule.customerDashboardAssetArray[0];
+
+                GlobalsForClientModule.currentAssetRecordId = inputAssetId;
+                GlobalsForClientModule.currentAssetBidderCustomerId = 56;
+                GlobalsForClientModule.currentAssetBiddingPrice = 8000000;
+                GlobalsForClientModule.currentAssetBiddingType = "open";
+
+                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveBidObject;
+                GlobalsForClientModule.currentRetrieveAssetObject.AssetId = inputAssetId;
+
+                GlobalsForClientModule.placeBidTestContainer = "customerDashboard_PlaceBidTest_container";
+                GlobalsForClientModule.retrieveBidTestContainer = "customerDashboard_RetrieveBidTest_container";
+
+                GlobalsForClientModule.currentAssetSellerCustomerId = 55;
+                GlobalsForClientModule.currentValidateBidObject = GlobalsForClientModule.currentRetrieveAssetObject;
+                GlobalsForClientModule.retrieveBidAssetTestContainer = "customerDashboard_RetrieveBidAssetTest_container";
+
+                GlobalsForClientModule.currentBidRecordIndexForValidation = 0;
+
+                GlobalsForClientModule.executePlaceBidRecordCompletionTest = executeCustomerDashboardPlaceSecondBidRecordTestWrapper;
+
+                PlaceBidValidatorModule.executePlaceBidRecordTest();
+
+            }
+
+            async function executeCustomerDashboardPlaceSecondBidRecordTestWrapper(inputAssetId = 0)
+            {
+                
+                inputAssetId = GlobalsForClientModule.customerDashboardAssetArray[1];
+
+                GlobalsForClientModule.currentAssetRecordId = inputAssetId;
+                GlobalsForClientModule.currentAssetBidderCustomerId = 56;
+                GlobalsForClientModule.currentAssetBiddingPrice = 8500000;
+                GlobalsForClientModule.currentAssetBiddingType = "secretive";
+
+                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveSecondBidObject;
+                GlobalsForClientModule.currentRetrieveAssetObject.AssetId = inputAssetId;
+
+                GlobalsForClientModule.placeBidTestContainer = "customerDashboard_PlaceSecondBidTest_container";
+                GlobalsForClientModule.retrieveBidTestContainer = "customerDashboard_RetrieveSecondBidTest_container";
+
+                GlobalsForClientModule.currentAssetSellerCustomerId = 55;
+                GlobalsForClientModule.currentValidateBidObject = GlobalsForClientModule.currentRetrieveAssetObject;
+                GlobalsForClientModule.retrieveBidAssetTestContainer = "customerDashboard_RetrieveSecondBidAssetTest_container";
+
+                GlobalsForClientModule.currentBidRecordIndexForValidation = 1;
+
+                GlobalsForClientModule.executePlaceBidRecordCompletionTest = executeCustomerDashboardDataFetchTestWrapper;
+
+                PlaceBidValidatorModule.executePlaceBidRecordTest();
+
+            }
+
+            async function executeCustomerDashboardDataFetchTestWrapper()
+            {
+
+            }
 
         </script>
 

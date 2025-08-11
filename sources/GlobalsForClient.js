@@ -44,13 +44,53 @@ var GlobalsForClientModule = ( function() {
         "ApprovalType":"bda","AssetSize":"30 sq yards","BuiltUpArea":"1200 sqft", "Status":"open",
         "AssetBedrooms":4,"AssetBathrooms":3,"AssetDescription":"Beautiful flat in Godrej Royal Woods", "BiddingType":"secretive"};
 
+    // Functional Tests : Close Auction : Input Objects
+
+    let closeAuctionAssetObject = {"AssetType":"Flat","MinAuctionPrice":"7500000","Address":"godrej royal woods",
+        "Colony":"devanahalli","City":"bangalore","State":"karnataka","Country":"india", "SellerCustomerId":61,
+        "ApprovalType":"bda","AssetSize":"25 sq yards","BuiltUpArea":"1000 sqft", "Status":"open",
+        "AssetBedrooms":4,"AssetBathrooms":2,"AssetDescription":"Beautiful flat in Godrej Royal Woods", "BiddingType":"open"};
+
+    // Functional Tests : Customer Dashbaord Tests : Input Objects
+
+    let customerDashboardAssetsObjects = [
+        
+        {"AssetType":"Flat","MinAuctionPrice":"7500000","Address":"godrej royal woods",
+        "Colony":"devanahalli","City":"bangalore","State":"karnataka","Country":"india", "SellerCustomerId":55,
+        "ApprovalType":"bda","AssetSize":"25 sq yards","BuiltUpArea":"1000 sqft", "Status":"open",
+        "AssetBedrooms":4,"AssetBathrooms":2,"AssetDescription":"Beautiful flat in Godrej Royal Woods", "BiddingType":"open"} ,
+
+        {"AssetType":"Flat","MinAuctionPrice":"7600000","Address":"godrej royal woods",
+        "Colony":"devanahalli","City":"bangalore","State":"karnataka","Country":"india", "SellerCustomerId":55,
+        "ApprovalType":"bda","AssetSize":"26 sq yards","BuiltUpArea":"1100 sqft", "Status":"open",
+        "AssetBedrooms":4,"AssetBathrooms":3,"AssetDescription":"Beautiful flat in Godrej Royal Woods2", "BiddingType":"secretive"} ,
+
+        {"AssetType":"Flat","MinAuctionPrice":"7700000","Address":"godrej royal woods",
+        "Colony":"devanahalli","City":"bangalore","State":"karnataka","Country":"india", "SellerCustomerId":56,
+        "ApprovalType":"bda","AssetSize":"27 sq yards","BuiltUpArea":"1200 sqft", "Status":"open",
+        "AssetBedrooms":4,"AssetBathrooms":3,"AssetDescription":"Beautiful flat in Godrej Royal Woods3", "BiddingType":"open"} ,
+
+        {"AssetType":"Flat","MinAuctionPrice":"7800000","Address":"godrej royal woods",
+        "Colony":"devanahalli","City":"bangalore","State":"karnataka","Country":"india", "SellerCustomerId":56,
+        "ApprovalType":"bda","AssetSize":"28 sq yards","BuiltUpArea":"1300 sqft", "Status":"open",
+        "AssetBedrooms":5,"AssetBathrooms":3,"AssetDescription":"Beautiful flat in Godrej Royal Woods4", "BiddingType":"secretive"} ,
+
+    ];
+
+    let customerDashboardAssetArray = [0, 0, 0, 0];
+
     // Functional Tests : Retrieve Assets : Input Objects
 
     let retrieveBidObject = {"AssetId":99,"CustomerId":56,"BidPrice":"8000000"};
 
+    let retrieveSecondBidObject = {"AssetId":109,"CustomerId":56,"BidPrice":"8500000"};
+
     let retrieveBetterBidObject = {"AssetId":199,"CustomerId":57,"BidPrice":"8100000"};
 
     let retrieveWorseBidObject = {"AssetId":299,"CustomerId":57,"BidPrice":"7900000"};
+
+    let retrieveBidCloseAuctionObject = {"AssetId":300,"CustomerId":60,"BidPrice":"8000000"};
+
 
     // Globals Helping the callbacks in Regression suite
     
@@ -78,6 +118,10 @@ var GlobalsForClientModule = ( function() {
 
     let executePlaceBidRecordCompletionTest = undefined;
     let executeDeleteBidRecordCompletionTest = undefined;
+
+    let currentObjectPublishMultiAssetTest = undefined;
+    let currentObjectPublishMultiAssetCompletionTest = undefined;
+    let currentBidRecordIndexForValidation = undefined;
 
     return{
 
@@ -125,6 +169,20 @@ var GlobalsForClientModule = ( function() {
 
         publishSecretiveAssetObject : publishSecretiveAssetObject,
         retrieveWorseBidObject : retrieveWorseBidObject,
+
+        // Close Auction
+
+        closeAuctionAssetObject : closeAuctionAssetObject,
+        retrieveBidCloseAuctionObject : retrieveBidCloseAuctionObject,
+
+        // Customer Dashboard
+
+        customerDashboardAssetsObjects : customerDashboardAssetsObjects,
+        currentObjectPublishMultiAssetTest : currentObjectPublishMultiAssetTest,
+        currentObjectPublishMultiAssetCompletionTest : currentObjectPublishMultiAssetCompletionTest,
+        customerDashboardAssetArray : customerDashboardAssetArray,
+        retrieveSecondBidObject : retrieveSecondBidObject,
+        currentBidRecordIndexForValidation : currentBidRecordIndexForValidation,
 
     }
 

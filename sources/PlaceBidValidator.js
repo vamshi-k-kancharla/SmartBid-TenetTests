@@ -109,7 +109,9 @@ var PlaceBidValidatorModule = ( function() {
 
         console.log("Successfully retrieved the Bid Asset Record => " + responseTextFromServer);
 
-        let currentBidAssetRecord = JSON.parse(responseTextFromServer)[0];
+        let currentBidAssetRecord = ( JSON.parse(responseTextFromServer).length == 1 ) ? JSON.parse(responseTextFromServer)[0] :
+            ( (GlobalsForClientModule.currentBidRecordIndexForValidation == 0 ) ? JSON.parse(responseTextFromServer)[0] : 
+            JSON.parse(responseTextFromServer)[1] );
         let currentValidateBidRecord = GlobalsForClientModule.currentValidateBidObject;
 
         if( currentBidAssetRecord.AssetId != currentValidateBidRecord.AssetId || 
@@ -118,6 +120,10 @@ var PlaceBidValidatorModule = ( function() {
         {
 
             console.log("Bid is not successfully updated in the Asset Record");
+
+            console.log( currentBidAssetRecord.AssetId +  "!=" + currentValidateBidRecord.AssetId + "||" + 
+                currentBidAssetRecord.BidderCustomerId +  "!=" + currentValidateBidRecord.CustomerId + "||" + 
+                currentBidAssetRecord.CurrentBidPrice  +  "!=" + currentValidateBidRecord.BidPrice );
 
             document.getElementById(GlobalsForClientModule.retrieveBidAssetTestContainer).innerHTML = "Compare Bid Asset Record Test Failed";
             document.getElementById(GlobalsForClientModule.retrieveBidAssetTestContainer).style.color = "Red";
