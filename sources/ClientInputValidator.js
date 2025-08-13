@@ -56,6 +56,19 @@ var ClientInputValidatorModule = ( function() {
         return true;
     }
 
+    function validateRecordRetrievalObjectInArray( retrievedObjectArray, inputObject )
+    {
+        for( let currentRetrievedObject of retrievedObjectArray )
+        {
+            if( validateRecordRetrievalObject( currentRetrievedObject, inputObject ) )
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     return {
 
         validateUserInputValue : validateUserInputValue,
@@ -63,6 +76,7 @@ var ClientInputValidatorModule = ( function() {
         validateUserInputObjectValue : validateUserInputObjectValue,
 
         validateRecordRetrievalObject : validateRecordRetrievalObject,
+        validateRecordRetrievalObjectInArray : validateRecordRetrievalObjectInArray,
         
     }
 

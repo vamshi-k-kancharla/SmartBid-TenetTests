@@ -20,6 +20,7 @@
         <script src="./sources/PublishAssetValidator.js"></script>
         <script src="./sources/PlaceBidValidator.js"></script>
         <script src="./sources/PublishMultiAssetValidator.js"></script>
+        <script src="./sources/CustomerDashboardValidator.js"></script>
 
 
         <br/><br/><br/>
@@ -170,6 +171,38 @@
 
             <br/>
             
+            <p id="customerDashboard_RetrieveCustomerAuctionsAndBids_container"></p>
+
+            <br/>
+            
+            <p id="customerDashboard_BidRecordRemovalTest_container_0"></p>
+            <p id="customerDashboard_BidRecordRemovalConfirmationTest_container_0"></p>
+
+            <br/>
+            
+            <p id="customerDashboard_BidRecordRemovalTest_container_1"></p>
+            <p id="customerDashboard_BidRecordRemovalConfirmationTest_container_1"></p>
+
+            <br/>
+            
+            <p id="customerDashboard_AssetRecordRemovalTest_container_0"></p>
+            <p id="customerDashboard_AssetRecordRemovalConfirmationTest_container_0"></p>
+
+            <br/>
+            
+            <p id="customerDashboard_AssetRecordRemovalTest_container_1"></p>
+            <p id="customerDashboard_AssetRecordRemovalConfirmationTest_container_1"></p>
+
+            <br/>
+            
+            <p id="customerDashboard_AssetRecordRemovalTest_container_2"></p>
+            <p id="customerDashboard_AssetRecordRemovalConfirmationTest_container_2"></p>
+
+            <br/>
+            
+            <p id="customerDashboard_AssetRecordRemovalTest_container_3"></p>
+            <p id="customerDashboard_AssetRecordRemovalConfirmationTest_container_3"></p>
+
         </div>
 
         <script>
@@ -181,8 +214,6 @@
             {
                 
                 let customerDetailsObject = {};
-
-                // customerDetailsObject = GlobalsForClientModule.customerRecordObject;
 
                 for( let currentCustomerRecordKey in GlobalsForClientModule.customerRecordObject )
                 {
@@ -801,11 +832,41 @@
             async function executeCustomerDashboardDataFetchTestWrapper()
             {
 
+                GlobalsForClientModule.currentCustomerDashboardId = 56;
+                GlobalsForClientModule.currentCustomerDashboardRetrieveRecordsContainer = "customerDashboard_RetrieveCustomerAuctionsAndBids_container";
+
+                GlobalsForClientModule.currentCustomerDashboardBidRecordRemovalContainerPrefix = "customerDashboard_BidRecordRemovalTest_container_";
+                GlobalsForClientModule.currentCustomerDashboardBidRecordRemovalConfirmationContainerPrefix = "customerDashboard_BidRecordRemovalConfirmationTest_container_";
+
+                GlobalsForClientModule.executeBidRecordRemovalsCompletionTest = executeCustomerDashboardMultiAssetDeletionsTestWrapper;
+
+                CustomerDashboardValidatorModule.executeCustomerDashboardRecordTest();
+
+            }
+
+            async function executeCustomerDashboardMultiAssetDeletionsTestWrapper()
+            {
+
+                GlobalsForClientModule.currentMultiAssetTestIndex = 0;
+
+                GlobalsForClientModule.currentCustomerDashboardAssetRecordRemovalContainerPrefix = "customerDashboard_AssetRecordRemovalTest_container_";
+                GlobalsForClientModule.currentCustomerDashboardAssetRecordRemovalConfirmationContainerPrefix = "customerDashboard_AssetRecordRemovalConfirmationTest_container_";
+
+                GlobalsForClientModule.currentObjectDeleteMultiAssetCompletionTest = executeAuctionSearchTestWrapper;
+
+                await PublishMultiAssetValidatorModule.executeMultiAssetRecordRemovalTest();
+
+            }
+
+            // Execute Auction Search Tests
+
+            async function executeAuctionSearchTestWrapper()
+            {
             }
 
         </script>
 
     </body>
 
-
 </html>
+

@@ -79,6 +79,10 @@ var GlobalsForClientModule = ( function() {
 
     let customerDashboardAssetArray = [0, 0, 0, 0];
 
+    let customerDashboardBidsAssetArray = [0, 0];
+
+    let customerDashboardSellerCustomerIdArray = [55, 55, 56, 56];
+
     // Functional Tests : Retrieve Assets : Input Objects
 
     let retrieveBidObject = {"AssetId":99,"CustomerId":56,"BidPrice":"8000000"};
@@ -122,6 +126,18 @@ var GlobalsForClientModule = ( function() {
     let currentObjectPublishMultiAssetTest = undefined;
     let currentObjectPublishMultiAssetCompletionTest = undefined;
     let currentBidRecordIndexForValidation = undefined;
+    let currentCustomerDashboardId = undefined;
+    let currentCustomerDashboardRetrieveRecordsContainer = undefined;
+
+    let currentBidRecordIndexForDeletion = undefined;
+    let executeBidRecordRemovalsCompletionTest = undefined;
+    let currentCustomerDashboardBidRecordRemovalContainerPrefix = undefined;
+    let currentCustomerDashboardBidRecordRemovalConfirmationContainerPrefix = undefined;
+
+    let currentCustomerDashboardAssetRecordRemovalContainerPrefix = undefined;
+    let currentCustomerDashboardAssetRecordRemovalConfirmationContainerPrefix = undefined;
+
+    let currentObjectDeleteMultiAssetCompletionTest = undefined;
 
     return{
 
@@ -183,6 +199,22 @@ var GlobalsForClientModule = ( function() {
         customerDashboardAssetArray : customerDashboardAssetArray,
         retrieveSecondBidObject : retrieveSecondBidObject,
         currentBidRecordIndexForValidation : currentBidRecordIndexForValidation,
+
+        currentCustomerDashboardId : currentCustomerDashboardId,
+        currentCustomerDashboardRetrieveRecordsContainer : currentCustomerDashboardRetrieveRecordsContainer,
+
+        customerDashboardBidsAssetArray : customerDashboardBidsAssetArray,
+        currentBidRecordIndexForDeletion : currentBidRecordIndexForDeletion,
+        executeBidRecordRemovalsCompletionTest : executeBidRecordRemovalsCompletionTest,
+
+        currentCustomerDashboardBidRecordRemovalContainerPrefix : currentCustomerDashboardBidRecordRemovalContainerPrefix,
+        currentCustomerDashboardBidRecordRemovalConfirmationContainerPrefix : currentCustomerDashboardBidRecordRemovalConfirmationContainerPrefix,
+
+        currentCustomerDashboardAssetRecordRemovalContainerPrefix : currentCustomerDashboardAssetRecordRemovalContainerPrefix,
+        currentCustomerDashboardAssetRecordRemovalConfirmationContainerPrefix : currentCustomerDashboardAssetRecordRemovalConfirmationContainerPrefix,
+
+        customerDashboardSellerCustomerIdArray : customerDashboardSellerCustomerIdArray,
+        currentObjectDeleteMultiAssetCompletionTest : currentObjectDeleteMultiAssetCompletionTest,
 
     }
 

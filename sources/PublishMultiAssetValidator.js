@@ -121,9 +121,131 @@ var PublishMultiAssetValidatorModule = ( function() {
     }
 
 
+    // Asset Record Removal Test
+
+    async function executeMultiAssetRecordRemovalTest()
+    {
+        
+        let currentMultiAssetId = GlobalsForClientModule.customerDashboardAssetArray[GlobalsForClientModule.currentMultiAssetTestIndex];
+        let assetRecordRemovalUrlParamsString = "DeleteAsset?AssetId=" + currentMultiAssetId;
+
+        await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( assetRecordRemovalUrlParamsString, 
+        successfulAssetRecordRemoval, failureAssetRecordRemoval );
+        
+    }
+
+    function successfulAssetRecordRemoval(responseTextFromServer) 
+    {
+
+        console.log("Successfully Removed the asset Record Data => " + responseTextFromServer);
+
+        document.getElementById(GlobalsForClientModule.currentCustomerDashboardAssetRecordRemovalContainerPrefix + 
+            GlobalsForClientModule.currentMultiAssetTestIndex).innerHTML = "Multi Asset Record Removal Test Passed";
+        document.getElementById(GlobalsForClientModule.currentCustomerDashboardAssetRecordRemovalContainerPrefix + 
+            GlobalsForClientModule.currentMultiAssetTestIndex).style.color = "Blue";
+
+        executeAssetRecordRemovalConfirmationTest();
+    }
+
+    function failureAssetRecordRemoval(responseTextFromServer) 
+    {
+
+        console.log("Failed to Remove the asset Record Data => " + responseTextFromServer);
+
+        document.getElementById(GlobalsForClientModule.currentCustomerDashboardAssetRecordRemovalContainerPrefix + 
+            GlobalsForClientModule.currentMultiAssetTestIndex).innerHTML = "Multi Asset Record Removal Test Failed";
+        document.getElementById(GlobalsForClientModule.currentCustomerDashboardAssetRecordRemovalContainerPrefix + 
+            GlobalsForClientModule.currentMultiAssetTestIndex).style.color = "Red";
+
+        executeAssetRecordRemovalConfirmationTest();
+    }
+
+
+    // Asset Record Removal Confirmation Test
+
+    async function executeAssetRecordRemovalConfirmationTest()
+    {
+        
+        let currentMultiAssetSellerCustomerId = GlobalsForClientModule.customerDashboardSellerCustomerIdArray[
+            GlobalsForClientModule.currentMultiAssetTestIndex];
+        let assetRecordRetrievalUrlParamsString = "RetrieveAuctions?Status=Open&SellerCustomerId=" + 
+            currentMultiAssetSellerCustomerId;
+
+        await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( assetRecordRetrievalUrlParamsString, 
+        successfulAssetRecordRemovalConfirmation, failureAssetRecordRemovalConfirmation );
+        
+    }
+
+    async function successfulAssetRecordRemovalConfirmation(responseTextFromServer) 
+    {
+
+        console.log("Successfully Retrieved the Asset Record Data => " + responseTextFromServer);
+
+        let numOfPresentRecords = ( GlobalsForClientModule.currentMultiAssetTestIndex % 2 == 0 ) ? 1 : 0;
+
+        if( JSON.parse(responseTextFromServer).length != numOfPresentRecords )
+        {
+
+            console.log("Couldn't confirm the deletion of Asset Record");
+
+            document.getElementById(GlobalsForClientModule.currentCustomerDashboardAssetRecordRemovalConfirmationContainerPrefix + 
+                GlobalsForClientModule.currentMultiAssetTestIndex).innerHTML = "Multi Asset Record Removal confirmation Test Failed";
+            document.getElementById(GlobalsForClientModule.currentCustomerDashboardAssetRecordRemovalConfirmationContainerPrefix + 
+                GlobalsForClientModule.currentMultiAssetTestIndex).style.color = "Red";
+                
+        }
+
+        else
+        {
+
+            console.log("Was able to confirm the deletion of Asset Record");
+
+            document.getElementById(GlobalsForClientModule.currentCustomerDashboardAssetRecordRemovalConfirmationContainerPrefix + 
+                GlobalsForClientModule.currentMultiAssetTestIndex).innerHTML = "Multi Asset Record Removal confirmation Test Passed";
+            document.getElementById(GlobalsForClientModule.currentCustomerDashboardAssetRecordRemovalConfirmationContainerPrefix + 
+                GlobalsForClientModule.currentMultiAssetTestIndex).style.color = "Blue";
+                
+        }
+
+        await exitTheMultiAssetDeletionTest();
+
+    }
+
+    async function failureAssetRecordRemovalConfirmation(responseTextFromServer) 
+    {
+
+        console.log("Failed to confirm the removal of Asset Record Data => " + responseTextFromServer);
+
+        document.getElementById(GlobalsForClientModule.currentCustomerDashboardAssetRecordRemovalConfirmationContainerPrefix + 
+            GlobalsForClientModule.currentMultiAssetTestIndex).innerHTML = "Multi Asset Record Removal confirmation Test Failed";
+        document.getElementById(GlobalsForClientModule.currentCustomerDashboardAssetRecordRemovalConfirmationContainerPrefix + 
+            GlobalsForClientModule.currentMultiAssetTestIndex).style.color = "Red";
+
+        await exitTheMultiAssetDeletionTest();
+
+    }
+
+    async function exitTheMultiAssetDeletionTest()
+    {
+
+        GlobalsForClientModule.currentMultiAssetTestIndex++;
+
+        if( GlobalsForClientModule.currentMultiAssetTestIndex < GlobalsForClientModule.customerDashboardAssetArray.length )
+        {
+            await executeMultiAssetRecordRemovalTest();
+        }
+        else
+        {
+            await GlobalsForClientModule.currentObjectDeleteMultiAssetCompletionTest();
+        }
+
+    }
+
     return {
 
         executePublishMultiAssetFunctionalTest : executePublishMultiAssetFunctionalTest,
+
+        executeMultiAssetRecordRemovalTest : executeMultiAssetRecordRemovalTest,
         
     }
 
