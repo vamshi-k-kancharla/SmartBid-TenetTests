@@ -203,6 +203,18 @@
             <p id="customerDashboard_AssetRecordRemovalTest_container_3"></p>
             <p id="customerDashboard_AssetRecordRemovalConfirmationTest_container_3"></p>
 
+            <br/><br/>
+            <p style = "color: brown;">=================================================================================</p>
+            <p style = "color: brown;">Feedback Tests</p>
+            <p style = "color: brown;">=================================================================================</p>
+
+            <p id="feedback_AddFeedbackTest_container"></p>
+            <p id="feedback_RetrieveFeedbackTest_container"></p>
+            <p id="feedback_DeleteFeedbackTest_container"></p>
+            <p id="feedback_DeleteFeedbackConfirmationTest_container"></p>
+
+            <br/>
+            
         </div>
 
         <script>
@@ -852,16 +864,198 @@
                 GlobalsForClientModule.currentCustomerDashboardAssetRecordRemovalContainerPrefix = "customerDashboard_AssetRecordRemovalTest_container_";
                 GlobalsForClientModule.currentCustomerDashboardAssetRecordRemovalConfirmationContainerPrefix = "customerDashboard_AssetRecordRemovalConfirmationTest_container_";
 
-                GlobalsForClientModule.currentObjectDeleteMultiAssetCompletionTest = executeAuctionSearchTestWrapper;
+                GlobalsForClientModule.currentObjectDeleteMultiAssetCompletionTest = executeFeedbackTestWrapper;
 
                 await PublishMultiAssetValidatorModule.executeMultiAssetRecordRemovalTest();
 
             }
 
-            // Execute Auction Search Tests
+            // Execute Feedback Tests
 
-            async function executeAuctionSearchTestWrapper()
+            async function executeFeedbackTestWrapper()
             {
+                
+                let feedbackRecordUrlParamsString = "AddFeedback?CustomerName=" + GlobalsForClientModule.feedbackRecordObject.CustomerName + 
+                    "&EmailAddress=" + GlobalsForClientModule.feedbackRecordObject.EmailAddress +
+                    "&Subject=" + GlobalsForClientModule.feedbackRecordObject.Subject +
+                    "&Message=" + GlobalsForClientModule.feedbackRecordObject.Message;
+
+                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( feedbackRecordUrlParamsString, 
+                successfulAddFeedbackRecord, failureAddFeedbackRecord );
+                
+            }
+
+            function successfulAddFeedbackRecord(responseTextFromServer)
+            {
+
+                console.log("Successfully added feedback record => " + successfulAddFeedbackRecord);
+
+                document.getElementById("feedback_AddFeedbackTest_container").innerHTML = "Add Feedback Record Test Passed";
+                document.getElementById("feedback_AddFeedbackTest_container").style.color = "Blue";
+
+                executeRetrieveFeedbackRecordTest();
+            }
+
+            function failureAddFeedbackRecord(responseTextFromServer) 
+            {
+
+                console.log("Failed to add feedback record => " + responseTextFromServer);
+
+                document.getElementById("feedback_AddFeedbackTest_container").innerHTML = "Add Feedback Record Test Failed";
+                document.getElementById("feedback_AddFeedbackTest_container").style.color = "Red";
+
+                executeRetrieveFeedbackRecordTest();
+            }
+
+            // Feedback Retrieval Test
+
+            async function executeRetrieveFeedbackRecordTest()
+            {
+                
+                let retrieveFeedbackRecordUrlParamsString = "RetrieveFeedback?CustomerName=" + 
+                    GlobalsForClientModule.feedbackRecordObject.CustomerName;
+
+                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( retrieveFeedbackRecordUrlParamsString, 
+                successfulRetrieveFeedbackRecord, failureRetrieveFeedbackRecord );
+                
+            }
+
+            function successfulRetrieveFeedbackRecord(responseTextFromServer) 
+            {
+
+                console.log("Successfully retrieved the Feedback => " + responseTextFromServer);
+
+                let currentFeedbackCompareRecord = JSON.parse(responseTextFromServer)[0];
+
+                if( !ClientInputValidatorModule.validateRecordRetrievalObject( currentFeedbackCompareRecord , 
+                    GlobalsForClientModule.feedbackRecordObject ) )
+                {
+
+                    console.log("Retrieved Feedback Record values are incorrect");
+                    document.getElementById("feedback_RetrieveFeedbackTest_container").innerHTML = "Retrieve Feedback Record Test Failed";
+                    document.getElementById("feedback_RetrieveFeedbackTest_container").style.color = "Red";
+                        
+                }
+
+                else
+                {
+
+                    console.log("Retrieved Feedback Record values matched that of expected");
+                    document.getElementById("feedback_RetrieveFeedbackTest_container").innerHTML = "Retrieve Feedback Record Test Passed";
+                    document.getElementById("feedback_RetrieveFeedbackTest_container").style.color = "Blue";
+
+                }
+
+                executeDeleteFeedbackRecordTest();
+
+            }
+
+            function failureRetrieveFeedbackRecord(responseTextFromServer) 
+            {
+
+                console.log("Failed to retrieve the feedback => " + responseTextFromServer);
+                document.getElementById("feedback_RetrieveFeedbackTest_container").innerHTML = "Retrieve Feedback Record Test Failed";
+                document.getElementById("feedback_RetrieveFeedbackTest_container").style.color = "Red";
+
+                executeDeleteFeedbackRecordTest();
+
+            }
+
+            // Delete Feedback Record Test
+
+            async function  executeDeleteFeedbackRecordTest()
+            {
+
+                let feedbackRecordRemovalUrlParamsString = "DeleteFeedback?CustomerName=" + 
+                    GlobalsForClientModule.feedbackRecordObject.CustomerName;
+
+                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( feedbackRecordRemovalUrlParamsString, 
+                successfulFeedbackRecordRemoval, failureFeedbackRecordRemoval );
+                
+            }
+
+            function successfulFeedbackRecordRemoval(responseTextFromServer) 
+            {
+
+                console.log("Successfully Removed the feedback Record Data => " + responseTextFromServer);
+
+                document.getElementById("feedback_DeleteFeedbackTest_container").innerHTML = "Feedback Record Removal Test Passed";
+                document.getElementById("feedback_DeleteFeedbackTest_container").style.color = "Blue";
+
+                executeFeedbackRecordRemovalConfirmationTest();
+            }
+
+            function failureFeedbackRecordRemoval(responseTextFromServer) 
+            {
+
+                console.log("Failed to Remove the feedback Record Data => " + responseTextFromServer);
+
+                document.getElementById("feedback_DeleteFeedbackTest_container").innerHTML = "Feedback Record Removal Test Failed";
+                document.getElementById("feedback_DeleteFeedbackTest_container").style.color = "Red";
+
+                executeFeedbackRecordRemovalConfirmationTest();
+            }
+
+
+            // Feedback Record Removal Confirmation Test
+
+            async function executeFeedbackRecordRemovalConfirmationTest()
+            {
+                
+                let retrieveFeedbackRecordUrlParamsString = "RetrieveFeedback?CustomerName=" + 
+                    GlobalsForClientModule.feedbackRecordObject.CustomerName;
+
+                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( retrieveFeedbackRecordUrlParamsString, 
+                successfulFeedbackRecordRemovalConfirmation, failureFeedbackRecordRemovalConfirmation );
+                
+            }
+
+            function successfulFeedbackRecordRemovalConfirmation(responseTextFromServer) 
+            {
+
+                console.log("Successfully Retrieved the Feedback Record Data => " + responseTextFromServer);
+
+                if( JSON.parse(responseTextFromServer).length != 0 )
+                {
+
+                    console.log("Couldn't confirm the deletion of Feedback Records");
+
+                    document.getElementById("feedback_DeleteFeedbackConfirmationTest_container").innerHTML = "Feedback Record Removal Confirmation Test Failed";
+                    document.getElementById("feedback_DeleteFeedbackConfirmationTest_container").style.color = "Red";
+                        
+                }
+
+                else
+                {
+
+                    console.log("Was able to confirm the deletion of Feedback Records");
+
+                    document.getElementById("feedback_DeleteFeedbackConfirmationTest_container").innerHTML = "Feedback Record Removal Confirmation Test Passed";
+                    document.getElementById("feedback_DeleteFeedbackConfirmationTest_container").style.color = "Blue";
+                        
+                }
+
+                executeSearchFilterWrapperTest();
+
+            }
+
+            function failureFeedbackRecordRemovalConfirmation(responseTextFromServer) 
+            {
+
+                console.log("Failed to confirm the removal of Feedback Record Data => " + responseTextFromServer);
+
+                document.getElementById("feedback_DeleteFeedbackConfirmationTest_container").innerHTML = "Feedback Record Removal Confirmation Test Failed";
+                document.getElementById("feedback_DeleteFeedbackConfirmationTest_container").style.color = "Red";
+                    
+                executeSearchFilterWrapperTest();
+
+            }
+
+            // Search Filter Tests
+
+            async function executeSearchFilterWrapperTest()
+            {
+
             }
 
         </script>

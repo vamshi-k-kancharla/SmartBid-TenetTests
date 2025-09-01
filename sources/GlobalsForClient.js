@@ -31,6 +31,11 @@ var GlobalsForClientModule = ( function() {
     let validateCustomerRecordObject = {"Name":"CustomerName","EmailAddress":"customerEmail@gmail.com","Address":"Inupamula",
         "UserType":"Customer","City":"Hyderabad","State":"Telangana","Country":"India","PhoneNumber":"7306004100"};
 
+    // Functional Tests : Input Objects : Customer SignUp
+
+    let feedbackRecordObject = { "CustomerName":"abcdcustomer","EmailAddress":"customerEmail@gmail.com","Subject":"feedback subject",
+        "Message":"SmartBid is exceptional" };
+
 
     // Functional Tests : Publish Assets : Input Objects
 
@@ -215,6 +220,10 @@ var GlobalsForClientModule = ( function() {
 
         customerDashboardSellerCustomerIdArray : customerDashboardSellerCustomerIdArray,
         currentObjectDeleteMultiAssetCompletionTest : currentObjectDeleteMultiAssetCompletionTest,
+
+        // Customer Feedback 
+
+        feedbackRecordObject : feedbackRecordObject,
 
     }
 
