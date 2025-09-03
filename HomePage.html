@@ -21,6 +21,7 @@
         <script src="./sources/PlaceBidValidator.js"></script>
         <script src="./sources/PublishMultiAssetValidator.js"></script>
         <script src="./sources/CustomerDashboardValidator.js"></script>
+        <script src="./sources/SearchFilterValidator.js"></script>
 
 
         <br/><br/><br/>
@@ -212,6 +213,25 @@
             <p id="feedback_RetrieveFeedbackTest_container"></p>
             <p id="feedback_DeleteFeedbackTest_container"></p>
             <p id="feedback_DeleteFeedbackConfirmationTest_container"></p>
+
+            <br/><br/>
+            <p style = "color: brown;">=================================================================================</p>
+            <p style = "color: brown;">Search Filter Tests</p>
+            <p style = "color: brown;">=================================================================================</p>
+
+            <p id="searchFilter_PublishAssetTest_container"></p>
+            <p id="searchFilter_RetrieveAssetTest_container"></p>
+
+            <p id="searchFilter_FilterAssetRetrievalTest1_container"></p>
+            <p id="searchFilter_FilterAssetRetrievalTest2_container"></p>
+            <p id="searchFilter_FilterAssetRetrievalTest3_container"></p>
+            <p id="searchFilter_FilterAssetRetrievalTest4_container"></p>
+            <p id="searchFilter_FilterAssetRetrievalTest5_container"></p>
+            <p id="searchFilter_FilterAssetRetrievalTest6_container"></p>
+            <p id="searchFilter_FilterAssetRetrievalTest7_container"></p>
+
+            <p id="searchFilter_FilterAssetDeletionTest_container"></p>
+            <p id="searchFilter_FilterAssetDeletionConfirmationTest_container"></p>
 
             <br/>
             
@@ -1055,7 +1075,116 @@
 
             async function executeSearchFilterWrapperTest()
             {
+                
+                GlobalsForClientModule.currentCallBackFunctionForPublishAssetTest = executeSearchFilter1TestWrapper;
+                GlobalsForClientModule.currentObjectPublishAssetTest = GlobalsForClientModule.publishSearchFilterAssetObject;
+                GlobalsForClientModule.currentPublishAssetTestContainer = "searchFilter_PublishAssetTest_container";
+                GlobalsForClientModule.currentAssetRetrievalTestContainer = "searchFilter_RetrieveAssetTest_container";
 
+                PublishAssetValidatorModule.executePublishAssetFunctionalTest();
+
+            }
+
+            async function executeSearchFilter1TestWrapper(inputAssetId)
+            {
+                
+                GlobalsForClientModule.searchFilterTests_CurrentAssetObject_AssetId = inputAssetId;
+                
+                GlobalsForClientModule.currentCallBackFunctionForSearchFilterAssetRetrievalTest = executeSearchFilter2TestWrapper;
+                GlobalsForClientModule.searchFilterTests_CurrentFilterObject = GlobalsForClientModule.searchFilterTests_FilterObject1;
+                GlobalsForClientModule.searchFilterTests_CurrentAssetObject = GlobalsForClientModule.publishSearchFilterAssetObject;
+                GlobalsForClientModule.currentSearchFilterAssetRetrievalTestContainer = "searchFilter_FilterAssetRetrievalTest1_container";
+
+                await SearchFilterValidatorModule.executeSearchFilterAssetRecordRetrievalTest();
+
+            }
+
+            async function executeSearchFilter2TestWrapper()
+            {
+                
+                GlobalsForClientModule.currentCallBackFunctionForSearchFilterAssetRetrievalTest = executeSearchFilter3TestWrapper;
+                GlobalsForClientModule.searchFilterTests_CurrentFilterObject = GlobalsForClientModule.searchFilterTests_FilterObject2;
+                GlobalsForClientModule.searchFilterTests_CurrentAssetObject = GlobalsForClientModule.publishSearchFilterAssetObject;
+                GlobalsForClientModule.currentSearchFilterAssetRetrievalTestContainer = "searchFilter_FilterAssetRetrievalTest2_container";
+
+                await SearchFilterValidatorModule.executeSearchFilterAssetRecordRetrievalTest();
+
+            }
+
+            async function executeSearchFilter3TestWrapper()
+            {
+                
+                GlobalsForClientModule.currentCallBackFunctionForSearchFilterAssetRetrievalTest = executeSearchFilter4TestWrapper;
+                GlobalsForClientModule.searchFilterTests_CurrentFilterObject = GlobalsForClientModule.searchFilterTests_FilterObject3;
+                GlobalsForClientModule.searchFilterTests_CurrentAssetObject = GlobalsForClientModule.publishSearchFilterAssetObject;
+                GlobalsForClientModule.currentSearchFilterAssetRetrievalTestContainer = "searchFilter_FilterAssetRetrievalTest3_container";
+
+                await SearchFilterValidatorModule.executeSearchFilterAssetRecordRetrievalTest();
+
+            }
+
+            async function executeSearchFilter4TestWrapper()
+            {
+                
+                GlobalsForClientModule.currentCallBackFunctionForSearchFilterAssetRetrievalTest = executeSearchFilter5TestWrapper;
+                GlobalsForClientModule.searchFilterTests_CurrentFilterObject = GlobalsForClientModule.searchFilterTests_FilterObject4;
+                GlobalsForClientModule.searchFilterTests_CurrentAssetObject = GlobalsForClientModule.publishSearchFilterAssetObject;
+                GlobalsForClientModule.currentSearchFilterAssetRetrievalTestContainer = "searchFilter_FilterAssetRetrievalTest4_container";
+
+                await SearchFilterValidatorModule.executeSearchFilterAssetRecordRetrievalTest();
+
+            }
+
+            async function executeSearchFilter5TestWrapper()
+            {
+                
+                GlobalsForClientModule.currentCallBackFunctionForSearchFilterAssetRetrievalTest = executeSearchFilter6TestWrapper;
+                GlobalsForClientModule.searchFilterTests_CurrentFilterObject = GlobalsForClientModule.searchFilterTests_FilterObject5;
+                GlobalsForClientModule.searchFilterTests_CurrentAssetObject = GlobalsForClientModule.publishSearchFilterAssetObject;
+                GlobalsForClientModule.currentSearchFilterAssetRetrievalTestContainer = "searchFilter_FilterAssetRetrievalTest5_container";
+
+                await SearchFilterValidatorModule.executeSearchFilterAssetRecordRetrievalTest();
+
+            }
+
+            async function executeSearchFilter6TestWrapper()
+            {
+                
+                GlobalsForClientModule.currentCallBackFunctionForSearchFilterAssetRetrievalTest = executeSearchFilter7TestWrapper;
+                GlobalsForClientModule.searchFilterTests_CurrentFilterObject = GlobalsForClientModule.searchFilterTests_FilterObject6;
+                GlobalsForClientModule.searchFilterTests_CurrentAssetObject = GlobalsForClientModule.publishSearchFilterAssetObject;
+                GlobalsForClientModule.currentSearchFilterAssetRetrievalTestContainer = "searchFilter_FilterAssetRetrievalTest6_container";
+
+                await SearchFilterValidatorModule.executeSearchFilterAssetRecordRetrievalTest();
+
+            }
+
+            async function executeSearchFilter7TestWrapper()
+            {
+                
+                GlobalsForClientModule.currentCallBackFunctionForSearchFilterAssetRetrievalTest = executeSearchFilterDeleteAssetTestWrapper;
+                GlobalsForClientModule.searchFilterTests_CurrentFilterObject = GlobalsForClientModule.searchFilterTests_FilterObject7;
+                GlobalsForClientModule.searchFilterTests_CurrentAssetObject = {};
+                GlobalsForClientModule.currentSearchFilterAssetRetrievalTestContainer = "searchFilter_FilterAssetRetrievalTest7_container";
+
+                await SearchFilterValidatorModule.executeSearchFilterAssetRecordRetrievalTest();
+
+            }
+
+            async function executeSearchFilterDeleteAssetTestWrapper()
+            {
+                
+                GlobalsForClientModule.currentAssetRecordRemovalTestContainer = "searchFilter_FilterAssetDeletionTest_container";
+                GlobalsForClientModule.currentAssetRecordRemovalConfirmationTestContainer = "searchFilter_FilterAssetDeletionConfirmationTest_container";
+
+                GlobalsForClientModule.currentCallbackFunctionForAssetRemovalTest = executeNextSetOfTestsWrapper;
+
+                PublishAssetValidatorModule.executeAssetRecordRemovalTest(GlobalsForClientModule.searchFilterTests_CurrentAssetObject_AssetId);
+
+            }
+
+            async function executeNextSetOfTestsWrapper()
+            {
             }
 
         </script>

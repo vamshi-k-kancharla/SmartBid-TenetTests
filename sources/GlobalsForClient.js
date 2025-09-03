@@ -49,6 +49,11 @@ var GlobalsForClientModule = ( function() {
         "ApprovalType":"bda","AssetSize":"30 sq yards","BuiltUpArea":"1200 sqft", "Status":"open",
         "AssetBedrooms":4,"AssetBathrooms":3,"AssetDescription":"Beautiful flat in Godrej Royal Woods", "BiddingType":"secretive"};
 
+    let publishSearchFilterAssetObject = {"AssetType":"Villa","MinAuctionPrice":"38000000","Address":"Near ZPHS",
+        "Colony":"Inupamula","City":"Nakrekal","State":"Telangana","Country":"India", "SellerCustomerId":45,
+        "ApprovalType":"HMDA","AssetSize":"484 sq yards","BuiltUpArea":"3500 sqft", "Status":"open",
+        "AssetBedrooms":3,"AssetBathrooms":4,"AssetDescription":"Beautiful Villa House in Inupamula", "BiddingType":"open"};
+
     // Functional Tests : Close Auction : Input Objects
 
     let closeAuctionAssetObject = {"AssetType":"Flat","MinAuctionPrice":"7500000","Address":"godrej royal woods",
@@ -101,6 +106,17 @@ var GlobalsForClientModule = ( function() {
     let retrieveBidCloseAuctionObject = {"AssetId":300,"CustomerId":60,"BidPrice":"8000000"};
 
 
+    // Search Filter Object
+
+    let searchFilterTests_FilterObject1 = {"AssetType":"Villa","Colony":"Inupamula","City":"Nakrekal"};
+    let searchFilterTests_FilterObject2 = {"AssetType":"Villa","Colony":"Inupamula"};
+    let searchFilterTests_FilterObject3 = {"AssetType":"Villa","City":"Nakrekal"};
+    let searchFilterTests_FilterObject4 = {"Colony":"Inupamula","City":"Nakrekal"};
+    let searchFilterTests_FilterObject5 = {"Colony":"Inupamula"};
+    let searchFilterTests_FilterObject6 = {"City":"Nakrekal"};
+    let searchFilterTests_FilterObject7 = {"AssetType":"Flat","Colony":"Inupamula","City":"Nakrekal"};
+
+
     // Globals Helping the callbacks in Regression suite
     
     
@@ -143,6 +159,13 @@ var GlobalsForClientModule = ( function() {
     let currentCustomerDashboardAssetRecordRemovalConfirmationContainerPrefix = undefined;
 
     let currentObjectDeleteMultiAssetCompletionTest = undefined;
+
+    let searchFilterTests_CurrentFilterObject = undefined;
+    let searchFilterTests_CurrentAssetObject = undefined;
+    let currentSearchFilterAssetRetrievalTestContainer = undefined;
+    let currentCallBackFunctionForSearchFilterAssetRetrievalTest = undefined;
+    let searchFilterTests_CurrentAssetObject_AssetId = undefined;
+
 
     return{
 
@@ -224,6 +247,25 @@ var GlobalsForClientModule = ( function() {
         // Customer Feedback 
 
         feedbackRecordObject : feedbackRecordObject,
+
+        // Search Filter Tests
+
+        publishSearchFilterAssetObject : publishSearchFilterAssetObject,
+
+        searchFilterTests_FilterObject1 : searchFilterTests_FilterObject1,
+        searchFilterTests_FilterObject2 : searchFilterTests_FilterObject2,
+        searchFilterTests_FilterObject3 : searchFilterTests_FilterObject3,
+        searchFilterTests_FilterObject4 : searchFilterTests_FilterObject4,
+        searchFilterTests_FilterObject5 : searchFilterTests_FilterObject5,
+        searchFilterTests_FilterObject6 : searchFilterTests_FilterObject6,
+        searchFilterTests_FilterObject7 : searchFilterTests_FilterObject7,
+
+        searchFilterTests_CurrentFilterObject : searchFilterTests_CurrentFilterObject,
+        searchFilterTests_CurrentAssetObject : searchFilterTests_CurrentAssetObject,
+        currentSearchFilterAssetRetrievalTestContainer : currentSearchFilterAssetRetrievalTestContainer,
+        currentCallBackFunctionForSearchFilterAssetRetrievalTest : currentCallBackFunctionForSearchFilterAssetRetrievalTest,
+
+        searchFilterTests_CurrentAssetObject_AssetId : searchFilterTests_CurrentAssetObject_AssetId,
 
     }
 
