@@ -2,7 +2,7 @@
 
     <head>
 
-        <title>Smart Bid Functional Tests</title>
+        <title>Smart Bid Tenet Tests</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -13,225 +13,22 @@
 
     <body>
 
-        <script src="./sources/HttpRestAPIClient.js"></script>
         <script src="./sources/GlobalsForClient.js"></script>
-        <script src="./sources/ClientInputValidator.js"></script>
-        <script src="./sources/ProcessFormInput.js"></script>
-        <script src="./sources/PublishAssetValidator.js"></script>
-        <script src="./sources/PlaceBidValidator.js"></script>
-        <script src="./sources/PublishMultiAssetValidator.js"></script>
-        <script src="./sources/CustomerDashboardValidator.js"></script>
-        <script src="./sources/SearchFilterValidator.js"></script>
 
 
         <br/><br/><br/>
 
         <div class="container">
 
-            <button class="btn btn-primary" onclick="executeCustomerSignupFunctionalTest()">Execute SmartBid Functional Tests</button>
+            <button class="btn btn-primary" onclick="executeSmartBidTenetTests()">Execute SmartBid Tenet Tests</button>
 
             <br/><br/><br/>
             <p style = "color: brown;">=================================================================================</p>
             <p style = "color: brown;">Customer SignUp Tests</p>
             <p style = "color: brown;">=================================================================================</p>
 
-            <p id="customerSignUpTest_container"></p>
-            <p id="customerRecordRetrievalTest_container"></p>
-            <p id="customerLogInTest_container"></p>
-            <p id="customerRecordRemoval_container"></p>
-            <p id="customerRecordRemovalConfirmation_container"></p>
-
-            <br/><br/>
-            <p style = "color: brown;">=================================================================================</p>
-            <p style = "color: brown;">Publish Asset Tests</p>
-            <p style = "color: brown;">=================================================================================</p>
-
-            <p id="publishAssetTest_container"></p>
-            <p id="assetRecordRetrievalTest_container"></p>
-            <p id="assetRecordRemovalTest_container"></p>
-            <p id="assetRecordRemovalConfirmation_container"></p>
-
-            <br/><br/>
-            <p style = "color: brown;">=================================================================================</p>
-            <p style = "color: brown;">Place Open Bids Tests</p>
-            <p style = "color: brown;">=================================================================================</p>
-
-            <p id="placeOpenBid_PublishAssetTest_container"></p>
-            <p id="placeOpenBid_AssetRecordRetrievalTest_container"></p>
-
-            <br/>
-
-            <p id="placeOpenBid_PlaceBidTest_container"></p>
-            <p id="placeOpenBid_RetrieveBidTest_container"></p>
-            <p id="placeOpenBid_RetrieveBidAssetTest_container"></p>
-
-            <br/>
-            
-            <p id="placeOpenBid_PlaceBetterBidTest_container"></p>
-            <p id="placeOpenBid_RetrieveBetterBidTest_container"></p>
-            <p id="placeOpenBid_RetrieveBetterBidAssetTest_container"></p>
-
-            <br/>
-            
-            <p id="placeOpenBid_bidRecordRemovalTest_container"></p>
-            <p id="placeOpenBid_bidRecordRemovalConfirmation_container"></p>
-
-            <br/>
-            
-            <p id="placeOpenBid_assetBidRecordRemovalTest_container"></p>
-            <p id="placeOpenBid_assetBidRecordRemovalConfirmation_container"></p>
-
-            <br/><br/>
-            <p style = "color: brown;">=================================================================================</p>
-            <p style = "color: brown;">Place Secretive Bids Tests</p>
-            <p style = "color: brown;">=================================================================================</p>
-
-            <p id="placeSecretiveBid_PublishAssetTest_container"></p>
-            <p id="placeSecretiveBid_AssetRecordRetrievalTest_container"></p>
-
-            <br/>
-
-            <p id="placeSecretiveBid_PlaceBidTest_container"></p>
-            <p id="placeSecretiveBid_RetrieveBidTest_container"></p>
-            <p id="placeSecretiveBid_RetrieveBidAssetTest_container"></p>
-
-            <br/>
-            
-            <p id="placeSecretiveBid_PlaceBetterBidTest_container"></p>
-            <p id="placeSecretiveBid_RetrieveBetterBidTest_container"></p>
-            <p id="placeSecretiveBid_RetrieveBetterBidAssetTest_container"></p>
-
-            <br/>
-            
-            <p id="placeSecretiveBid_bidRecordRemovalTest_container"></p>
-            <p id="placeSecretiveBid_bidRecordRemovalConfirmation_container"></p>
-
-            <br/>
-            
-            <p id="placeSecretiveBid_assetBidRecordRemovalTest_container"></p>
-            <p id="placeSecretiveBid_assetBidRecordRemovalConfirmation_container"></p>
-
-            <br/><br/>
-            <p style = "color: brown;">=================================================================================</p>
-            <p style = "color: brown;">Close Auction Tests</p>
-            <p style = "color: brown;">=================================================================================</p>
-
-            <p id="closeAuction_PublishAssetTest_container"></p>
-            <p id="closeAuction_AssetRecordRetrievalTest_container"></p>
-
-            <br/>
-
-            <p id="closeAuction_PlaceBidTest_container"></p>
-            <p id="closeAuction_RetrieveBidTest_container"></p>
-            <p id="closeAuction_RetrieveBidAssetTest_container"></p>
-
-            <br/>
-
-            <p id="closeAuction_CloseAuctionTest_container"></p>
-            <p id="closeAuction_StatusRetrievalTest_container"></p>
-
-            <br/>
-            
-            <p id="closeAuction_assetBidRecordRemovalTest_container"></p>
-            <p id="closeAuction_assetBidRecordRemovalConfirmation_container"></p>
-
-            <br/><br/>
-            <p style = "color: brown;">=================================================================================</p>
-            <p style = "color: brown;">Customer Dashboard Tests</p>
-            <p style = "color: brown;">=================================================================================</p>
-
-            <p id="customerDashboard_PublishAssetTest_container_0"></p>
-            <p id="customerDashboard_AssetRecordRetrievalTest_container_0"></p>
-
-            <br/>
-            
-            <p id="customerDashboard_PublishAssetTest_container_1"></p>
-            <p id="customerDashboard_AssetRecordRetrievalTest_container_1"></p>
-
-            <br/>
-            
-            <p id="customerDashboard_PublishAssetTest_container_2"></p>
-            <p id="customerDashboard_AssetRecordRetrievalTest_container_2"></p>
-
-            <br/>
-            
-            <p id="customerDashboard_PublishAssetTest_container_3"></p>
-            <p id="customerDashboard_AssetRecordRetrievalTest_container_3"></p>
-
-            <br/>
-            
-            <p id="customerDashboard_PlaceBidTest_container"></p>
-            <p id="customerDashboard_RetrieveBidTest_container"></p>
-            <p id="customerDashboard_RetrieveBidAssetTest_container"></p>
-
-            <br/>
-            
-            <p id="customerDashboard_PlaceSecondBidTest_container"></p>
-            <p id="customerDashboard_RetrieveSecondBidTest_container"></p>
-            <p id="customerDashboard_RetrieveSecondBidAssetTest_container"></p>
-
-            <br/>
-            
-            <p id="customerDashboard_RetrieveCustomerAuctionsAndBids_container"></p>
-
-            <br/>
-            
-            <p id="customerDashboard_BidRecordRemovalTest_container_0"></p>
-            <p id="customerDashboard_BidRecordRemovalConfirmationTest_container_0"></p>
-
-            <br/>
-            
-            <p id="customerDashboard_BidRecordRemovalTest_container_1"></p>
-            <p id="customerDashboard_BidRecordRemovalConfirmationTest_container_1"></p>
-
-            <br/>
-            
-            <p id="customerDashboard_AssetRecordRemovalTest_container_0"></p>
-            <p id="customerDashboard_AssetRecordRemovalConfirmationTest_container_0"></p>
-
-            <br/>
-            
-            <p id="customerDashboard_AssetRecordRemovalTest_container_1"></p>
-            <p id="customerDashboard_AssetRecordRemovalConfirmationTest_container_1"></p>
-
-            <br/>
-            
-            <p id="customerDashboard_AssetRecordRemovalTest_container_2"></p>
-            <p id="customerDashboard_AssetRecordRemovalConfirmationTest_container_2"></p>
-
-            <br/>
-            
-            <p id="customerDashboard_AssetRecordRemovalTest_container_3"></p>
-            <p id="customerDashboard_AssetRecordRemovalConfirmationTest_container_3"></p>
-
-            <br/><br/>
-            <p style = "color: brown;">=================================================================================</p>
-            <p style = "color: brown;">Feedback Tests</p>
-            <p style = "color: brown;">=================================================================================</p>
-
-            <p id="feedback_AddFeedbackTest_container"></p>
-            <p id="feedback_RetrieveFeedbackTest_container"></p>
-            <p id="feedback_DeleteFeedbackTest_container"></p>
-            <p id="feedback_DeleteFeedbackConfirmationTest_container"></p>
-
-            <br/><br/>
-            <p style = "color: brown;">=================================================================================</p>
-            <p style = "color: brown;">Search Filter Tests</p>
-            <p style = "color: brown;">=================================================================================</p>
-
-            <p id="searchFilter_PublishAssetTest_container"></p>
-            <p id="searchFilter_RetrieveAssetTest_container"></p>
-
-            <p id="searchFilter_FilterAssetRetrievalTest1_container"></p>
-            <p id="searchFilter_FilterAssetRetrievalTest2_container"></p>
-            <p id="searchFilter_FilterAssetRetrievalTest3_container"></p>
-            <p id="searchFilter_FilterAssetRetrievalTest4_container"></p>
-            <p id="searchFilter_FilterAssetRetrievalTest5_container"></p>
-            <p id="searchFilter_FilterAssetRetrievalTest6_container"></p>
-            <p id="searchFilter_FilterAssetRetrievalTest7_container"></p>
-
-            <p id="searchFilter_FilterAssetDeletionTest_container"></p>
-            <p id="searchFilter_FilterAssetDeletionConfirmationTest_container"></p>
+            <p id="perfTests_SuccessfulQueries_container"></p>
+            <p id="perfTests_FailureQueries_container"></p>
 
             <br/>
             
@@ -240,951 +37,102 @@
         <script>
 
 
-            // Customer Sign Up Test
+            // Execute Smart Bid Tenet Tests
 
-            async function executeCustomerSignupFunctionalTest()
+            async function executeSmartBidTenetTests()
             {
-                
-                let customerDetailsObject = {};
 
-                for( let currentCustomerRecordKey in GlobalsForClientModule.customerRecordObject )
+                let totalNoOfSuccessfulQueries = 0;
+                let totalNoOfFailureQueries = 0;
+
+                let totalTimeOfExecutionInMinutes = 1;
+
+                let executionStartTime = Date.now();
+
+                if( GlobalsForClientModule.bDisplayLogs )
                 {
-                    customerDetailsObject[currentCustomerRecordKey] = GlobalsForClientModule.customerRecordObject[currentCustomerRecordKey];
+                    console.log("executeSmartBidTenetTests : Creating Tenet worker threads => execution Start Time = " + executionStartTime);
                 }
 
-                customerDetailsObject.Password = window.btoa(GlobalsForClientModule.customerRecordObject.Password);
-
-                await HttpRestAPIClientModule.sendHttpJsonRequestToSmartBidServerWithCallback( "AddCustomer", customerDetailsObject, 
-                successfulCustomerDataSubmission, failureCustomerDataSubmission );
-                
-            }
-
-            function successfulCustomerDataSubmission(responseTextFromServer) 
-            {
-
-                console.log("Successfully submitted the Customer Record Data => " + responseTextFromServer);
-                document.getElementById("customerSignUpTest_container").innerHTML = "Customer SignUp Test Passed";
-                document.getElementById("customerSignUpTest_container").style.color = "Blue";
-
-                executeCustomerRecordRetrievalTest();
-            }
-
-            function failureCustomerDataSubmission(responseTextFromServer) 
-            {
-
-                console.log("Failed to Submit the Customer Record Data => " + responseTextFromServer);
-                document.getElementById("customerSignUpTest_container").innerHTML = "Customer SignUp Test Failed";
-                document.getElementById("customerSignUpTest_container").style.color = "Red";
-
-                executeCustomerRecordRetrievalTest();
-            }
-
-            
-            
-            // Customer Record Retrieval Test
-
-            async function executeCustomerRecordRetrievalTest()
-            {
-                
-                let customerRecordRetrievalUrlParamsString = "RetrieveCustomer?EmailAddress=" + 
-                    GlobalsForClientModule.customerRecordObject.EmailAddress;
-
-                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( customerRecordRetrievalUrlParamsString, 
-                successfulCustomerRecordRetrieval, failureCustomerRecordRetrieval );
-                
-            }
-
-            function successfulCustomerRecordRetrieval(responseTextFromServer) 
-            {
-
-                console.log("Successfully Retrieved the Customer Record Data => " + responseTextFromServer);
-
-                if( !ClientInputValidatorModule.validateRecordRetrievalObject( JSON.parse(responseTextFromServer)[0] , 
-                    GlobalsForClientModule.validateCustomerRecordObject ) )
+                for( let i = 0 ; i < GlobalsForClientModule.maxThreadsToBeSpawned ; i++ )
                 {
+                    let tenetTestWorker = new Worker('./sources/TenetTestValidator.js');
 
-                    console.log("Retrieved Customer Record values are incorrect");
-                    document.getElementById("customerRecordRetrievalTest_container").innerHTML = "Customer Record Retrieval Test Failed";
-                    document.getElementById("customerRecordRetrievalTest_container").style.color = "Red";
-                        
+                    GlobalsForClientModule.tenetWorkerThreads.push(tenetTestWorker);
+
+                    let currentTenetValidatorObject = {};
+
+                    currentTenetValidatorObject["WebWorkerNumber"] = i+1;
+                    currentTenetValidatorObject["CurrentPasswords"] = storeEncodedPasswords();
+                    currentTenetValidatorObject["bDisplayLogs"] = false;
+
+                    GlobalsForClientModule.inputTenetData.push(currentTenetValidatorObject);
                 }
 
-                else
+                for( let i = 0 ; i < GlobalsForClientModule.maxThreadsToBeSpawned ; i++ )
                 {
+                    GlobalsForClientModule.tenetWorkerThreads[i].postMessage(GlobalsForClientModule.inputTenetData[i]);
 
-                    console.log("Retrieved Customer Record values matched that of expected");
-                    document.getElementById("customerRecordRetrievalTest_container").innerHTML = "Customer Record Retrieval Test Passed";
-                    document.getElementById("customerRecordRetrievalTest_container").style.color = "Blue";
+                    if( GlobalsForClientModule.bDisplayLogs )
+                    {
+                        console.log("executeSmartBidTenetTests : listening for message from Tenet Test Validator => " + i);
+                    }
+
+                    GlobalsForClientModule.tenetWorkerThreads[i].onmessage = (e) => {
+
+                        totalNoOfSuccessfulQueries += e.data.noOfSuccessfulQueries;
+                        totalNoOfFailureQueries += e.data.noOfFailureQueries;
+
+                        if( GlobalsForClientModule.bDisplayLogs )
+                        {
+                            console.log("execueSmartBidTenetTests: successful query count = " + totalNoOfSuccessfulQueries);
+                            console.log("execueSmartBidTenetTests: failure query count = " + totalNoOfFailureQueries);
+                        }
+
+                    }
 
                 }
 
-                executeCustomerLogInTest();
-
-            }
-
-            function failureCustomerRecordRetrieval(responseTextFromServer) 
-            {
-
-                console.log("Failed to Retrieve the Customer Record Data => " + responseTextFromServer);
-                document.getElementById("customerRecordRetrievalTest_container").innerHTML = "Customer Record Retrieval Test Failed";
-                document.getElementById("customerRecordRetrievalTest_container").style.color = "Red";
-
-                executeCustomerLogInTest();
-
-            }
-
-
-            // Customer LogIn Test
-
-            async function executeCustomerLogInTest()
-            {
-                
-                let customerDetailsObject = {};
-
-                customerDetailsObject.EmailAddress = GlobalsForClientModule.customerRecordObject.EmailAddress;
-                customerDetailsObject.PasswordCode = window.btoa("abcd1234");
-
-                await HttpRestAPIClientModule.sendHttpJsonRequestToSmartBidServerWithCallback( "AuthenticateUser", 
-                customerDetailsObject, successfulCustomerLogIn, failureCustomerLogIn );
-                
-            }
-
-            function successfulCustomerLogIn(responseTextFromServer) 
-            {
-
-                console.log("Successfully Logged Into the Server => " + responseTextFromServer);
-
-                document.getElementById("customerLogInTest_container").innerHTML = "Customer Login Test Passed";
-                document.getElementById("customerLogInTest_container").style.color = "Blue";
-
-                executeCustomerRecordRemovalTest();
-            }
-
-            function failureCustomerLogIn(responseTextFromServer) 
-            {
-
-                console.log("Failed to LogIn to the Server => " + responseTextFromServer);
-                document.getElementById("customerLogInTest_container").innerHTML = "Customer Login Test Failed";
-                document.getElementById("customerLogInTest_container").style.color = "Red";
-
-                executeCustomerRecordRemovalTest();
-            }
-
-
-            // Customer Record Removal Test
-
-            async function executeCustomerRecordRemovalTest()
-            {
-                
-                let customerRecordRemovalUrlParamsString = "DeleteCustomer?EmailAddress=" + 
-                    GlobalsForClientModule.customerRecordObject.EmailAddress;
-
-                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( customerRecordRemovalUrlParamsString, 
-                successfulCustomerRecordRemoval, failureCustomerRecordRemoval );
-                
-            }
-
-            function successfulCustomerRecordRemoval(responseTextFromServer) 
-            {
-
-                console.log("Successfully Removed the Customer Record Data => " + responseTextFromServer);
-
-                document.getElementById("customerRecordRemoval_container").innerHTML = "Customer Record Removal Test Passed";
-                document.getElementById("customerRecordRemoval_container").style.color = "Blue";
-
-                executeCustomerRecordRemovalConfirmationTest();
-            }
-
-            function failureCustomerRecordRemoval(responseTextFromServer) 
-            {
-
-                console.log("Failed to Remove the Customer Record Data => " + responseTextFromServer);
-                document.getElementById("customerRecordRemoval_container").innerHTML = "Customer Record Removal Test Failed";
-                document.getElementById("customerRecordRemoval_container").style.color = "Red";
-
-                executeCustomerRecordRemovalConfirmationTest();
-            }
-
-
-            // Customer Record Removal Confirmation Test
-
-            async function executeCustomerRecordRemovalConfirmationTest()
-            {
-                
-                let customerRecordRetrievalUrlParamsString = "RetrieveCustomer?EmailAddress=" + 
-                    GlobalsForClientModule.customerRecordObject.EmailAddress;
-
-                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( customerRecordRetrievalUrlParamsString, 
-                successfulCustomerRecordRemovalConfirmation, failureCustomerRecordRemovalConfirmation );
-                
-            }
-
-            function successfulCustomerRecordRemovalConfirmation(responseTextFromServer) 
-            {
-
-                console.log("Successfully Retrieved the Customer Record Data => " + responseTextFromServer);
-
-                if( JSON.parse(responseTextFromServer).length != 0 )
+                while(true)
                 {
 
-                    console.log("Couldn't confirm the deletion of Customer Record");
-                    document.getElementById("customerRecordRemovalConfirmation_container").innerHTML = "Customer Record Removal Confirmation Test Failed";
-                    document.getElementById("customerRecordRemovalConfirmation_container").style.color = "Red";
-                        
-                }
+                    await new Promise((resolve) => setTimeout( resolve, 20));
 
-                else
-                {
+                    if( GlobalsForClientModule.bDisplayLogs )
+                    {
+                        console.log("executeSmartBidTenetTests : while loop end => Current Time = " + Date.now());
+                    }
 
-                    console.log("Was able to confirm the deletion of Customer Record");
-                    document.getElementById("customerRecordRemovalConfirmation_container").innerHTML = "Customer Record Removal Confirmation Test Passed";
-                    document.getElementById("customerRecordRemovalConfirmation_container").style.color = "Blue";
+                    if( Date.now() - executionStartTime >= totalTimeOfExecutionInMinutes * 60 * 1000 )
+                    {
+                        break;
+                    }
 
                 }
 
-                executePublishAssetFunctionalTestWrapper();
-
-            }
-
-            function failureCustomerRecordRemovalConfirmation(responseTextFromServer) 
-            {
-
-                console.log("Failed to confirm the removal of Customer Record Data => " + responseTextFromServer);
-                document.getElementById("customerRecordRemovalConfirmation_container").innerHTML = "Customer Record Removal Confirmation Test Failed";
-                document.getElementById("customerRecordRemovalConfirmation_container").style.color = "Red";
-
-                executePublishAssetFunctionalTestWrapper();
-
-            }
-
-            
-            // Publish Asset Test
-
-            async function executePublishAssetFunctionalTestWrapper()
-            {
-
-                GlobalsForClientModule.currentCallBackFunctionForPublishAssetTest = executeAssetRecordRemovalTestWrapper;
-                GlobalsForClientModule.currentObjectPublishAssetTest = GlobalsForClientModule.publishAssetObject;
-                GlobalsForClientModule.currentPublishAssetTestContainer = "publishAssetTest_container";
-                GlobalsForClientModule.currentAssetRetrievalTestContainer = "assetRecordRetrievalTest_container";
-
-                PublishAssetValidatorModule.executePublishAssetFunctionalTest();
-            }
-
-
-            // Asset Record Removal Test
-
-            async function executeAssetRecordRemovalTestWrapper(inputAssetId = 0)
-            {
-
-                GlobalsForClientModule.currentAssetRecordRemovalTestContainer = "assetRecordRemovalTest_container";
-                GlobalsForClientModule.currentAssetRecordRemovalConfirmationTestContainer = "assetRecordRemovalConfirmation_container";
-
-                GlobalsForClientModule.currentCallbackFunctionForAssetRemovalTest = executeOpenBidPlacementTestWrapperSetup;
-
-                PublishAssetValidatorModule.executeAssetRecordRemovalTest(inputAssetId);
-            }
-                
-
-            // Open Bidding : Publish Asset
-
-            async function executeOpenBidPlacementTestWrapperSetup()
-            {
-
-                GlobalsForClientModule.currentCallBackFunctionForPublishAssetTest = executePlaceBidTestWrapper;
-                GlobalsForClientModule.currentObjectPublishAssetTest = GlobalsForClientModule.publishAssetObject;
-                GlobalsForClientModule.currentPublishAssetTestContainer = "placeOpenBid_PublishAssetTest_container";
-                GlobalsForClientModule.currentAssetRetrievalTestContainer = "placeOpenBid_AssetRecordRetrievalTest_container";
-
-                PublishAssetValidatorModule.executePublishAssetFunctionalTest();
-            }
-
-            async function executePlaceBidTestWrapper(inputAssetId = 0)
-            {
-                
-                GlobalsForClientModule.currentAssetRecordId = inputAssetId;
-                GlobalsForClientModule.currentAssetBidderCustomerId = 56;
-                GlobalsForClientModule.currentAssetBiddingPrice = 8000000;
-                GlobalsForClientModule.currentAssetBiddingType = "open";
-
-                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveBidObject;
-                GlobalsForClientModule.currentRetrieveAssetObject.AssetId = inputAssetId;
-
-                GlobalsForClientModule.placeBidTestContainer = "placeOpenBid_PlaceBidTest_container";
-                GlobalsForClientModule.retrieveBidTestContainer = "placeOpenBid_RetrieveBidTest_container";
-
-                GlobalsForClientModule.currentAssetSellerCustomerId = 55;
-                GlobalsForClientModule.currentValidateBidObject = GlobalsForClientModule.currentRetrieveAssetObject;
-                GlobalsForClientModule.retrieveBidAssetTestContainer = "placeOpenBid_RetrieveBidAssetTest_container";
-
-                GlobalsForClientModule.executePlaceBidRecordCompletionTest = executePlaceBetterBidRecordTestWrapper;
-
-                PlaceBidValidatorModule.executePlaceBidRecordTest();
-
-            }
-
-            async function executePlaceBetterBidRecordTestWrapper()
-            {
-                
-                GlobalsForClientModule.currentAssetBidderCustomerId = 57;
-                GlobalsForClientModule.currentAssetBiddingPrice = 8100000;
-                GlobalsForClientModule.currentAssetBiddingType = "open";
-
-                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveBetterBidObject;
-                GlobalsForClientModule.currentRetrieveAssetObject.AssetId = GlobalsForClientModule.currentAssetRecordId;
-
-                GlobalsForClientModule.placeBidTestContainer = "placeOpenBid_PlaceBetterBidTest_container";
-                GlobalsForClientModule.retrieveBidTestContainer = "placeOpenBid_RetrieveBetterBidTest_container";
-
-                GlobalsForClientModule.currentAssetSellerCustomerId = 55;
-                GlobalsForClientModule.currentValidateBidObject = GlobalsForClientModule.currentRetrieveAssetObject;
-                GlobalsForClientModule.retrieveBidAssetTestContainer = "placeOpenBid_RetrieveBetterBidAssetTest_container";
-
-                GlobalsForClientModule.executePlaceBidRecordCompletionTest = executeRemoveBidRecordTestWrapper;
-
-                PlaceBidValidatorModule.executePlaceBidRecordTest();
-
-            }
-
-            async function executeRemoveBidRecordTestWrapper()
-            {
-
-                GlobalsForClientModule.currentBidRecordRemovalTestContainer = "placeOpenBid_bidRecordRemovalTest_container";
-                GlobalsForClientModule.currentBidRecordRemovalConfirmationTestContainer = "placeOpenBid_bidRecordRemovalConfirmation_container";
-
-                GlobalsForClientModule.executeDeleteBidRecordCompletionTest = executeRemoveAssetAfterBidsDeletionRecordTestWrapper;
-
-                PlaceBidValidatorModule.executeBidsRecordRemovalTest();
-
-            }
-
-            async function executeRemoveAssetAfterBidsDeletionRecordTestWrapper(inputAssetId = 0)
-            {
-
-                GlobalsForClientModule.currentAssetRecordRemovalTestContainer = "placeOpenBid_assetBidRecordRemovalTest_container";
-                GlobalsForClientModule.currentAssetRecordRemovalConfirmationTestContainer = "placeOpenBid_assetBidRecordRemovalConfirmation_container";
-
-                GlobalsForClientModule.currentCallbackFunctionForAssetRemovalTest = executeSecretiveBiddingPlacementTestWrapperSetup;
-
-                PublishAssetValidatorModule.executeAssetRecordRemovalTest(inputAssetId);
-
-            }
-
-
-            // Secretive Bidding : Publish Asset
-
-            async function executeSecretiveBiddingPlacementTestWrapperSetup()
-            {
-
-                GlobalsForClientModule.currentCallBackFunctionForPublishAssetTest = executePlaceSecretiveBidTestWrapper;
-                GlobalsForClientModule.currentObjectPublishAssetTest = GlobalsForClientModule.publishSecretiveAssetObject;
-                GlobalsForClientModule.currentPublishAssetTestContainer = "placeSecretiveBid_PublishAssetTest_container";
-                GlobalsForClientModule.currentAssetRetrievalTestContainer = "placeSecretiveBid_AssetRecordRetrievalTest_container";
-
-                PublishAssetValidatorModule.executePublishAssetFunctionalTest();
-            }
-
-            async function executePlaceSecretiveBidTestWrapper(inputAssetId = 0)
-            {
-                
-                GlobalsForClientModule.currentAssetRecordId = inputAssetId;
-                GlobalsForClientModule.currentAssetBidderCustomerId = 56;
-                GlobalsForClientModule.currentAssetBiddingPrice = 8000000;
-                GlobalsForClientModule.currentAssetBiddingType = "secretive";
-
-                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveBidObject;
-                GlobalsForClientModule.currentRetrieveAssetObject.AssetId = inputAssetId;
-
-                GlobalsForClientModule.placeBidTestContainer = "placeSecretiveBid_PlaceBidTest_container";
-                GlobalsForClientModule.retrieveBidTestContainer = "placeSecretiveBid_RetrieveBidTest_container";
-
-                GlobalsForClientModule.currentAssetSellerCustomerId = 55;
-                GlobalsForClientModule.currentValidateBidObject = GlobalsForClientModule.currentRetrieveAssetObject;
-                GlobalsForClientModule.retrieveBidAssetTestContainer = "placeSecretiveBid_RetrieveBidAssetTest_container";
-
-                GlobalsForClientModule.executePlaceBidRecordCompletionTest = executePlaceWorseSecretiveBidRecordTestWrapper;
-
-                PlaceBidValidatorModule.executePlaceBidRecordTest();
-
-            }
-
-            async function executePlaceWorseSecretiveBidRecordTestWrapper()
-            {
-                
-                GlobalsForClientModule.currentAssetBidderCustomerId = 57;
-                GlobalsForClientModule.currentAssetBiddingPrice = 7900000;
-                GlobalsForClientModule.currentAssetBiddingType = "secretive";
-
-                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveWorseBidObject;
-                GlobalsForClientModule.currentRetrieveAssetObject.AssetId = GlobalsForClientModule.currentAssetRecordId;
-
-                GlobalsForClientModule.placeBidTestContainer = "placeSecretiveBid_PlaceBetterBidTest_container";
-                GlobalsForClientModule.retrieveBidTestContainer = "placeSecretiveBid_RetrieveBetterBidTest_container";
-
-                GlobalsForClientModule.currentAssetSellerCustomerId = 55;
-                GlobalsForClientModule.currentValidateBidObject = GlobalsForClientModule.retrieveBidObject;
-                GlobalsForClientModule.retrieveBidAssetTestContainer = "placeSecretiveBid_RetrieveBetterBidAssetTest_container";
-
-                GlobalsForClientModule.executePlaceBidRecordCompletionTest = executeRemoveSecretiveBidRecordTestWrapper;
-
-                PlaceBidValidatorModule.executePlaceBidRecordTest();
-
-            }
-
-            async function executeRemoveSecretiveBidRecordTestWrapper()
-            {
-
-                GlobalsForClientModule.currentBidRecordRemovalTestContainer = "placeSecretiveBid_bidRecordRemovalTest_container";
-                GlobalsForClientModule.currentBidRecordRemovalConfirmationTestContainer = "placeSecretiveBid_bidRecordRemovalConfirmation_container";
-
-                GlobalsForClientModule.executeDeleteBidRecordCompletionTest = executeRemoveAssetSecretiveBiddingRecordTestWrapper;
-
-                PlaceBidValidatorModule.executeBidsRecordRemovalTest();
-
-            }
-
-            async function executeRemoveAssetSecretiveBiddingRecordTestWrapper(inputAssetId = 0)
-            {
-
-                GlobalsForClientModule.currentAssetRecordRemovalTestContainer = "placeSecretiveBid_assetBidRecordRemovalTest_container";
-                GlobalsForClientModule.currentAssetRecordRemovalConfirmationTestContainer = "placeSecretiveBid_assetBidRecordRemovalConfirmation_container";
-
-                GlobalsForClientModule.currentCallbackFunctionForAssetRemovalTest = executeCloseAuctionTestWrapper;
-
-                PublishAssetValidatorModule.executeAssetRecordRemovalTest(inputAssetId);
-
-            }
-
-            // Close Auction Test
-
-            async function executeCloseAuctionTestWrapper()
-            {
-
-                GlobalsForClientModule.currentCallBackFunctionForPublishAssetTest = executeCloseAuctionPlaceBidTestWrapper;
-                GlobalsForClientModule.currentObjectPublishAssetTest = GlobalsForClientModule.closeAuctionAssetObject;
-                GlobalsForClientModule.currentPublishAssetTestContainer = "closeAuction_PublishAssetTest_container";
-                GlobalsForClientModule.currentAssetRetrievalTestContainer = "closeAuction_AssetRecordRetrievalTest_container";
-
-                PublishAssetValidatorModule.executePublishAssetFunctionalTest();
-
-            }
-
-            async function executeCloseAuctionPlaceBidTestWrapper(inputAssetId = 0)
-            {
-                
-                GlobalsForClientModule.currentAssetRecordId = inputAssetId;
-                GlobalsForClientModule.currentAssetBidderCustomerId = 60;
-                GlobalsForClientModule.currentAssetBiddingPrice = 8000000;
-                GlobalsForClientModule.currentAssetBiddingType = "open";
-
-                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveBidCloseAuctionObject;
-                GlobalsForClientModule.currentRetrieveAssetObject.AssetId = inputAssetId;
-
-                GlobalsForClientModule.placeBidTestContainer = "closeAuction_PlaceBidTest_container";
-                GlobalsForClientModule.retrieveBidTestContainer = "closeAuction_RetrieveBidTest_container";
-
-                GlobalsForClientModule.currentAssetSellerCustomerId = 61;
-                GlobalsForClientModule.currentValidateBidObject = GlobalsForClientModule.currentRetrieveAssetObject;
-                GlobalsForClientModule.retrieveBidAssetTestContainer = "closeAuction_RetrieveBidAssetTest_container";
-
-                GlobalsForClientModule.executePlaceBidRecordCompletionTest = executeCloseAuctionRecordTestWrapper;
-
-                PlaceBidValidatorModule.executePlaceBidRecordTest();
-
-            }
-
-            async function executeCloseAuctionRecordTestWrapper()
-            {
-        
-                let closeAuctionRecordUrlParamsString = "CloseAuction?AssetId=" + GlobalsForClientModule.currentAssetRecordId;
-
-                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( closeAuctionRecordUrlParamsString, 
-                successfulCloseAuctionRecord, failureCloseAuctionRecord );
-                
-            }
-
-            function successfulCloseAuctionRecord(responseTextFromServer) 
-            {
-
-                console.log("Successfully Closed the Auction => " + responseTextFromServer);
-
-                document.getElementById("closeAuction_CloseAuctionTest_container").innerHTML = "Close Auction Record Test Passed";
-                document.getElementById("closeAuction_CloseAuctionTest_container").style.color = "Blue";
-
-                executeCloseAuctionStatusRetrievalTest();
-            }
-
-            function failureCloseAuctionRecord(responseTextFromServer) 
-            {
-
-                console.log("Failed to Close the auction => " + responseTextFromServer);
-                document.getElementById("closeAuction_CloseAuctionTest_container").innerHTML = "Close Auction Record Test Failed";
-                document.getElementById("closeAuction_CloseAuctionTest_container").style.color = "Red";
-
-                executeCloseAuctionStatusRetrievalTest();
-            }
-
-            async function executeCloseAuctionStatusRetrievalTest() 
-            {
-
-                let assetRecordRetrievalUrlParamsString = "RetrieveAuctions?SellerCustomerId=" + 
-                    GlobalsForClientModule.currentObjectPublishAssetTest.SellerCustomerId;
-
-                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( assetRecordRetrievalUrlParamsString, 
-                successfulAssetRecordStatusRetrieval, failureAssetRecordStatusRetrieval );
-                
-            }
-
-            function successfulAssetRecordStatusRetrieval(responseTextFromServer) 
-            {
-
-                console.log("Successfully Retrieved the Asset Record Data for Status => " + responseTextFromServer);
-
-                if( String(JSON.parse(responseTextFromServer)[0].AssetId) != GlobalsForClientModule.currentAssetRecordId ||
-                    String(JSON.parse(responseTextFromServer)[0].Status).toLocaleLowerCase() != 'closed' )
+                for( let i = 0 ; i < GlobalsForClientModule.maxThreadsToBeSpawned ; i++ )
                 {
-
-                    console.log("Current Auction is not closed..Incorrect status");
-                    document.getElementById("closeAuction_StatusRetrievalTest_container").innerHTML = "Status Retrieval of Asset Record Test Failed";
-                    document.getElementById("closeAuction_StatusRetrievalTest_container").style.color = "Red";
-                        
+                    GlobalsForClientModule.tenetWorkerThreads[i].terminate();
                 }
 
-                else
-                {
+                // Log the Perf Results
 
-                    console.log("Current Auction is closed..Correct status");
-                    document.getElementById("closeAuction_StatusRetrievalTest_container").innerHTML = "Status Retrieval of Asset Record Test Passed";
-                    document.getElementById("closeAuction_StatusRetrievalTest_container").style.color = "Blue";
-                        
+                document.getElementById("perfTests_SuccessfulQueries_container").innerHTML = "Successful Query Count = " + totalNoOfSuccessfulQueries;
+                document.getElementById("perfTests_FailureQueries_container").innerHTML = "Failure Query Count = " + totalNoOfFailureQueries;
+
+            }
+
+            function storeEncodedPasswords()
+            {
+                let currentPasswords = [];
+
+                for( let i = 0 ; i < GlobalsForClientModule.maxThreadsToBeSpawned ; i++ )
+                {
+                    currentPasswords.push(window.btoa("abcd1234" + (i+1)));
                 }
 
-                executeCloseAuctionAssetDeletionTest(JSON.parse(responseTextFromServer)[0].AssetId);
+                return currentPasswords;
 
-            }
-
-            function failureAssetRecordStatusRetrieval(responseTextFromServer) 
-            {
-
-                console.log("Current Auction Status could not be retrieved");
-                document.getElementById("closeAuction_StatusRetrievalTest_container").innerHTML = "Status Retrieval of Asset Record Test Failed";
-                document.getElementById("closeAuction_StatusRetrievalTest_container").style.color = "Red";
-
-                executeCloseAuctionAssetDeletionTest();
-            }
-
-            async function executeCloseAuctionAssetDeletionTest(inputAssetId = 0)
-            {
-
-                if( inputAssetId == 0 )
-                {
-                    inputAssetId = GlobalsForClientModule.currentAssetRecordId;
-                }
-
-                GlobalsForClientModule.currentAssetRecordRemovalTestContainer = "closeAuction_assetBidRecordRemovalTest_container";
-                GlobalsForClientModule.currentAssetRecordRemovalConfirmationTestContainer = "closeAuction_assetBidRecordRemovalConfirmation_container";
-
-                GlobalsForClientModule.currentCallbackFunctionForAssetRemovalTest = executeCustomerDashboardTestWrapper;
-
-                PublishAssetValidatorModule.executeAssetRecordRemovalTest(inputAssetId);
-
-            }
-
-            // Execute Customer Dashboard API Tests
-
-            async function executeCustomerDashboardTestWrapper()
-            {
-
-                GlobalsForClientModule.currentMultiAssetTestIndex = 0;    
-                GlobalsForClientModule.currentObjectPublishMultiAssetTest = GlobalsForClientModule.customerDashboardAssetsObjects;
-                GlobalsForClientModule.currentPublishAssetTestContainer = "customerDashboard_PublishAssetTest_container_";
-                GlobalsForClientModule.currentAssetRetrievalTestContainer = "customerDashboard_AssetRecordRetrievalTest_container_";
-
-                GlobalsForClientModule.currentObjectPublishMultiAssetCompletionTest = executeCustomerDashboardPlaceBidsTestWrapper;
-
-                await PublishMultiAssetValidatorModule.executePublishMultiAssetFunctionalTest();
-            }
-
-            async function executeCustomerDashboardPlaceBidsTestWrapper(inputAssetId = 0)
-            {
-                
-                inputAssetId = GlobalsForClientModule.customerDashboardAssetArray[0];
-
-                GlobalsForClientModule.currentAssetRecordId = inputAssetId;
-                GlobalsForClientModule.currentAssetBidderCustomerId = 56;
-                GlobalsForClientModule.currentAssetBiddingPrice = 8000000;
-                GlobalsForClientModule.currentAssetBiddingType = "open";
-
-                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveBidObject;
-                GlobalsForClientModule.currentRetrieveAssetObject.AssetId = inputAssetId;
-
-                GlobalsForClientModule.placeBidTestContainer = "customerDashboard_PlaceBidTest_container";
-                GlobalsForClientModule.retrieveBidTestContainer = "customerDashboard_RetrieveBidTest_container";
-
-                GlobalsForClientModule.currentAssetSellerCustomerId = 55;
-                GlobalsForClientModule.currentValidateBidObject = GlobalsForClientModule.currentRetrieveAssetObject;
-                GlobalsForClientModule.retrieveBidAssetTestContainer = "customerDashboard_RetrieveBidAssetTest_container";
-
-                GlobalsForClientModule.currentBidRecordIndexForValidation = 0;
-
-                GlobalsForClientModule.executePlaceBidRecordCompletionTest = executeCustomerDashboardPlaceSecondBidRecordTestWrapper;
-
-                PlaceBidValidatorModule.executePlaceBidRecordTest();
-
-            }
-
-            async function executeCustomerDashboardPlaceSecondBidRecordTestWrapper(inputAssetId = 0)
-            {
-                
-                inputAssetId = GlobalsForClientModule.customerDashboardAssetArray[1];
-
-                GlobalsForClientModule.currentAssetRecordId = inputAssetId;
-                GlobalsForClientModule.currentAssetBidderCustomerId = 56;
-                GlobalsForClientModule.currentAssetBiddingPrice = 8500000;
-                GlobalsForClientModule.currentAssetBiddingType = "secretive";
-
-                GlobalsForClientModule.currentRetrieveAssetObject = GlobalsForClientModule.retrieveSecondBidObject;
-                GlobalsForClientModule.currentRetrieveAssetObject.AssetId = inputAssetId;
-
-                GlobalsForClientModule.placeBidTestContainer = "customerDashboard_PlaceSecondBidTest_container";
-                GlobalsForClientModule.retrieveBidTestContainer = "customerDashboard_RetrieveSecondBidTest_container";
-
-                GlobalsForClientModule.currentAssetSellerCustomerId = 55;
-                GlobalsForClientModule.currentValidateBidObject = GlobalsForClientModule.currentRetrieveAssetObject;
-                GlobalsForClientModule.retrieveBidAssetTestContainer = "customerDashboard_RetrieveSecondBidAssetTest_container";
-
-                GlobalsForClientModule.currentBidRecordIndexForValidation = 1;
-
-                GlobalsForClientModule.executePlaceBidRecordCompletionTest = executeCustomerDashboardDataFetchTestWrapper;
-
-                PlaceBidValidatorModule.executePlaceBidRecordTest();
-
-            }
-
-            async function executeCustomerDashboardDataFetchTestWrapper()
-            {
-
-                GlobalsForClientModule.currentCustomerDashboardId = 56;
-                GlobalsForClientModule.currentCustomerDashboardRetrieveRecordsContainer = "customerDashboard_RetrieveCustomerAuctionsAndBids_container";
-
-                GlobalsForClientModule.currentCustomerDashboardBidRecordRemovalContainerPrefix = "customerDashboard_BidRecordRemovalTest_container_";
-                GlobalsForClientModule.currentCustomerDashboardBidRecordRemovalConfirmationContainerPrefix = "customerDashboard_BidRecordRemovalConfirmationTest_container_";
-
-                GlobalsForClientModule.executeBidRecordRemovalsCompletionTest = executeCustomerDashboardMultiAssetDeletionsTestWrapper;
-
-                CustomerDashboardValidatorModule.executeCustomerDashboardRecordTest();
-
-            }
-
-            async function executeCustomerDashboardMultiAssetDeletionsTestWrapper()
-            {
-
-                GlobalsForClientModule.currentMultiAssetTestIndex = 0;
-
-                GlobalsForClientModule.currentCustomerDashboardAssetRecordRemovalContainerPrefix = "customerDashboard_AssetRecordRemovalTest_container_";
-                GlobalsForClientModule.currentCustomerDashboardAssetRecordRemovalConfirmationContainerPrefix = "customerDashboard_AssetRecordRemovalConfirmationTest_container_";
-
-                GlobalsForClientModule.currentObjectDeleteMultiAssetCompletionTest = executeFeedbackTestWrapper;
-
-                await PublishMultiAssetValidatorModule.executeMultiAssetRecordRemovalTest();
-
-            }
-
-            // Execute Feedback Tests
-
-            async function executeFeedbackTestWrapper()
-            {
-                
-                let feedbackRecordUrlParamsString = "AddFeedback?CustomerName=" + GlobalsForClientModule.feedbackRecordObject.CustomerName + 
-                    "&EmailAddress=" + GlobalsForClientModule.feedbackRecordObject.EmailAddress +
-                    "&Subject=" + GlobalsForClientModule.feedbackRecordObject.Subject +
-                    "&Message=" + GlobalsForClientModule.feedbackRecordObject.Message;
-
-                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( feedbackRecordUrlParamsString, 
-                successfulAddFeedbackRecord, failureAddFeedbackRecord );
-                
-            }
-
-            function successfulAddFeedbackRecord(responseTextFromServer)
-            {
-
-                console.log("Successfully added feedback record => " + successfulAddFeedbackRecord);
-
-                document.getElementById("feedback_AddFeedbackTest_container").innerHTML = "Add Feedback Record Test Passed";
-                document.getElementById("feedback_AddFeedbackTest_container").style.color = "Blue";
-
-                executeRetrieveFeedbackRecordTest();
-            }
-
-            function failureAddFeedbackRecord(responseTextFromServer) 
-            {
-
-                console.log("Failed to add feedback record => " + responseTextFromServer);
-
-                document.getElementById("feedback_AddFeedbackTest_container").innerHTML = "Add Feedback Record Test Failed";
-                document.getElementById("feedback_AddFeedbackTest_container").style.color = "Red";
-
-                executeRetrieveFeedbackRecordTest();
-            }
-
-            // Feedback Retrieval Test
-
-            async function executeRetrieveFeedbackRecordTest()
-            {
-                
-                let retrieveFeedbackRecordUrlParamsString = "RetrieveFeedback?CustomerName=" + 
-                    GlobalsForClientModule.feedbackRecordObject.CustomerName;
-
-                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( retrieveFeedbackRecordUrlParamsString, 
-                successfulRetrieveFeedbackRecord, failureRetrieveFeedbackRecord );
-                
-            }
-
-            function successfulRetrieveFeedbackRecord(responseTextFromServer) 
-            {
-
-                console.log("Successfully retrieved the Feedback => " + responseTextFromServer);
-
-                let currentFeedbackCompareRecord = JSON.parse(responseTextFromServer)[0];
-
-                if( !ClientInputValidatorModule.validateRecordRetrievalObject( currentFeedbackCompareRecord , 
-                    GlobalsForClientModule.feedbackRecordObject ) )
-                {
-
-                    console.log("Retrieved Feedback Record values are incorrect");
-                    document.getElementById("feedback_RetrieveFeedbackTest_container").innerHTML = "Retrieve Feedback Record Test Failed";
-                    document.getElementById("feedback_RetrieveFeedbackTest_container").style.color = "Red";
-                        
-                }
-
-                else
-                {
-
-                    console.log("Retrieved Feedback Record values matched that of expected");
-                    document.getElementById("feedback_RetrieveFeedbackTest_container").innerHTML = "Retrieve Feedback Record Test Passed";
-                    document.getElementById("feedback_RetrieveFeedbackTest_container").style.color = "Blue";
-
-                }
-
-                executeDeleteFeedbackRecordTest();
-
-            }
-
-            function failureRetrieveFeedbackRecord(responseTextFromServer) 
-            {
-
-                console.log("Failed to retrieve the feedback => " + responseTextFromServer);
-                document.getElementById("feedback_RetrieveFeedbackTest_container").innerHTML = "Retrieve Feedback Record Test Failed";
-                document.getElementById("feedback_RetrieveFeedbackTest_container").style.color = "Red";
-
-                executeDeleteFeedbackRecordTest();
-
-            }
-
-            // Delete Feedback Record Test
-
-            async function  executeDeleteFeedbackRecordTest()
-            {
-
-                let feedbackRecordRemovalUrlParamsString = "DeleteFeedback?CustomerName=" + 
-                    GlobalsForClientModule.feedbackRecordObject.CustomerName;
-
-                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( feedbackRecordRemovalUrlParamsString, 
-                successfulFeedbackRecordRemoval, failureFeedbackRecordRemoval );
-                
-            }
-
-            function successfulFeedbackRecordRemoval(responseTextFromServer) 
-            {
-
-                console.log("Successfully Removed the feedback Record Data => " + responseTextFromServer);
-
-                document.getElementById("feedback_DeleteFeedbackTest_container").innerHTML = "Feedback Record Removal Test Passed";
-                document.getElementById("feedback_DeleteFeedbackTest_container").style.color = "Blue";
-
-                executeFeedbackRecordRemovalConfirmationTest();
-            }
-
-            function failureFeedbackRecordRemoval(responseTextFromServer) 
-            {
-
-                console.log("Failed to Remove the feedback Record Data => " + responseTextFromServer);
-
-                document.getElementById("feedback_DeleteFeedbackTest_container").innerHTML = "Feedback Record Removal Test Failed";
-                document.getElementById("feedback_DeleteFeedbackTest_container").style.color = "Red";
-
-                executeFeedbackRecordRemovalConfirmationTest();
-            }
-
-
-            // Feedback Record Removal Confirmation Test
-
-            async function executeFeedbackRecordRemovalConfirmationTest()
-            {
-                
-                let retrieveFeedbackRecordUrlParamsString = "RetrieveFeedback?CustomerName=" + 
-                    GlobalsForClientModule.feedbackRecordObject.CustomerName;
-
-                await HttpRestAPIClientModule.sendHttpRequestToSmartBidServerWithCallback( retrieveFeedbackRecordUrlParamsString, 
-                successfulFeedbackRecordRemovalConfirmation, failureFeedbackRecordRemovalConfirmation );
-                
-            }
-
-            function successfulFeedbackRecordRemovalConfirmation(responseTextFromServer) 
-            {
-
-                console.log("Successfully Retrieved the Feedback Record Data => " + responseTextFromServer);
-
-                if( JSON.parse(responseTextFromServer).length != 0 )
-                {
-
-                    console.log("Couldn't confirm the deletion of Feedback Records");
-
-                    document.getElementById("feedback_DeleteFeedbackConfirmationTest_container").innerHTML = "Feedback Record Removal Confirmation Test Failed";
-                    document.getElementById("feedback_DeleteFeedbackConfirmationTest_container").style.color = "Red";
-                        
-                }
-
-                else
-                {
-
-                    console.log("Was able to confirm the deletion of Feedback Records");
-
-                    document.getElementById("feedback_DeleteFeedbackConfirmationTest_container").innerHTML = "Feedback Record Removal Confirmation Test Passed";
-                    document.getElementById("feedback_DeleteFeedbackConfirmationTest_container").style.color = "Blue";
-                        
-                }
-
-                executeSearchFilterWrapperTest();
-
-            }
-
-            function failureFeedbackRecordRemovalConfirmation(responseTextFromServer) 
-            {
-
-                console.log("Failed to confirm the removal of Feedback Record Data => " + responseTextFromServer);
-
-                document.getElementById("feedback_DeleteFeedbackConfirmationTest_container").innerHTML = "Feedback Record Removal Confirmation Test Failed";
-                document.getElementById("feedback_DeleteFeedbackConfirmationTest_container").style.color = "Red";
-                    
-                executeSearchFilterWrapperTest();
-
-            }
-
-            // Search Filter Tests
-
-            async function executeSearchFilterWrapperTest()
-            {
-                
-                GlobalsForClientModule.currentCallBackFunctionForPublishAssetTest = executeSearchFilter1TestWrapper;
-                GlobalsForClientModule.currentObjectPublishAssetTest = GlobalsForClientModule.publishSearchFilterAssetObject;
-                GlobalsForClientModule.currentPublishAssetTestContainer = "searchFilter_PublishAssetTest_container";
-                GlobalsForClientModule.currentAssetRetrievalTestContainer = "searchFilter_RetrieveAssetTest_container";
-
-                PublishAssetValidatorModule.executePublishAssetFunctionalTest();
-
-            }
-
-            async function executeSearchFilter1TestWrapper(inputAssetId)
-            {
-                
-                GlobalsForClientModule.searchFilterTests_CurrentAssetObject_AssetId = inputAssetId;
-                
-                GlobalsForClientModule.currentCallBackFunctionForSearchFilterAssetRetrievalTest = executeSearchFilter2TestWrapper;
-                GlobalsForClientModule.searchFilterTests_CurrentFilterObject = GlobalsForClientModule.searchFilterTests_FilterObject1;
-                GlobalsForClientModule.searchFilterTests_CurrentAssetObject = GlobalsForClientModule.publishSearchFilterAssetObject;
-                GlobalsForClientModule.currentSearchFilterAssetRetrievalTestContainer = "searchFilter_FilterAssetRetrievalTest1_container";
-
-                await SearchFilterValidatorModule.executeSearchFilterAssetRecordRetrievalTest();
-
-            }
-
-            async function executeSearchFilter2TestWrapper()
-            {
-                
-                GlobalsForClientModule.currentCallBackFunctionForSearchFilterAssetRetrievalTest = executeSearchFilter3TestWrapper;
-                GlobalsForClientModule.searchFilterTests_CurrentFilterObject = GlobalsForClientModule.searchFilterTests_FilterObject2;
-                GlobalsForClientModule.searchFilterTests_CurrentAssetObject = GlobalsForClientModule.publishSearchFilterAssetObject;
-                GlobalsForClientModule.currentSearchFilterAssetRetrievalTestContainer = "searchFilter_FilterAssetRetrievalTest2_container";
-
-                await SearchFilterValidatorModule.executeSearchFilterAssetRecordRetrievalTest();
-
-            }
-
-            async function executeSearchFilter3TestWrapper()
-            {
-                
-                GlobalsForClientModule.currentCallBackFunctionForSearchFilterAssetRetrievalTest = executeSearchFilter4TestWrapper;
-                GlobalsForClientModule.searchFilterTests_CurrentFilterObject = GlobalsForClientModule.searchFilterTests_FilterObject3;
-                GlobalsForClientModule.searchFilterTests_CurrentAssetObject = GlobalsForClientModule.publishSearchFilterAssetObject;
-                GlobalsForClientModule.currentSearchFilterAssetRetrievalTestContainer = "searchFilter_FilterAssetRetrievalTest3_container";
-
-                await SearchFilterValidatorModule.executeSearchFilterAssetRecordRetrievalTest();
-
-            }
-
-            async function executeSearchFilter4TestWrapper()
-            {
-                
-                GlobalsForClientModule.currentCallBackFunctionForSearchFilterAssetRetrievalTest = executeSearchFilter5TestWrapper;
-                GlobalsForClientModule.searchFilterTests_CurrentFilterObject = GlobalsForClientModule.searchFilterTests_FilterObject4;
-                GlobalsForClientModule.searchFilterTests_CurrentAssetObject = GlobalsForClientModule.publishSearchFilterAssetObject;
-                GlobalsForClientModule.currentSearchFilterAssetRetrievalTestContainer = "searchFilter_FilterAssetRetrievalTest4_container";
-
-                await SearchFilterValidatorModule.executeSearchFilterAssetRecordRetrievalTest();
-
-            }
-
-            async function executeSearchFilter5TestWrapper()
-            {
-                
-                GlobalsForClientModule.currentCallBackFunctionForSearchFilterAssetRetrievalTest = executeSearchFilter6TestWrapper;
-                GlobalsForClientModule.searchFilterTests_CurrentFilterObject = GlobalsForClientModule.searchFilterTests_FilterObject5;
-                GlobalsForClientModule.searchFilterTests_CurrentAssetObject = GlobalsForClientModule.publishSearchFilterAssetObject;
-                GlobalsForClientModule.currentSearchFilterAssetRetrievalTestContainer = "searchFilter_FilterAssetRetrievalTest5_container";
-
-                await SearchFilterValidatorModule.executeSearchFilterAssetRecordRetrievalTest();
-
-            }
-
-            async function executeSearchFilter6TestWrapper()
-            {
-                
-                GlobalsForClientModule.currentCallBackFunctionForSearchFilterAssetRetrievalTest = executeSearchFilter7TestWrapper;
-                GlobalsForClientModule.searchFilterTests_CurrentFilterObject = GlobalsForClientModule.searchFilterTests_FilterObject6;
-                GlobalsForClientModule.searchFilterTests_CurrentAssetObject = GlobalsForClientModule.publishSearchFilterAssetObject;
-                GlobalsForClientModule.currentSearchFilterAssetRetrievalTestContainer = "searchFilter_FilterAssetRetrievalTest6_container";
-
-                await SearchFilterValidatorModule.executeSearchFilterAssetRecordRetrievalTest();
-
-            }
-
-            async function executeSearchFilter7TestWrapper()
-            {
-                
-                GlobalsForClientModule.currentCallBackFunctionForSearchFilterAssetRetrievalTest = executeSearchFilterDeleteAssetTestWrapper;
-                GlobalsForClientModule.searchFilterTests_CurrentFilterObject = GlobalsForClientModule.searchFilterTests_FilterObject7;
-                GlobalsForClientModule.searchFilterTests_CurrentAssetObject = {};
-                GlobalsForClientModule.currentSearchFilterAssetRetrievalTestContainer = "searchFilter_FilterAssetRetrievalTest7_container";
-
-                await SearchFilterValidatorModule.executeSearchFilterAssetRecordRetrievalTest();
-
-            }
-
-            async function executeSearchFilterDeleteAssetTestWrapper()
-            {
-                
-                GlobalsForClientModule.currentAssetRecordRemovalTestContainer = "searchFilter_FilterAssetDeletionTest_container";
-                GlobalsForClientModule.currentAssetRecordRemovalConfirmationTestContainer = "searchFilter_FilterAssetDeletionConfirmationTest_container";
-
-                GlobalsForClientModule.currentCallbackFunctionForAssetRemovalTest = executeNextSetOfTestsWrapper;
-
-                PublishAssetValidatorModule.executeAssetRecordRemovalTest(GlobalsForClientModule.searchFilterTests_CurrentAssetObject_AssetId);
-
-            }
-
-            async function executeNextSetOfTestsWrapper()
-            {
             }
 
         </script>
