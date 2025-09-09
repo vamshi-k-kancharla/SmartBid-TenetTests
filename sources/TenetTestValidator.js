@@ -27,10 +27,13 @@ let customerRecordObject = {"Name":"CustomerName","EmailAddress":"customerEmail@
     "UserType":"Customer","City":"Hyderabad","State":"Telangana","Country":"India","Password":"abcd1234",
     "PhoneNumber":"730600410"};
 
-let publishAssetObject = {"AssetType":"Flat","MinAuctionPrice":"7500000","Address":"ZPHS",
+let publishAssetObject = {"AssetType":"Flat","MinAuctionPrice":7500000,"Address":"ZPHS",
     "Colony":"Inupamula","City":"Nakrekal","State":"Telangana","Country":"India", "SellerCustomerId":0,
     "ApprovalType":"DTCP","AssetSize":"484 sq yards","BuiltUpArea":"3500 sqft", "Status":"open",
     "AssetBedrooms":3,"AssetBathrooms":4,"AssetDescription":"Beautiful Villa in Inupamula", "BiddingType":"open"};
+
+let feedbackRecordObject = { "CustomerName":"abcdcustomer","EmailAddress":"customerEmail@gmail.com","Subject":"feedback subject",
+    "Message":"SmartBid is exceptional" };
 
 
 // Helper Util Functions
@@ -223,9 +226,6 @@ function sendHttpFileUploadRequestToSmartBidServerWithCallback(inputFileUploadRe
 }
 
 
-
-
-
 // Customer Sign Up Query
 
 async function executeCustomerSignupFunctionalTest(inputWorkerData)
@@ -391,7 +391,7 @@ async function successfulAssetRecordRetrieval(responseTextFromServer, inputWorke
 
     inputWorkerData['currentAssetRecordAssetId'] = JSON.parse(responseTextFromServer)[0].AssetId;
 
-    await executeAssetRecordRemovalTest(inputWorkerData);
+    await executePlaceBidRecordTest(inputWorkerData);
 
 }
 
@@ -405,10 +405,227 @@ async function failureAssetRecordRetrieval(responseTextFromServer, inputWorkerDa
 
     inputWorkerData['noOfFailureQueries'] += 1;
 
+    await executePlaceBidRecordTest(inputWorkerData);
+
+}
+
+// Place Bid Test
+
+async function executePlaceBidRecordTest(inputWorkerData)
+{
+
+    let currentBiddingType = (inputWorkerData.WebWorkerNumber % 2) ? "open" : "secretive";
+
+    let placeBidRecordUrlParamsString = "AddBid?AssetId=" + inputWorkerData['currentAssetRecordAssetId'] + 
+    "&CustomerId=10&BidPrice=8500000&BiddingType=" + currentBiddingType;
+
+    sendHttpRequestToSmartBidServerWithCallback( placeBidRecordUrlParamsString, 
+    successfulPlaceBidRecord, failurePlaceBidRecord, inputWorkerData );
+    
+}
+
+async function successfulPlaceBidRecord(responseTextFromServer, inputWorkerData) 
+{
+
+    if( inputWorkerData.bDisplayLogs )
+    {
+        console.log("Successfully placed the bid => " + responseTextFromServer);
+    }
+
+    inputWorkerData['noOfSuccessfulQueries'] += 1;
+
+    await executeCustomerDashboardRecordTest(inputWorkerData);
+
+}
+
+async function failurePlaceBidRecord(responseTextFromServer, inputWorkerData) 
+{
+
+    if( inputWorkerData.bDisplayLogs )
+    {
+        console.log("Failed to place the bid => " + responseTextFromServer);
+    }
+
+    inputWorkerData['noOfFailureQueries'] += 1;
+
+    await executeCustomerDashboardRecordTest(inputWorkerData);
+
+}
+
+// Customer Dashboard Tests
+
+async function executeCustomerDashboardRecordTest(inputWorkerData)
+{
+    
+    let customerDashboardRecordUrlParamsString = "CustomerAuctionsAndBids?SellerCustomerId=" + 
+        inputWorkerData["CurrentAssetSellerCustomerId"];
+
+    sendHttpRequestToSmartBidServerWithCallback( customerDashboardRecordUrlParamsString, 
+    successfulCustomerDashboardRecord, failureCustomerDashboardRecord, inputWorkerData );
+    
+}
+
+async function successfulCustomerDashboardRecord(responseTextFromServer, inputWorkerData) 
+{
+
+    if( inputWorkerData.bDisplayLogs )
+    {
+        console.log("Successfully Retrieved the customer Auctions and bids => " + responseTextFromServer);
+    }
+
+    inputWorkerData['noOfSuccessfulQueries'] += 1;
+
+    await executeFeedbackRecordAddTest(inputWorkerData);
+
+}
+
+async function failureCustomerDashboardRecord(responseTextFromServer, inputWorkerData) 
+{
+
+    if( inputWorkerData.bDisplayLogs )
+    {
+        console.log("Failed to retrieve the customer auctions and bids => " + responseTextFromServer);
+    }
+
+    inputWorkerData['noOfFailureQueries'] += 1;
+
+    await executeFeedbackRecordAddTest(inputWorkerData);
+
+}
+
+
+// Execute Feedback Tests
+
+async function executeFeedbackRecordAddTest(inputWorkerData)
+{
+    
+    let feedbackDetailsObject = {};
+    
+    feedbackDetailsObject = transformCurrentRecordObject(feedbackRecordObject,
+        inputWorkerData.WebWorkerNumber, inputWorkerData
+    );
+
+    inputWorkerData["currentFeedbackCustomerName"] = feedbackDetailsObject.CustomerName;
+
+    let feedbackRecordUrlParamsString = "AddFeedback?CustomerName=" + feedbackDetailsObject.CustomerName + 
+        "&EmailAddress=" + feedbackDetailsObject.EmailAddress +
+        "&Subject=" + feedbackDetailsObject.Subject +
+        "&Message=" + feedbackDetailsObject.Message;
+
+    sendHttpRequestToSmartBidServerWithCallback( feedbackRecordUrlParamsString, 
+    successfulAddFeedbackRecord, failureAddFeedbackRecord, inputWorkerData );
+    
+}
+
+async function successfulAddFeedbackRecord(responseTextFromServer, inputWorkerData)
+{
+
+    if( inputWorkerData.bDisplayLogs )
+    {
+        console.log("Successfully added feedback record => " + responseTextFromServer);
+    }
+
+    inputWorkerData['noOfSuccessfulQueries'] += 1;
+
+    await executeDeleteFeedbackRecordTest(inputWorkerData);
+
+}
+
+async function failureAddFeedbackRecord(responseTextFromServer, inputWorkerData) 
+{
+
+    if( inputWorkerData.bDisplayLogs )
+    {
+        console.log("Failed to add feedback record data => " + responseTextFromServer);
+    }
+
+    inputWorkerData['noOfFailureQueries'] += 1;
+
+    await executeDeleteFeedbackRecordTest(inputWorkerData);
+
+}
+
+// Delete Feedback Record Test
+
+async function  executeDeleteFeedbackRecordTest(inputWorkerData)
+{
+
+    let feedbackRecordRemovalUrlParamsString = "DeleteFeedback?CustomerName=" + 
+        inputWorkerData["currentFeedbackCustomerName"];
+
+    sendHttpRequestToSmartBidServerWithCallback( feedbackRecordRemovalUrlParamsString, 
+    successfulFeedbackRecordRemoval, failureFeedbackRecordRemoval, inputWorkerData );
+    
+}
+
+async function successfulFeedbackRecordRemoval(responseTextFromServer, inputWorkerData) 
+{
+
+    if( inputWorkerData.bDisplayLogs )
+    {
+        console.log("Successfully deleted feedback record => " + responseTextFromServer);
+    }
+
+    inputWorkerData['noOfSuccessfulQueries'] += 1;
+
+    await executeBidsRecordRemovalTest(inputWorkerData);
+
+}
+
+async function failureFeedbackRecordRemoval(responseTextFromServer) 
+{
+
+    if( inputWorkerData.bDisplayLogs )
+    {
+        console.log("Failed to delete feedback record data => " + responseTextFromServer);
+    }
+
+    inputWorkerData['noOfFailureQueries'] += 1;
+
+    await executeBidsRecordRemovalTest(inputWorkerData);
+
+}
+
+
+// Bids Record Removal Test
+
+async function executeBidsRecordRemovalTest(inputWorkerData)
+{
+    
+    let bidRecordRemovalUrlParamsString = "DeleteBids?AssetId=" + inputWorkerData['currentAssetRecordAssetId'];
+
+    sendHttpRequestToSmartBidServerWithCallback( bidRecordRemovalUrlParamsString, 
+    successfulBidRecordRemoval, failureBidRecordRemoval, inputWorkerData );
+    
+}
+
+async function successfulBidRecordRemoval(responseTextFromServer, inputWorkerData) 
+{
+
+    if( inputWorkerData.bDisplayLogs )
+    {
+        console.log("Successfully removed the bid record data => " + responseTextFromServer);
+    }
+
+    inputWorkerData['noOfSuccessfulQueries'] += 1;
+
     await executeAssetRecordRemovalTest(inputWorkerData);
 
 }
 
+async function failureBidRecordRemoval(responseTextFromServer, inputWorkerData) 
+{
+
+    if( inputWorkerData.bDisplayLogs )
+    {
+        console.log("Failed to remove the bid record => " + responseTextFromServer);
+    }
+
+    inputWorkerData['noOfFailureQueries'] += 1;
+
+    await executeAssetRecordRemovalTest(inputWorkerData);
+
+}
 
 // Asset Record Removal Test
 
